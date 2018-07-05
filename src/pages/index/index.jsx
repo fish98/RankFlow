@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
 import './index.less';
+import rankData from './tRankData.json';
 import RankView from '../../components/rankview/rankview';
+import DetailView from '../../components/detailview/detailview';
 
 class Index extends Component {
     constructor() {
         super();
         let self = this;
         self.state = {
+            rankData: {}
         };
+    }
+
+    componentDidMount() {
+        console.log(rankData);
+        this.setState({
+            rankData: rankData
+        });
     }
     
     render() {
@@ -22,10 +32,10 @@ class Index extends Component {
                 </div>
                 <div className="right-container">
                     <div className="right-top-container">
-                        <RankView></RankView>
+                        <RankView data={this.state.rankData}></RankView>
                     </div>
                     <div className="right-bottom-container">
-                        detail-view
+                        <DetailView data={this.state.rankData}></DetailView>
                     </div>
                 </div>
             </div>

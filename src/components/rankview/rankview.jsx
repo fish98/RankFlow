@@ -13,7 +13,9 @@ class RankView extends Component {
                     </Col>
                     <Col span={8}></Col>
                 </Row>
-                <div className="rank-wrapper-content"></div>
+                <div className="rank-wrapper-content">
+                    
+                </div>
             </div>
         );
     }
