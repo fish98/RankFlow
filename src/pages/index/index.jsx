@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './index.less';
+import RankView from '../../components/rankview/rankview';
 
 class Index extends Component {
     constructor() {
@@ -21,7 +22,7 @@ class Index extends Component {
                 </div>
                 <div className="right-container">
                     <div className="right-top-container">
-                        rank-view
+                        <RankView></RankView>
                     </div>
                     <div className="right-bottom-container">
                         detail-view
