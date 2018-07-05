@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'antd';
+import TimeAxis from './timeaxis'
 import './detailview.less';
 
 class DetailView extends Component {
-    componentWillUpdate() {
-        console.log(this.props.data);
+    constructor() {
+        super();
+        console.log('DetailView Init');
+    }
+    componentWillReceiveProps(props) {
+        console.log(props.data);
+        // this.setState({
+        //     data: props.data
+        // })
     }
     componentDidUpdate() {
-        console.log(this.props.data);
+
     }
     componentDidMount() {
         
@@ -23,6 +31,9 @@ class DetailView extends Component {
                     <Col span={8}></Col>
                 </Row>
                 <div className="detail-wrapper-content">
+                    <svg>
+                        {/* <TimeAxis></TimeAxis> */}
+                    </svg>
                 </div>
             </div>
         );

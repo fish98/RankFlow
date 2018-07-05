@@ -11,13 +11,14 @@ class Index extends Component {
         self.state = {
             rankData: {}
         };
+        console.log('Index Init');
     }
-
     componentDidMount() {
         console.log(rankData);
         this.setState({
             rankData: rankData
         });
+        console.log('Index Did Mount');
     }
     
     render() {
