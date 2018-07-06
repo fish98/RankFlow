@@ -33,7 +33,7 @@ class ViolinMetrics {
     min = null
     kdeData = null
     constructor(values, opts = {
-        ticksCount: 10
+        ticksCount: 8
     }) {
         this.min = d3.min(values);
         this.quartile1 = d3.quantile(values, 0.25);

@@ -15,7 +15,7 @@ class Index extends Component {
             yearData: yearData,
             staData: staData,
             axisPos: null,
-            detailData: rankData['Aidong Lu']
+            detailData: rankData['Peter L. Williams']
         }
     }
 

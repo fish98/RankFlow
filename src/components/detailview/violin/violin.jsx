@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ViolinMetrics from '../../libs/ViolinMetrics.js'
+import ViolinMetrics from '../../../libs/ViolinMetrics.js'
 import * as d3 from 'd3';
 import './violin.less'
 
@@ -14,15 +14,14 @@ class Violin extends Component {
 
         var xScale = d3.scaleLinear()
             .domain([0, max])
-            .range([0, height]);    
-        
+            .range([0, height]);
 
         var yScale = d3.scaleLinear()
             .domain([0, 0.5])
             .range([0, width / 2]);
 
         var line = d3.line()
-            .curve(d3.curveBasis)
+            .curve(d3.curveCardinal)
             .y(function (d) {return xScale(d.x);})
             .x(function (d) {return yScale(d.y)});
         
@@ -41,7 +40,7 @@ class Violin extends Component {
             .range([0, -width / 2]);
 
         var line = d3.line()
-            .curve(d3.curveBasis)
+            .curve(d3.curveCardinal)
             .y(function (d) {return xScale(d.x);})
             .x(function (d) {return yScale(d.y)});
         

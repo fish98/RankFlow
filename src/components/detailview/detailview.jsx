@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3';
 import { Row, Col } from 'antd';
-import TimeAxis from './timeaxis';
-import Violin from './violin';
+import TimeAxis from './timeaxis/timeaxis';
+import Violin from './violin/violin';
+import TrendLine from './trendline/trendline';
 import './detailview.less';
 
 class DetailView extends Component {
@@ -13,7 +14,10 @@ class DetailView extends Component {
             svgHeight: 0,
             svgWidth: 0,
             timeAxises: [],
-            violinData: []
+            violinData: [],
+            trendData: {},
+            xScale: null,
+            yScale: null
         }
     }
     
@@ -31,13 +35,17 @@ class DetailView extends Component {
             }, 0)
 
             var years = Object.keys(props.axis).sort((a, b) => a - b);
+            var axisPos = years.map(year => props.axis[year]);
             var axisWidth = props.axis[years[1]] - props.axis[years[0]];
 
-            let violinData = [];
+            var xScale = d3.scaleOrdinal().domain(axisPos.map((a, i) => i)).range(axisPos);
+            var yScale = d3.scaleLinear().domain([0, maxValue]).range([topPadding, svgHeight - topPadding - bottomPadding])
+
+            let violinData = [], trendData = {};
             let timeAxises = years.map((year, index) => {
                 let x1 = props.axis[year], x2 = x1;
                 let y1 = topPadding, y2 = svgHeight - bottomPadding;
-
+                
                 if(year in props.data) {
                     violinData[index] = {
                         year: year,
@@ -47,6 +55,12 @@ class DetailView extends Component {
                         width: axisWidth,
                         data: props.data[year],
                         max: maxValue
+                    }
+                    for(let key in props.data[year]) {
+                        if(!trendData[key]) {
+                            trendData[key] = new Array(years.length).fill(-1);
+                        }
+                        trendData[key][index] = props.data[year][key];
                     }
                 }
 
@@ -64,18 +78,22 @@ class DetailView extends Component {
                 svgWidth: svgWidth,
                 svgHeight: svgHeight,
                 timeAxises: timeAxises,
-                violinData: violinData
+                violinData: violinData,
+                trendData: trendData,
+                xScale: xScale,
+                yScale: yScale
             })
         }
+    }
+
+    componentDidUpdate() {
+        console.log('Detail Did Mount: ', this.props);
     }
 
     componentDidMount() {
         console.log('Detail Did Mount: ', this.props);
     }
 
-    dataToView () {
-
-    }
     render() {
         return (
             <div className="detail-wrapper">
@@ -90,6 +108,7 @@ class DetailView extends Component {
                     <svg height={this.state.svgHeight} width={this.state.svgWidth}>
                         <TimeAxis timeAxises={this.state.timeAxises}></TimeAxis>
                         <Violin violinData={this.state.violinData}></Violin>
+                        <TrendLine data={this.state.trendData} xScale={this.state.xScale} yScale={this.state.yScale}></TrendLine>
                     </svg>
                 </div>
             </div>
