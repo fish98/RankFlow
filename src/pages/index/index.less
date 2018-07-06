@@ -32,21 +32,21 @@
     }
     .right-container {
         flex: 1;
+        margin-right: @panel-padding;
         .right-top-container,
         .right-bottom-container {
             margin: @panel-padding / 2;
             margin-left: 0;
+            margin-right: 0;
             background: white;
         }
         .right-top-container {
             margin-top: @panel-padding;
-            margin-right: @panel-padding;
             flex: 1;
         }
         .right-bottom-container {
             height: (100vh - @panel-padding * 4) / 3;
             margin-bottom: @panel-padding;
-            margin-right: @panel-padding;
         }
     }
 }

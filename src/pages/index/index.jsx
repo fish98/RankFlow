@@ -63,7 +63,6 @@ class Index extends Component {
         })
         Object.keys(year_obj).forEach(year => {
             year_obj[year].arr = Object.values(year_obj[year].obj).sort(compare('mean'))
-            const l = year_obj[year].arr.length
 
             year_obj[year].arr.forEach((d,i)=>{
                 year_obj[year].obj[d.name].mean_rank = i
