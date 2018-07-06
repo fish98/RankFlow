@@ -1,24 +1,87 @@
-import React, { Component } from 'react';
-import './index.less';
-import rankData from './tRankData.json';
-import RankView from '../../components/rankview/rankview';
-import DetailView from '../../components/detailview/detailview';
+import React, {Component} from 'react'
+import './index.less'
+import rankData from './tRankData.json'
+import RankView from '../../components/rankview/rankview'
+import DetailView from '../../components/detailview/detailview'
 
 class Index extends Component {
     constructor() {
-        super();
-        let self = this;
+        super()
+        let self = this
+        let yearData = this.dealData(rankData)
+        let staData = this.dealSta(yearData)
         self.state = {
-            rankData: {}
-        };
-        console.log('Index Init');
+            rankData: rankData,
+            yearData: yearData,
+            staData: staData,
+            axisPos: null,
+            detailData: rankData['Aidong Lu']
+        }
     }
-    componentDidMount() {
-        console.log(rankData);
-        this.setState({
-            rankData: rankData
+
+    dealData(data) {
+        let year_obj = {}
+        let max_rank = -100
+        let min_rank = 1000000
+        function compare(mean){
+            return function(obj1,obj2){
+                var value1 = obj1[mean];
+                var value2 = obj2[mean];
+                return value1 - value2;     // 升序
+            }
+        }
+        Object.keys(data).forEach(name => {
+            const d = data[name]
+            Object.keys(d).forEach(year => {
+                if (!year_obj.hasOwnProperty(year)) {
+                    year_obj[year]={obj:{},arr:[]}
+                }
+                const sum = Object.values(d[year]).reduce((a,b)=>a+b)
+                const l = Object.keys(d[year]).length
+                const mean= sum/l
+                year_obj[year].obj[name]={data:d[year], mean:mean, name:name}
+                // if (mean>max_rank){
+                //     max_rank = mean
+                // }
+                // if (mean<min_rank){
+                //     min_rank =mean
+                // }
+            })
+        })
+        Object.keys(year_obj).forEach(year=>{
+            year_obj[year].arr = Object.values(year_obj[year].obj).sort(compare('mean'))
+        })
+        return year_obj
+    }
+
+    dealSta(data){
+        let year_sta = {}
+        Object.keys(data).forEach(name => {
+
+        })
+        return year_sta
+    }
+
+    axisPosition(years, width, opts = {
+        left: 30,
+        right: 30
+    }) {
+        let axisPos = {}
+        let {left, right} = opts;
+        let axisWidth = (width - left - right) / years.length
+        years.forEach((year, index) => {
+            axisPos[year] = index * axisWidth + left + axisWidth / 2;
         });
+        return axisPos;
+    }
+
+    componentDidMount() {
         console.log('Index Did Mount');
+        let rightContainer = document.getElementsByClassName('right-container')[0];
+        let width = rightContainer.clientWidth;
+        this.setState({
+            axisPos: this.axisPosition(Object.keys(this.state.yearData).sort((a, b) => a - b), width)
+        });
     }
     
     render() {
@@ -33,15 +96,15 @@ class Index extends Component {
                 </div>
                 <div className="right-container">
                     <div className="right-top-container">
-                        <RankView data={this.state.rankData}></RankView>
+                        <RankView data={this.state.yearData} axis={this.state.axisPos}></RankView>
                     </div>
                     <div className="right-bottom-container">
-                        <DetailView data={this.state.rankData}></DetailView>
+                        <DetailView data={this.state.detailData} axis={this.state.axisPos}></DetailView>
                     </div>
                 </div>
             </div>
-        );
+        )
     }
 }
 
-export default Index;
+export default Index

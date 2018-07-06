@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './timeaxis.less'
 
 class TimeAxis extends Component {
     constructor() {
@@ -9,9 +10,9 @@ class TimeAxis extends Component {
         return (
             <g>{
                 this.props.timeAxises.map(axis => {
-                    return <g>
-                        <text>{axis.text}</text>
-                        <line className="time-axis" x0={0} y0={0} x1={0} y1={0}></line>
+                    return <g key={axis.text} className="time-axis">
+                        <text x={axis.x1 - 15} y={axis.y1 / 2}>{axis.text}</text>
+                        <line x1={axis.x1} y1={axis.y1} x2={axis.x2} y2={axis.y2}></line>
                     </g>
                 })
             }</g>
