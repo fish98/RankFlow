@@ -19,10 +19,16 @@ class global {
     @observable hisRank = []
     @observable axisPos=null
     @observable hisDataObj = {}
+    @observable hisRankObj = {}
     @action
     setAxisPos(axisPos) {
         this.axisPos = axisPos
         console.log('axisPos',toJS(axisPos))
+    }
+    @action
+    setHisRankObj(hisRankObj) {
+        this.hisRankObj = hisRankObj
+        console.log('hisRankObj',toJS(hisRankObj))
     }
     @action
     setHisDataObj(hisDataObj) {

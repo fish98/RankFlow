@@ -28,8 +28,38 @@ class RankView extends Component {
         console.log('rankView DidMount')
     }
 
+    dealNodesLayer(nodes) {
+        let nodesLayer = {}
+        let r = {}
+        const years = Object.keys(Global.yearData)
+        years.forEach(year => {
+            nodesLayer[year] = {}
+            nodes.forEach(name => {
+                if (!Global.yearData[year].obj.hasOwnProperty(name)) return
+
+                const data = Global.yearData[year].obj[name]
+                const layer = data.layer
+                if (!nodesLayer[year].hasOwnProperty(layer)) {
+                    nodesLayer[year][layer] = []
+                }
+                nodesLayer[year][layer].push(name)
+            })
+            r[year] = {}
+            Object.keys(nodesLayer).forEach(year => {
+                Object.keys(nodesLayer[year]).forEach(layer => {
+                    nodesLayer[year][layer].sort((a, b) => Global.yearData[year].obj[a].mean_rank - Global.yearData[year].obj[b].mean_rank)
+                    nodesLayer[year][layer].forEach((name, index) => {
+                        r[year][name] = {layer: layer, index: index}
+                    })
+                })
+            })
+        })
+        return r
+        // nodesLayer.for
+    }
+
     handleClick() {
-        const nodes = ['Melanie Tory']
+        const nodes = ['Melanie Tory', 'Aidong Lu']
         Global.setNodes(nodes)
         let his_val = {}
         let max_val = -1000
@@ -67,6 +97,8 @@ class RankView extends Component {
         Global.setHisData(his_val)
         Global.setHisRank(rank_val)
         Global.setHisDataObj(his_val_obj)
+        Global.setHisRankObj(this.dealNodesLayer(nodes))
+
     }
 
     render() {
