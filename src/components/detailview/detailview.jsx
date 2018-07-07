@@ -20,60 +20,81 @@ class DetailView extends Component {
             yScale: null
         }
     }
+
+    violinData(timeAxises, violinData, maxRank) {
+        let result = [];
+        timeAxises.forEach(((timeAxis, index) => {
+            let {year, width, x} = timeAxis
+            if(year in violinData) {
+                result[index] = {
+                    year: year,
+                    x: x,
+                    width: width,
+                    data: violinData[year],
+                    maxRank: maxRank[year]
+                }
+            }
+        }));
+        
+        return result;
+    }
+
+    trendData(years, violinData, maxRank) {
+        let result = {};
+        years.forEach((year, index) => {
+            if(year in violinData) {
+                for(let key in violinData[year]) {
+                    if(key != 'maxValue') {
+                        if(!result[key]) {
+                            result[key] = new Array(years.length).fill(-1);
+                        }
+                        result[key][index] = violinData[year][key] / maxRank[year] * 100;
+                    }
+                }
+            }
+        })
+
+        return result;
+    }
+
+    timeAxises(years, axises, maxRank) {
+        var axisWidth = axises[years[1]] - axises[years[0]];
+        let timeAxises = years.map((year, index) => {
+            let x = axises[year];
+            return {
+                width: axisWidth,
+                x: x,
+                year: year,
+                max: maxRank[year]
+            }
+        });
+        
+        return timeAxises;
+    }
     
     componentWillReceiveProps(props) {
         console.log('Detail Will Receive Props: ', props);
-        if(props.data && props.axis) {
+        if(props.data && props.axis && props.maxRank) {
             let svgContainer = document.getElementsByClassName('detail-wrapper-content')[0];
             let svgHeight = svgContainer.clientHeight;
             let svgWidth = svgContainer.clientWidth;
             
-            let topPadding = 20, bottomPadding = 10;
-
-            var maxValue = Object.values(props.data).reduce((max, data) => {
-                return Math.max(d3.max(Object.values(data)))
-            }, 0)
+            let topPadding = 20, bottomPadding = 20;
 
             var years = Object.keys(props.axis).sort((a, b) => a - b);
             var axisPos = years.map(year => props.axis[year]);
-            var axisWidth = props.axis[years[1]] - props.axis[years[0]];
 
-            var xScale = d3.scaleOrdinal().domain(axisPos.map((a, i) => i)).range(axisPos);
-            var yScale = d3.scaleLinear().domain([0, maxValue]).range([topPadding, svgHeight - topPadding - bottomPadding])
-
-            let violinData = [], trendData = {};
-            let timeAxises = years.map((year, index) => {
-                let x1 = props.axis[year], x2 = x1;
-                let y1 = topPadding, y2 = svgHeight - bottomPadding;
-                
-                if(year in props.data) {
-                    violinData[index] = {
-                        year: year,
-                        x: x1,
-                        y: topPadding,
-                        height: svgHeight - topPadding - bottomPadding,
-                        width: axisWidth,
-                        data: props.data[year],
-                        max: maxValue
-                    }
-                    for(let key in props.data[year]) {
-                        if(!trendData[key]) {
-                            trendData[key] = new Array(years.length).fill(-1);
-                        }
-                        trendData[key][index] = props.data[year][key];
-                    }
-                }
-
-                return {
-                    width: axisWidth,
-                    x1: x1,
-                    x2: x2,
-                    y1: y1,
-                    y2: y2,
-                    text: year
-                }
-            });
-
+            var xScale = d3.scaleOrdinal()
+                .domain(axisPos.map((a, i) => i))
+                .range(axisPos);
+            var yScale = d3.scaleLinear()
+                .domain([0, 100])
+                .range([topPadding, svgHeight - bottomPadding]);
+            
+            var timeAxises = this.timeAxises(years, props.axis, props.maxRank);
+            var violinData = this.violinData(timeAxises, props.data, props.maxRank);
+            var trendData = this.trendData(years, props.data, props.maxRank);
+            
             this.setState({
                 svgWidth: svgWidth,
                 svgHeight: svgHeight,
@@ -87,7 +108,7 @@ class DetailView extends Component {
     }
 
     componentDidUpdate() {
-        console.log('Detail Did Mount: ', this.props);
+        console.log('Detail Did Update: ', this.props);
     }
 
     componentDidMount() {
@@ -106,9 +127,21 @@ class DetailView extends Component {
                 </Row>
                 <div className="detail-wrapper-content">
                     <svg height={this.state.svgHeight} width={this.state.svgWidth}>
-                        <TimeAxis timeAxises={this.state.timeAxises}></TimeAxis>
-                        <Violin violinData={this.state.violinData}></Violin>
-                        <TrendLine data={this.state.trendData} xScale={this.state.xScale} yScale={this.state.yScale}></TrendLine>
+                        <TimeAxis 
+                            timeAxises={this.state.timeAxises}
+                            xScale={this.state.xScale}
+                            yScale={this.state.yScale}>
+                        </TimeAxis>
+                        <Violin
+                            violinData={this.state.violinData}
+                            xScale={this.state.xScale}
+                            yScale={this.state.yScale}>
+                        </Violin>
+                        <TrendLine
+                            data={this.state.trendData}
+                            xScale={this.state.xScale}
+                            yScale={this.state.yScale}>
+                        </TrendLine>
                     </svg>
                 </div>
             </div>

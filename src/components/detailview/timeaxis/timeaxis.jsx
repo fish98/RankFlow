@@ -10,9 +10,11 @@ class TimeAxis extends Component {
         return (
             <g>{
                 this.props.timeAxises.map(axis => {
-                    return <g key={axis.text} className="time-axis">
-                        <text x={axis.x1 - 15} y={axis.y1 / 2}>{axis.text}</text>
-                        <line x1={axis.x1} y1={axis.y1} x2={axis.x2} y2={axis.y2}></line>
+                    let top = this.props.yScale.range()[0], bottom = this.props.yScale.range()[1];
+                    return <g key={axis.year} className="time-axis">
+                        <text x={axis.x} y={top - 5}>{axis.year}</text>
+                        <line x1={axis.x} y1={top} x2={axis.x} y2={bottom}></line>
+                        <text x={axis.x} y={bottom + 15}>{`MAX:${axis.max}`}</text>
                     </g>
                 })
             }</g>

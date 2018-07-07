@@ -10,12 +10,18 @@ class Index extends Component {
         let self = this
         let yearData = this.dealData(rankData)
         let staData = this.dealSta(yearData)
+        let detailData = Object.values(rankData)[10]
+        let maxRank = Object.entries(yearData).reduce((result, data) => {
+            result[data[0]] = data[1].arr.length;
+            return result;
+        }, {})
         self.state = {
             rankData: rankData,
             yearData: yearData,
             staData: staData,
             axisPos: null,
-            detailData: rankData['Peter L. Williams']
+            detailData: detailData,
+            maxRank: maxRank
         }
     }
 
@@ -40,12 +46,6 @@ class Index extends Component {
                 const l = Object.keys(d[year]).length
                 const mean= sum/l
                 year_obj[year].obj[name]={data:d[year], mean:mean, name:name}
-                // if (mean>max_rank){
-                //     max_rank = mean
-                // }
-                // if (mean<min_rank){
-                //     min_rank =mean
-                // }
             })
         })
         Object.keys(year_obj).forEach(year=>{
@@ -99,7 +99,7 @@ class Index extends Component {
                         <RankView data={this.state.yearData} axis={this.state.axisPos}></RankView>
                     </div>
                     <div className="right-bottom-container">
-                        <DetailView data={this.state.detailData} axis={this.state.axisPos}></DetailView>
+                        <DetailView data={this.state.detailData} axis={this.state.axisPos} maxRank={this.state.maxRank}></DetailView>
                     </div>
                 </div>
             </div>

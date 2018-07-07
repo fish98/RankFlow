@@ -2,19 +2,6 @@ import React, { Component } from 'react';
 import * as d3 from 'd3';
 import './trendline.less'
 
-function splitArray(array, ele = -1) {
-    let result = [], tmp = [];
-    array.forEach(element => {
-        if(element == ele) {
-            if(tmp.length) result.push(tmp);
-            tmp = [];
-        } else {
-            tmp.push(element);
-        }
-    })
-    if(tmp.length) result.push(tmp);
-    return result;
-}
 
 class TrendLine extends Component {
     constructor() {
@@ -51,7 +38,13 @@ class TrendLine extends Component {
                             return <g key={i}>
                                 <path className="trend-line" d={curve(line)}></path>
                                 {
-                                    line.map(point => <circle key={point.x} cx={xScale(point.x)} cy={yScale(point.y)} className="trend-point"></circle>)
+                                    line.map(point => {
+                                        return (
+                                            <g key={point.x}>
+                                                <circle cx={xScale(point.x)} cy={yScale(point.y)} className="trend-point"></circle>
+                                            </g>
+                                        )
+                                    })
                                 }
                             </g>
                         })

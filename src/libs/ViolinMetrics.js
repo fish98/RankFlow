@@ -32,9 +32,7 @@ class ViolinMetrics {
     lowerOuterFence = null
     min = null
     kdeData = null
-    constructor(values, opts = {
-        ticksCount: 8
-    }) {
+    constructor(values) {
         this.min = d3.min(values);
         this.quartile1 = d3.quantile(values, 0.25);
         this.median = d3.median(values);
@@ -68,32 +66,25 @@ class ViolinMetrics {
             this.upperInnerFence = this.max;
         }
 
-        var bandWidth = (this.max - this.min) / opts.ticksCount;
-        var kdeData = [{x: this.min, y: 0}];
-        for(let start = this.min; this.max - start > 0.001; start += bandWidth) {
-            kdeData.push({
-                x: start + bandWidth / 2,
-                y: 0
-            });
-        }
-        values.forEach(value => {
-            let index = Math.floor((value - this.min) / bandWidth) + 1
-            if(index >= kdeData.length) {
-                index = kdeData.length - 1
+        var thresholds = 10;
+        var histogram = d3.histogram().domain([this.min, this.max]).thresholds(thresholds);
+        var bins = histogram(values);
+        this.kdeData = []
+        bins.forEach((bin, i) => {
+            this.kdeData[i+1] = {
+                y: (bin.x0 + bin.x1) / 2,
+                x: bin.length / values.length
             }
-            kdeData[index].y++;
-        });
-        kdeData.push({
-            x: this.max,
-            y: 0
-        });
-        kdeData.forEach(d => {
-            d.y /= values.length;
-        });
-        this.kdeData = kdeData;
-        // var scale = d3.scaleLinear().domain([this.min, this.max])
-        // var kde = kernelDensityEstimator(eKernel(opts.bandwidth), scale.ticks(Math.ceil((this.max - this.min) / opts.bandwidth)));
-        // this.kdeData = kde(values);
+        })
+        this.kdeData[0] = {
+            x: 0,
+            y: Math.max(this.min - (bins[0].x1 - bins[0].x0) / 2, 0)
+        }
+        this.kdeData.push({
+            x: 0,
+            y: Math.min(this.max + (bins[bins.length - 1].x1 - bins[bins.length - 1].x0) / 2, 100)
+        })
+        console.log(this.kdeData);
     }
 }
 
