@@ -15,13 +15,15 @@ class Index extends Component {
         // let yearData = this.dealData(rankData, Global.layer)
         Global.setRankData(rankData)
         Global.setYearData(yearData)
+        let detailData = Object.values(rankData)[10]
+        let maxRank = Object.entries(yearData).reduce((result, data) => {
+            result[data[0]] = data[1].arr.length;
+            return result;
+        }, {})
         self.state = {
-            // rankData: rankData,
-            // yearData: yearData,
-            // staData: staData,
             axisPos: null,
-            detailData: rankData['Aidong Lu'],
-            // layer: layer,
+            detailData: detailData,
+            maxRank: maxRank
         }
 
     }
@@ -90,9 +92,6 @@ class Index extends Component {
         let width = rightContainer.clientWidth
         let axisPos = this.axisPosition(Object.keys(Global.yearData).sort((a, b) => a - b), width)
         Global.setAxisPos(axisPos)
-
-        // store.setData(this.yearData)
-        // store.setNodes([])
     }
 
     render() {
@@ -110,7 +109,7 @@ class Index extends Component {
                         <RankView axis={this.state.axisPos}/>
                     </div>
                     <div className="right-bottom-container">
-                        <DetailView data={this.state.detailData} axis={Global.axisPos}/>
+                        <DetailView data={this.state.detailData} axis={Global.axisPos} maxRank={this.state.maxRank}></DetailView>
                     </div>
                 </div>
             </div>
