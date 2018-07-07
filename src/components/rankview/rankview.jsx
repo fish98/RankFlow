@@ -3,59 +3,57 @@ import ReactDOM from 'react-dom'
 import {Row, Col} from 'antd'
 import './rankview.less'
 import RankItems from './RankItems'
+import Global from '../Store/Global'
+import {observer} from 'mobx-react'
+import {toJS, trace} from 'mobx'
 
+@observer
 class RankView extends Component {
     constructor(props) {
         super(props)
         let his_data = {}
-        this.count = Object.keys(props.data).length
-        Object.keys(props.data).forEach(year => {
-            his_data[year] = Array(this.layer).fill(0)
+        Object.keys(Global.yearData).forEach(year => {
+            his_data[year] = Array(Global.layer).fill(0)
         })
-        this.state = {
-            data: props.data,
-            height: 100,
-            width: 100,
-            his_data: his_data,
-            max_val : -1000,
-            min_val : 1000000,
-            layer:props.layer,
-            his_rank:[],
-            nodes:[],
-        }
         this.handleClick = this.handleClick.bind(this)
     }
 
-    componentWillReceiveProps(props) {
-        this.setState({
-            data: props.data,
-        })
-    }
-
     componentDidMount() {
-        this.setState({
-            height: this.refs.rankView.clientHeight,
-            width: this.refs.rankView.clientWidth,
-        })
+        Global.setRankWidth(this.refs.rankView.clientWidth)
+        Global.setRankHeight(this.refs.rankView.clientHeight)
+        const count = Object.keys(Global.yearData).length
+        let eachWidth = (this.refs.rankView.clientWidth - Global.left - Global.right) / count
+        if (!count) eachWidth = 0
+        Global.setEachWidth(eachWidth)
+        console.log('rankView DidMount')
     }
 
     handleClick() {
-        const nodes = ['Melanie Tory', 'Song Zhang', "Nelson L. Max"]
-        this.setState({
-            nodes: nodes
-        })
+        const nodes = ['Melanie Tory']
+        Global.setNodes(nodes)
         let his_val = {}
         let max_val = -1000
         let min_val = 1000000
         let rank_val = {}
-        Object.keys(this.state.data).sort().map((year, i) => {
-            his_val[year] = Array(this.state.layer).fill(0)
+        let his_val_obj = {}
+        let yearData = Global.yearData
+        Object.keys(yearData).sort().map((year, i) => {
+            his_val[year] = Array(Global.layer).fill(0)
+            his_val_obj[year] = {}
             rank_val[year] = {}
             nodes.forEach(name => {
-                Object.entries(this.state.data[year].obj[name].data).forEach((e) => {
-                    his_val[year][Math.floor(e[1] / (Object.keys(this.state.data[year].obj).length / this.state.layer))] += 1
-                    let layer = this.state.data[year].obj[name].layer
-                    if (!rank_val[year].hasOwnProperty(layer)) rank_val[year][layer]=[]
+                Object.entries(yearData[year].obj[name].data).forEach((e) => {
+                    let la = Math.floor(e[1] / (Object.keys(yearData[year].obj).length / Global.layer))
+                    his_val[year][la] += 1
+                    if (!his_val_obj[year].hasOwnProperty(la)) {
+                        his_val_obj[year][la] = {}
+                    }
+                    if (!his_val_obj[year][la].hasOwnProperty(e[0])) {
+                        his_val_obj[year][la][e[0]] = 0
+                    }
+                    his_val_obj[year][la][e[0]] += 1
+                    let layer = yearData[year].obj[name].layer
+                    if (!rank_val[year].hasOwnProperty(layer)) rank_val[year][layer] = []
                     rank_val[year][layer].push(name)
                 })
             })
@@ -64,18 +62,15 @@ class RankView extends Component {
             if (val1 < min_val) min_val = val1
             if (val0 > max_val) max_val = val0
         })
-
-
-
-        this.setState({
-            his_data: his_val,
-            his_rank: rank_val,
-            max_val: max_val,
-            min_val: min_val,
-        })
+        Global.setMaxHisVal(max_val)
+        Global.setMinHisVal(min_val)
+        Global.setHisData(his_val)
+        Global.setHisRank(rank_val)
+        Global.setHisDataObj(his_val_obj)
     }
 
     render() {
+
         return <div className="rank-wrapper">
             <Row className="rank-wrapper-title">
                 <Col span={8}/>
@@ -85,20 +80,12 @@ class RankView extends Component {
                 <Col span={8}/>
             </Row>
             <div className="rank-wrapper-content" ref='rankView'>
-                <svg width={this.state.width} height={this.state.height} onClick={this.handleClick}>
+                <svg width={Global.rankWidth} height={Global.rankHeight} onClick={this.handleClick}>
                     {
-                        Object.keys(this.state.data).sort().map((year, i) => {
-                            let x = i * this.state.width / this.count
-                            return <RankItems key={i} year={year} data={this.state.data[year]}
-                                              x={x} each_width={this.state.width / this.count}
-                                              height={this.state.height}
-                                              layer={this.state.layer}
-                                              min_val={this.state.min_val}
-                                              max_val={this.state.max_val}
-                                              his_data={this.state.his_data[year]}
-                                              his_rank={this.state.his_rank[year]}
-                                              nodes = {this.state.nodes}
-                                              people={Object.keys(this.state.data[year].obj).length}/>
+                        Object.keys(Global.yearData).sort().map((year, i) => {
+                            return <RankItems key={year} year={year} data={Global.yearData[year]}
+                                              x={Global.axisPos == null ? 0 : Global.axisPos[year]}
+                            />
                         })}
                 </svg>
             </div>

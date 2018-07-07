@@ -8,12 +8,9 @@ class Time extends Component {
     }
     render() {
         return (
-            <text x={10} y={10}>
+            <text x={-15} y={10}>
                 {this.props.data}
             </text>
-            // {/*<Time/>*/}
-            // {/*<Histograom/>*/}
-            // {/*<RankAxis/>*/}
         );
     }
 }
