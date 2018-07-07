@@ -11,11 +11,39 @@ import {toJS, trace} from 'mobx'
 class RankView extends Component {
     constructor(props) {
         super(props)
-        let his_data = {}
-        Object.keys(Global.yearData).forEach(year => {
-            his_data[year] = Array(Global.layer).fill(0)
-        })
+        this.circlePosPer = {}
+        this.yearPer = 0
+        this.getCirclePos = this.getCirclePos.bind(this)
         this.handleClick = this.handleClick.bind(this)
+    }
+
+    getCirclePos(data) {
+        const year = Object.keys(data)[0]
+        let lineGroup = []
+        if (this.circlePosPer !== {} && Number(year) - Number(this.yearPer) === 1) {//之前有值，年份相邻差1
+            Object.keys(data[year]).forEach(name => {
+                const circleRight = data[year][name]
+                const circleLeft = this.circlePosPer[name]
+                lineGroup.push({
+                    source: {
+                        x: 0,
+                        y: circleLeft.y,
+                    },
+                    target: {
+                        x: Global.eachWidth,
+                        y: circleRight.y
+                    },
+                    valLeft:circleLeft.val,
+                    valRight:circleRight.val,
+                    r:Global.rankR,
+                    name:circleLeft.name,
+                })
+
+            })
+        }
+        this.yearPer = year
+        this.circlePosPer = data[this.yearPer]
+        return lineGroup
     }
 
     componentDidMount() {
@@ -117,6 +145,7 @@ class RankView extends Component {
                         Object.keys(Global.yearData).sort().map((year, i) => {
                             return <RankItems key={year} year={year} data={Global.yearData[year]}
                                               x={Global.axisPos == null ? 0 : Global.axisPos[year]}
+                                              getCirclePos={this.getCirclePos}
                             />
                         })}
                 </svg>

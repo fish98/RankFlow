@@ -16,9 +16,9 @@ class Histogram extends Component {
             <g transform={`translate(-15,${ Global.diffHeight})`}>
                 {
                     Global.hisData[this.props.year].map((d, i) => {
-                        const width = d * (Global.eachWidth - 5) / (Global.maxHIsVal - Global.minHisVal)
+                        const width = d * (Global.eachWidth - Global.hisDataWidthdiff) / (Global.maxHIsVal - Global.minHisVal)
                         return <rect key={i} width={width}
-                                     height={(Global.rankHeight - Global.diffHeight) / Global.layer - 2}
+                                     height={(Global.rankHeight - Global.diffHeight) / Global.layer - Global.hisDataHeightSel}
                                      y={i * (Global.rankHeight - Global.diffHeight) / Global.layer}
                                      fill={'rgba(24,144,255,0.6)'}
                         />
