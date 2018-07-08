@@ -5,7 +5,7 @@ import Global from '../Store/Global'
 import {observer} from 'mobx-react'
 import {toJS, trace} from 'mobx'
 import Histograms from "./HistogramsItem"
-import CircleItem from './CircleItem'
+import CirclesItem from './CirclesItem'
 import LinesItem from './LinesItem'
 
 @observer
@@ -21,7 +21,7 @@ class RankItems extends Component {
                 <TimesItem year={year}/>
                 {Global.linePos.hasOwnProperty(year) ? <LinesItem year={year}/> : null}
                 {Global.hisData.hasOwnProperty(year) ? <Histograms year={year}/> : null}
-                {Global.circlePos.hasOwnProperty(year) ? <CircleItem year={year}/> : null}
+                {Global.circlePos.hasOwnProperty(year) ? <CirclesItem year={year}/> : null}
             </g>
         )
     }

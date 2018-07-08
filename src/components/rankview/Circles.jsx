@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Global from "../Store/Global"
-import CircleItem from "./CircleItem"
+import CirclesItem from "./CirclesItem"
 
 class Circles extends Component {
     constructor(props) {
@@ -9,10 +9,10 @@ class Circles extends Component {
 
     render() {
         return (
-            <g name={'Lines'}>
+            <g name={'Circles'}>
                 {Global.yearArr.map(year => {
                     return <g key={year} year={year} transform={`translate(${Global.axisPos[year]})`}>
-                        {Global.circlePos.hasOwnProperty(year) ? <CircleItem key={year} year={year}/> : null}
+                        {Global.circlePos.hasOwnProperty(year) ? <CirclesItem key={year} year={year}/> : null}
                     </g>
                 })}
             </g>

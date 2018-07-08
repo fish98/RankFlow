@@ -12,7 +12,9 @@ class global {
     @observable selectNode = []
     @observable overLayer = []
     @observable linePos = {}
-    @observable yearArr=[]
+    @observable yearArr = []
+    @observable maxVar = 1
+    @observable minVar = 1
     layer = 20
     right = 30
     left = 30
@@ -36,27 +38,42 @@ class global {
         console.log('axisPos', toJS(axisPos))
     }
     @action
+    setMaxVar(maxVar) {
+        this.maxVar = maxVar
+        console.log('maxVar', toJS(maxVar))
+    }
+    @action
+    setMinVar(minVar) {
+        this.minVar = minVar
+        console.log('minVar', toJS(minVar))
+    }
+
+    @action
     setOverLayer(overLayer) {
         this.overLayer = overLayer
         console.log('overLayer', toJS(overLayer))
     }
+
     @action
     setYearArr(yearArr) {
         this.yearArr = yearArr
         console.log('yearArr', toJS(yearArr))
     }
+
     @action
     setOverNode(overNode) {
-        if (overNode !==this.overNode)
+        if (overNode !== this.overNode)
             this.overNode = overNode
         console.log('overNode', toJS(overNode))
     }
+
     @action
     setSelectNode(selectNode) {
-        if (selectNode !==this.selectNode)
+        if (selectNode !== this.selectNode)
             this.selectNode = selectNode
         console.log('selectNode', toJS(selectNode))
     }
+
     @action
     setLinePos(linePos) {
         this.linePos = linePos

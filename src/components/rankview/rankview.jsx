@@ -123,6 +123,8 @@ class RankView extends Component {
         let his_val = {}
         let max_val = -1000
         let min_val = 1000000
+        let max_var = -1000
+        let min_var = 1000000
         let rank_val = {}
         let his_val_obj = {}
         let yearData = Global.yearData
@@ -134,6 +136,12 @@ class RankView extends Component {
                 if (!yearData[year].obj.hasOwnProperty(name)) return
                 Object.entries(yearData[year].obj[name].data).forEach((e) => {
                     let la = Math.floor(e[1] / (yearData[year].arr.length / Global.layer))
+                    if (yearData[year].obj[name].variance > max_var) {
+                        max_var = yearData[year].obj[name].variance
+                    }
+                    if (yearData[year].obj[name].variance < min_var) {
+                        min_var = yearData[year].obj[name].variance
+                    }
                     his_val[year][la] += 1
                     if (!his_val_obj[year].hasOwnProperty(la)) {
                         his_val_obj[year][la] = {}
@@ -156,6 +164,8 @@ class RankView extends Component {
         Global.setMaxHisVal(max_val)
         Global.setMinHisVal(min_val)
         Global.setHisData(his_val)
+        Global.setMaxVar(max_var)
+        Global.setMinVar(min_var)
         Global.setHisRank(rank_val)
         Global.setHisDataObj(his_val_obj)
         Global.setHisRankObj(this.dealNodesLayer(nodes))
@@ -164,11 +174,11 @@ class RankView extends Component {
     }
 
     handleClick() {
-        const min =0
+        const min = 0
         const max = 100
-        const l = Math.floor(Math.random()*(max-10-min+1)+min);
-        const r = Math.floor(Math.random()*(max-l+2)+l+1);
-        console.log(l,r)
+        const l = Math.floor(Math.random() * (max - 10 - min + 1) + min)
+        const r = Math.floor(Math.random() * (max - l + 2) + l + 1)
+        console.log(l, r)
         const nodes = Object.keys(Global.rankData).slice(l, r)
         this.setNodes(nodes)
     }
