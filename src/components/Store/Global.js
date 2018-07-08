@@ -4,10 +4,15 @@ class global {
     @observable yearData = {}
     @observable rankData = {}
     @observable nodes = []
-    @observable hisRankWidth = 20
+    @observable hisRankWidth = 50
     @observable hisDataHeightSel = 4
     @observable hisDataWidthdiff = 10
     @observable circlePos = {}
+    @observable overNode = []
+    @observable selectNode = []
+    @observable overLayer = []
+    @observable linePos = {}
+    @observable yearArr=[]
     layer = 20
     right = 30
     left = 30
@@ -29,6 +34,33 @@ class global {
     setAxisPos(axisPos) {
         this.axisPos = axisPos
         console.log('axisPos', toJS(axisPos))
+    }
+    @action
+    setOverLayer(overLayer) {
+        this.overLayer = overLayer
+        console.log('overLayer', toJS(overLayer))
+    }
+    @action
+    setYearArr(yearArr) {
+        this.yearArr = yearArr
+        console.log('yearArr', toJS(yearArr))
+    }
+    @action
+    setOverNode(overNode) {
+        if (overNode !==this.overNode)
+            this.overNode = overNode
+        console.log('overNode', toJS(overNode))
+    }
+    @action
+    setSelectNode(selectNode) {
+        if (selectNode !==this.selectNode)
+            this.selectNode = selectNode
+        console.log('selectNode', toJS(selectNode))
+    }
+    @action
+    setLinePos(linePos) {
+        this.linePos = linePos
+        console.log('linePos', toJS(linePos))
     }
 
     @action

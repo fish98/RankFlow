@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
-import './rankview.less'
 
-class Time extends Component {
+class TimesItem extends Component {
     constructor(props) {
         super(props)
     }
@@ -15,4 +14,4 @@ class Time extends Component {
     }
 }
 
-export default Time
+export default TimesItem

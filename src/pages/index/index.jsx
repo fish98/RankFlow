@@ -15,10 +15,11 @@ class Index extends Component {
         // let yearData = this.dealData(rankData, Global.layer)
         Global.setRankData(rankData)
         Global.setYearData(yearData)
+        Global.setYearArr(Object.keys(yearData).sort())
         let detailData = Object.values(rankData)[10]
         let maxRank = Object.entries(yearData).reduce((result, data) => {
-            result[data[0]] = data[1].arr.length;
-            return result;
+            result[data[0]] = data[1].arr.length
+            return result
         }, {})
         self.state = {
             axisPos: null,
@@ -65,6 +66,7 @@ class Index extends Component {
                 year_obj[year].obj[d.name].layerIndex = countLayer[year][newLayer].length
                 countLayer[year][newLayer].push(d.name)
             })
+            // year_obj[year].count =
             // Object.keys(countLayer[year]).forEach(layer=>{//这里改mean_rank可以让每一层按照方差来排序
             //     countLayer[year][layer].sort((a,b)=>year_obj[year].obj[a].mean_rank-year_obj[year].obj[b].mean_rank)
             // })
@@ -109,7 +111,8 @@ class Index extends Component {
                         <RankView axis={this.state.axisPos}/>
                     </div>
                     <div className="right-bottom-container">
-                        <DetailView data={this.state.detailData} axis={Global.axisPos} maxRank={this.state.maxRank}></DetailView>
+                        <DetailView data={this.state.detailData} axis={Global.axisPos}
+                                    maxRank={this.state.maxRank}></DetailView>
                     </div>
                 </div>
             </div>
