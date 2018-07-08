@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import Global from "../Store/Global"
 import HistogramItem from "./HistogramsItem"
-
+import {observer} from 'mobx-react'
+@observer
 class Histograms extends Component {
     constructor(props) {
         super(props)

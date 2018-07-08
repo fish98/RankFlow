@@ -9,7 +9,7 @@ import {Tooltip} from 'antd'
 class CirclesItem extends Component {
     constructor(props) {
         super(props)
-        this.compute = d3.interpolate(d3.rgb(255, 0, 0, 1), d3.rgb(255, 0, 0, 0.5))
+        this.compute = d3.interpolate(d3.rgb(255, 0, 0), d3.rgb(242, 117, 162))
     }
 
     onMouseOver(e) {

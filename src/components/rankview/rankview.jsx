@@ -47,6 +47,7 @@ class RankView extends Component {
                     name: name,
                 }
             })
+            if (!circlePos.hasOwnProperty(year)) return
             if (circlePosPer !== {} && Number(year) - Number(yearPer) === 1) {//之前有值，年份相邻差1
                 Object.keys(circlePos[year]).forEach(name => {//计算线的位置
                     const circleRight = circlePos[year][name]
@@ -185,7 +186,7 @@ class RankView extends Component {
 
     componentDidMount() {
         this.getWidth(this)
-        const nodes = Object.keys(Global.rankData).slice(5, 50)
+        const nodes = ["Nan Cao", "Tom Peterka", "Yifan Hu"]
         this.setNodes(nodes)
         console.log('rankView DidMount')
     }
@@ -202,7 +203,6 @@ class RankView extends Component {
             </Row>
             <div className="rank-wrapper-content" ref='rankView'>
                 <svg width={Global.rankWidth} height={Global.rankHeight} onClick={this.handleClick}>
-
                     {Global.axisPos === null ? null : <g>
                         <Times/>
                         <Histograms/>

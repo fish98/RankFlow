@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import Global from "../Store/Global"
 import CirclesItem from "./CirclesItem"
-
+import {observer} from 'mobx-react'
+@observer
 class Circles extends Component {
     constructor(props) {
         super(props)
