@@ -44,12 +44,10 @@ class DetailView extends Component {
         years.forEach((year, index) => {
             if(year in violinData) {
                 for(let key in violinData[year]) {
-                    if(key != 'maxValue') {
-                        if(!result[key]) {
-                            result[key] = new Array(years.length).fill(-1);
-                        }
-                        result[key][index] = violinData[year][key] / maxRank[year] * 100;
+                    if(!result[key]) {
+                        result[key] = new Array(years.length);
                     }
+                    result[key][index] = [violinData[year][key], violinData[year][key] / maxRank[year] * 100];
                 }
             }
         })
@@ -116,6 +114,7 @@ class DetailView extends Component {
     }
 
     render() {
+        console.log('Detail Render');
         return (
             <div className="detail-wrapper">
                 <Row className="detail-wrapper-title">

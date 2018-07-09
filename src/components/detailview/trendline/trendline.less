@@ -1,14 +1,28 @@
 .trend-line {
     fill: none;
-    stroke: #f2b758;
+    stroke: #bbb;
     stroke-opacity: 0.6;
     stroke-width: 2;
 }
+.trend-line-hover {
+    .trend-line;
+    stroke: #f2b758;
+    stroke-width: 4;
+}
 
 .trend-point {
-    fill: #f2b758;
-    r: 4;
-    stroke: #f2b758;
-    fill-opacity: 0.6;
+    fill: #d3e7ef;
+    r: 3;
+    stroke: #bbb;
     stroke-width: 2;
+}
+.trend-point-hover {
+    .trend-point;
+    r: 5;
+    stroke: #f2b758;
+    stroke-width: 4;
+}
+
+.ant-tooltip-inner {
+    background-color: rgba(0, 0, 0, 0.45);
 }
