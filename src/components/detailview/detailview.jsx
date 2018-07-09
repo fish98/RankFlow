@@ -73,10 +73,16 @@ class DetailView extends Component {
     componentWillReceiveProps(props) {
         console.log('Detail Will Receive Props: ', props);
         if(props.data && props.axis && props.maxRank) {
-            let svgContainer = document.getElementsByClassName('detail-wrapper-content')[0];
-            let svgHeight = svgContainer.clientHeight;
-            let svgWidth = svgContainer.clientWidth;
-            
+            let {svgWidth, svgHeight} = this.state;
+            if(svgWidth == 0 || svgHeight == 0) {
+                let svgContainer = document.getElementsByClassName('detail-wrapper-content')[0];
+                svgHeight = svgContainer.clientHeight;
+                svgWidth = svgContainer.clientWidth;
+                this.setState({
+                    svgWidth: svgWidth,
+                    svgHeight: svgHeight
+                });
+            }
             let topPadding = 20, bottomPadding = 20;
 
             var years = Object.keys(props.axis).sort((a, b) => a - b);
@@ -94,8 +100,6 @@ class DetailView extends Component {
             var trendData = this.trendData(years, props.data, props.maxRank);
             
             this.setState({
-                svgWidth: svgWidth,
-                svgHeight: svgHeight,
                 timeAxises: timeAxises,
                 violinData: violinData,
                 trendData: trendData,
