@@ -13,7 +13,7 @@ class LinesItem extends Component {
     render() {
         const year = this.props.year
         return (
-            <g transform={`translate(${-Global.eachWidth - 15},${ Global.diffHeight})`}>
+            <g transform={`translate(${-Global.eachWidth+Global.subWidth},${ Global.diffHeight})`}>
                 {Object.keys(Global.linePos[year]).map(name => {
                     const data = Global.linePos[year][name]
                     let opacity = 0

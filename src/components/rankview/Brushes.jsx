@@ -1,22 +1,19 @@
 import React, {Component} from 'react'
 import Global from "../Store/Global"
-import HistogramItem from "./HistogramsItem"
+import BrushesItem from "./BrushesItem"
 import {observer} from 'mobx-react'
-
 @observer
-class Histograms extends Component {
+class Brushes extends Component {
     constructor(props) {
         super(props)
     }
 
     render() {
         return (
-            <g name={'Histograms'}>{
-                Global.yearArr.map(year => {
+            <g name={'Brush'}>
+                {Global.yearArr.map(year => {
                     return <g key={year} year={year} transform={`translate(${Global.axisPos[year]})`}>
-                        {Global.hisData.hasOwnProperty(year) ?
-                            <HistogramItem key={year}
-                                           year={year}/> : null}
+                        {Global.circlePos.hasOwnProperty(year) ? <BrushesItem key={year} year={year}/> : null}
                     </g>
                 })}
             </g>
@@ -24,4 +21,4 @@ class Histograms extends Component {
     }
 }
 
-export default Histograms
+export default Brushes

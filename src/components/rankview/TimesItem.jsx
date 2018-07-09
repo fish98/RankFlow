@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-
+import Global from'.././Store/Global'
 class TimesItem extends Component {
     constructor(props) {
         super(props)
@@ -7,7 +7,7 @@ class TimesItem extends Component {
 
     render() {
         return (
-            <text x={-15} y={10}>
+            <text x={Global.diffHeight} y={10}>
                 {this.props.year}
             </text>
         )

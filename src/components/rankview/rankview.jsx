@@ -10,6 +10,7 @@ import Histograms from "./Histograms"
 import Circles from './Circles'
 import Lines from './Lines'
 import Times from './Times'
+import Brushes from "./Brushes"
 
 @observer
 class RankView extends Component {
@@ -208,6 +209,7 @@ class RankView extends Component {
                         <Histograms/>
                         <Lines/>
                         <Circles/>
+                        <Brushes/>
                     </g>}
                 </svg>
             </div>

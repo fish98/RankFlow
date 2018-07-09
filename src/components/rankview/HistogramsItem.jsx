@@ -20,7 +20,7 @@ class HistogramItem extends Component {
     render() {
         const year = this.props.year
         return (
-            <g transform={`translate(-15,${ Global.diffHeight})`}>
+            <g transform={`translate(${Global.subWidth},${ Global.diffHeight})`}>
                 {
                     Global.hisData[year].map((d, i) => {
                         const width = d * (Global.eachWidth - Global.hisDataWidthdiff) / (Global.maxHIsVal - Global.minHisVal)

@@ -31,8 +31,7 @@ class CirclesItem extends Component {
     render() {
         const year = this.props.year
         return (
-            <g transform={`translate(-15,${ Global.diffHeight})`}>
-                {
+            <g transform={`translate(${Global.subWidth},${ Global.diffHeight})`}>                {
                     Object.keys(Global.circlePos[year]).map(name => {
                         const data = Global.circlePos[year][name]
                         const linear = d3.scaleLinear()

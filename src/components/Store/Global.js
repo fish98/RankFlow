@@ -15,6 +15,7 @@ class global {
     @observable yearArr = []
     @observable maxVar = 1
     @observable minVar = 1
+    subWidth = 15
     layer = 20
     right = 30
     left = 30
