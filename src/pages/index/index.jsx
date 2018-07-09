@@ -15,7 +15,7 @@ class Index extends Component {
         // let yearData = this.dealData(rankData, Global.layer)
         Global.setRankData(rankData)
         Global.setYearData(yearData)
-        let detailData = Object.values(rankData)[10]
+        let detailData = rankData['Nan Cao']//Object.values(rankData)[10]
         let maxRank = Object.entries(yearData).reduce((result, data) => {
             result[data[0]] = data[1].arr.length;
             return result;
