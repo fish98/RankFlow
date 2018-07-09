@@ -10,8 +10,9 @@ class TSNEView extends Component {
         super();
         console.log('TSNE Init');
         this.svgContainer = null;
-        let randomData = new Array(100).fill(0).map(d => {
+        let randomData = new Array(100).fill(0).map((d, i) => {
             return {
+                id: i,
                 x: Math.random(),
                 y: Math.random()
             }
