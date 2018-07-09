@@ -4,6 +4,7 @@ import rankData from './tRankData.json'
 import yearData from './year_data.json'
 import RankView from '../../components/rankview/rankview'
 import DetailView from '../../components/detailview/detailview'
+import TSNEView from '../../components/tsneview/tsneview'
 import Global from '../../components/Store/Global'
 import {observer} from 'mobx-react'
 
@@ -26,7 +27,6 @@ class Index extends Component {
             detailData: detailData,
             maxRank: maxRank
         }
-
     }
 
     dealData(data, layer) {
@@ -96,15 +96,21 @@ class Index extends Component {
         Global.setAxisPos(axisPos)
     }
 
+    onClickHandler = () => {
+        this.setState({
+            detailData: Object.values(rankData)[Math.floor(Math.random() * 100)]
+        })
+    }
+
     render() {
         return (
             <div className="page-wrapper">
                 <div className="left-container">
                     <div className="left-top-container">
-                        t-SNE
+                        <TSNEView></TSNEView>
                     </div>
                     <div className="left-middle-container"/>
-                    <div className="left-bottom-container"/>
+                    <div className="left-bottom-container" onClick={this.onClickHandler}/>
                 </div>
                 <div className="right-container">
                     <div className="right-top-container">

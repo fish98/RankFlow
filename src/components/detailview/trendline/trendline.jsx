@@ -13,16 +13,28 @@ class Line extends Component {
         }
     }
     componentDidMount() {
-        console.log('Line Did Mount', this.circles);
+        console.log('Line Did Mount', this.state.circles);
     }
 
     componentDidUpdate() {
-        console.log('Line Did Update', this.circles);
+        console.log('Line Did Update', this.state.circles);
+    }
+
+    componentWillUpdate() {
+        console.log('Line Will Update', this.state.circles);
+    }
+
+    componentWillReceiveProps() {
+        console.log('Line Will ReceiveProps', this.state.circles);
+        this.setState({
+            isHover: false,
+            circles: {}
+        })
     }
     
     onMouseEnterHandler = (e) => {
         let id = e.target.id;
-        if(this.state.circles[id]) {
+        if(this.state.circles[id] && this.state.circles[id].DOM) {
             this.state.circles[id].state = true;
         }
         const enterEvent = new MouseEvent('mouseover', {
@@ -35,7 +47,7 @@ class Line extends Component {
 
         let circlesArray = Object.values(this.state.circles);
         circlesArray.forEach(circle => {
-            if(!circle.state) {
+            if(circle.DOM && !circle.state) {
                 circle.DOM.dispatchEvent(enterEvent);
             }
         });
@@ -52,14 +64,14 @@ class Line extends Component {
             cancelable: true
         });
         let id = e.target.id;
-        if(this.state.circles[id]) {
+        if(this.state.circles[id] && this.state.circles[id].DOM) {
             this.state.circles[id].state = false;
         }
 
         console.log('Out: ', this.state.circles);
 
         Object.values(this.state.circles).forEach(circle => {
-            if(circle.state) {
+            if(circle.DOM && circle.state) {
                 circle.DOM.dispatchEvent(outEvent);
             }
         });
@@ -82,10 +94,12 @@ class Line extends Component {
                 {
                     line.map((point, i) => {
                         let id = `${name}-trend-point-${i}`;
+                        
                         return (
                                 <Tooltip key={point.x} title={`${name}: ${point.v}`}>
                                     <circle ref={(circle) => {
-                                        this.state.circles[id] = this.state.circles[id] ? this.state.circles[id] : {
+                                        let circles = this.state.circles;
+                                        this.state.circles[id] = this.state.circles[id] && this.state.circles[id].DOM ? this.state.circles[id] : {
                                             DOM: circle,
                                             state: false
                                         }
