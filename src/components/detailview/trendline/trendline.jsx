@@ -6,7 +6,11 @@ import './trendline.less';
 class Line extends Component {
     constructor(props) {
         super(props);
-        this.circles = {};
+        this.hoverCount = 0;
+        this.state = {
+            isHover: false,
+            circles: {}
+        }
     }
     componentDidMount() {
         console.log('Line Did Mount', this.circles);
@@ -17,10 +21,9 @@ class Line extends Component {
     }
     
     onMouseEnterHandler = (e) => {
-        console.log('Enter: ', this, e.target);
         let id = e.target.id;
-        if(this.circles[id]) {
-            this.circles[id].state = true;
+        if(this.state.circles[id]) {
+            this.state.circles[id].state = true;
         }
         const enterEvent = new MouseEvent('mouseover', {
             view: window,
@@ -28,11 +31,19 @@ class Line extends Component {
             cancelable: true
         });
         
-        Object.values(this.circles).forEach(circle => {
+        console.log('Enter: ', this.state.circles);
+
+        let circlesArray = Object.values(this.state.circles);
+        circlesArray.forEach(circle => {
             if(!circle.state) {
                 circle.DOM.dispatchEvent(enterEvent);
             }
         });
+        if(!this.state.isHover) {
+            this.setState({
+                isHover: true
+            });
+        }
     }
     onMouseOutHandler = (e) => {
         const outEvent = new MouseEvent('mouseout', {
@@ -41,21 +52,29 @@ class Line extends Component {
             cancelable: true
         });
         let id = e.target.id;
-        if(this.circles[id]) {
-            this.circles[id].state = false;
+        if(this.state.circles[id]) {
+            this.state.circles[id].state = false;
         }
-        Object.values(this.circles).forEach(circle => {
+
+        console.log('Out: ', this.state.circles);
+
+        Object.values(this.state.circles).forEach(circle => {
             if(circle.state) {
                 circle.DOM.dispatchEvent(outEvent);
             }
         });
+        if(this.state.isHover) {
+            this.setState({
+                isHover: false
+            });
+        }
     }
     render() {
         let line = this.props.line, curve = this.props.curve, name = this.props.name,
             xScale = this.props.scale.xScale, yScale = this.props.scale.yScale;
         return (
             <g>
-                <path className="trend-line"
+                <path className={this.state.isHover ? "trend-line-hover" : "trend-line"}
                     d={curve(line)}
                     onMouseEnter={this.onMouseEnterHandler}
                     onMouseOut={this.onMouseOutHandler}>
@@ -64,21 +83,21 @@ class Line extends Component {
                     line.map((point, i) => {
                         let id = `${name}-trend-point-${i}`;
                         return (
-                            <g key={point.x}>
-                                <Tooltip title={point.v}>
-                                    <circle ref={(circle) => this.circles[id] = {
-                                        DOM: circle,
-                                        state: false
+                                <Tooltip key={point.x} title={`${name}: ${point.v}`}>
+                                    <circle ref={(circle) => {
+                                        this.state.circles[id] = this.state.circles[id] ? this.state.circles[id] : {
+                                            DOM: circle,
+                                            state: false
+                                        }
                                     }}
                                         id={id}
                                         cx={xScale(point.x)}
                                         cy={yScale(point.y)}
-                                        className="trend-point"
+                                        className={this.state.isHover ? "trend-point-hover" : "trend-point"}
                                         onMouseEnter={this.onMouseEnterHandler}
                                         onMouseOut={this.onMouseOutHandler}>
                                     </circle>
                                 </Tooltip>
-                            </g>
                         )
                     })
                 }
