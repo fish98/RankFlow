@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import {Row, Col} from 'antd'
-import './rankview.less'
+import './RankView.less'
 import RankItems from './RankItems'
 import Global from '../Store/Global'
 import {observer} from 'mobx-react'
@@ -11,75 +11,13 @@ import Circles from './Circles'
 import Lines from './Lines'
 import Times from './Times'
 import Brushes from "./Brushes"
+import * as d3 from 'd3'
 
 @observer
 class RankView extends Component {
     constructor(props) {
         super(props)
-        this.setNodes = this.setNodes.bind(this)
-        this.handleClick = this.handleClick.bind(this)
     }
-
-    getCirclePos(nodes) {
-        let circlePos = {}
-        let circlePosPer = {}
-        let yearPer = 0
-        let lineGroup = {}
-        Object.keys(Global.yearData).forEach(year => {
-            nodes.map(name => {//计算圆的位置
-                if (!Global.yearData[year].obj.hasOwnProperty(name)) return
-                const layer = Global.hisRankObj[year][name].layer
-                const index = Global.hisRankObj[year][name].index
-                const x = index * 2 * Global.rankR
-                const layerLayer = Math.floor((x + Global.rankR) / Global.hisRankWidth)
-                const y = layer * (Global.rankHeight - Global.diffHeight) / Global.layer + layerLayer * 2 * Global.rankR
-                const cx = x + Global.rankR - layerLayer * Global.hisRankWidth
-                const cy = y + Global.rankR
-                if (!circlePos.hasOwnProperty(year)) {
-                    circlePos[year] = {}
-                }
-                circlePos[year][name] = {
-                    val: Math.sqrt(Global.yearData[year].obj[name].variance),
-                    x: 0,
-                    cx: cx,
-                    cy: cy,
-                    y: cy,
-                    r: Global.rankR,
-                    name: name,
-                }
-            })
-            if (!circlePos.hasOwnProperty(year)) return
-            if (circlePosPer !== {} && Number(year) - Number(yearPer) === 1) {//之前有值，年份相邻差1
-                Object.keys(circlePos[year]).forEach(name => {//计算线的位置
-                    const circleRight = circlePos[year][name]
-                    if (!circlePosPer.hasOwnProperty(name)) return
-                    const circleLeft = circlePosPer[name]
-                    if (!lineGroup.hasOwnProperty(year)) {
-                        lineGroup[year] = {}
-                    }
-                    lineGroup[year][name] = {
-                        source: {
-                            x: 0,
-                            y: circleLeft.y,
-                        },
-                        target: {
-                            x: Global.eachWidth,
-                            y: circleRight.y
-                        },
-                        valLeft: circleLeft.val,
-                        valRight: circleRight.val,
-                        r: Global.rankR,
-                        name: circleLeft.name,
-                    }
-                })
-            }
-            yearPer = year
-            circlePosPer = circlePos[yearPer]
-        })
-        Global.setLinePos(lineGroup)
-        Global.setCirclePos(circlePos)
-    }
-
     getWidth(self) {
         Global.setRankWidth(self.refs.rankView.clientWidth)
         Global.setRankHeight(self.refs.rankView.clientHeight)
@@ -90,110 +28,14 @@ class RankView extends Component {
     }
 
 
-    dealNodesLayer(nodes) {
-        let nodesLayer = {}
-        let r = {}
-        const years = Object.keys(Global.yearData)
-        years.forEach(year => {
-            nodesLayer[year] = {}
-            nodes.forEach(name => {
-                if (!Global.yearData[year].obj.hasOwnProperty(name)) return
-
-                const data = Global.yearData[year].obj[name]
-                const layer = data.layer
-                if (!nodesLayer[year].hasOwnProperty(layer)) {
-                    nodesLayer[year][layer] = []
-                }
-                nodesLayer[year][layer].push(name)
-            })
-            r[year] = {}
-            Object.keys(nodesLayer).forEach(year => {
-                Object.keys(nodesLayer[year]).forEach(layer => {
-                    nodesLayer[year][layer].sort((a, b) => Global.yearData[year].obj[a].mean_rank - Global.yearData[year].obj[b].mean_rank)
-                    nodesLayer[year][layer].forEach((name, index) => {
-                        r[year][name] = {layer: layer, index: index}
-                    })
-                })
-            })
-        })
-        return r
-    }
-
-    setNodes(nodes) {
-        Global.setNodes(nodes)
-        let sumCount = 0
-        let his_val = {}
-        let max_val = -1000
-        let min_val = 1000000
-        let max_var = -1000
-        let min_var = 1000000
-        let rank_val = {}
-        let his_val_obj = {}
-        let yearData = Global.yearData
-        Object.keys(yearData).sort().map(year => {
-            his_val[year] = Array(Global.layer).fill(0)
-            his_val_obj[year] = {}
-            rank_val[year] = {}
-            nodes.forEach(name => {
-                if (!yearData[year].obj.hasOwnProperty(name)) return
-                Object.entries(yearData[year].obj[name].data).forEach((e) => {
-                    let la = Math.floor(e[1] / (yearData[year].arr.length / Global.layer))
-                    if (yearData[year].obj[name].variance > max_var) {
-                        max_var = yearData[year].obj[name].variance
-                    }
-                    if (yearData[year].obj[name].variance < min_var) {
-                        min_var = yearData[year].obj[name].variance
-                    }
-                    his_val[year][la] += 1
-                    if (!his_val_obj[year].hasOwnProperty(la)) {
-                        his_val_obj[year][la] = {}
-                    }
-                    if (!his_val_obj[year][la].hasOwnProperty(e[0])) {
-                        his_val_obj[year][la][e[0]] = 0
-                    }
-                    his_val_obj[year][la][e[0]] += 1
-                    let layer = yearData[year].obj[name].layer
-                    if (!rank_val[year].hasOwnProperty(layer)) rank_val[year][layer] = []
-                    rank_val[year][layer].push(name)
-                    sumCount += 1
-                })
-            })
-            const val0 = Math.max(...his_val[year])
-            const val1 = Math.min(...his_val[year])
-            if (val1 < min_val) min_val = val1
-            if (val0 > max_val) max_val = val0
-        })
-        Global.setMaxHisVal(max_val)
-        Global.setMinHisVal(min_val)
-        Global.setHisData(his_val)
-        Global.setMaxVar(max_var)
-        Global.setMinVar(min_var)
-        Global.setHisRank(rank_val)
-        Global.setHisDataObj(his_val_obj)
-        Global.setHisRankObj(this.dealNodesLayer(nodes))
-        console.info(sumCount)
-        this.getCirclePos(nodes)
-    }
-
-    handleClick() {
-        const min = 0
-        const max = 100
-        const l = Math.floor(Math.random() * (max - 10 - min + 1) + min)
-        const r = Math.floor(Math.random() * (max - l + 2) + l + 1)
-        console.log(l, r)
-        const nodes = Object.keys(Global.rankData).slice(l, r)
-        this.setNodes(nodes)
-    }
-
     componentDidMount() {
         this.getWidth(this)
         const nodes = ["Nan Cao", "Tom Peterka", "Yifan Hu"]
-        this.setNodes(nodes)
+        Global.setNodes(nodes)
         console.log('rankView DidMount')
     }
 
     render() {
-
         return <div className="rank-wrapper">
             <Row className="rank-wrapper-title">
                 <Col span={8}/>
@@ -203,14 +45,15 @@ class RankView extends Component {
                 <Col span={8}/>
             </Row>
             <div className="rank-wrapper-content" ref='rankView'>
-                <svg width={Global.rankWidth} height={Global.rankHeight} onClick={this.handleClick}>
-                    {Global.axisPos === null ? null : <g>
-                        <Times/>
-                        <Histograms/>
-                        <Lines/>
-                        <Circles/>
-                        <Brushes/>
-                    </g>}
+                <svg width={Global.rankWidth} height={Global.rankHeight}>
+                    {Global.axisPos === null ? null :
+                        <g>
+                            <Times/>
+                            <Brushes/>
+                            <Histograms/>
+                            <Lines/>
+                            <Circles/>
+                        </g>}
                 </svg>
             </div>
         </div>
