@@ -5,7 +5,7 @@ import TimeAxis from './timeaxis/timeaxis';
 import Violin from './violin/violin';
 import TrendLine from './trendline/trendline';
 import './detailview.less';
-
+import {toJS} from 'mobx'
 class DetailView extends Component {
     constructor() {
         super();
@@ -71,7 +71,7 @@ class DetailView extends Component {
     }
     
     componentWillReceiveProps(props) {
-        console.log('Detail Will Receive Props: ', props);
+        console.log('Detail Will Receive Props: ',props);
         if(props.data && props.axis && props.maxRank) {
             let {svgWidth, svgHeight} = this.state;
             if(svgWidth == 0 || svgHeight == 0) {

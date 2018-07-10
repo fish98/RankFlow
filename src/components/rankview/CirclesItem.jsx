@@ -31,27 +31,27 @@ class CirclesItem extends Component {
     render() {
         const year = this.props.year
         return (
-            <g transform={`translate(-15,${ Global.diffHeight})`}>
-                {
-                    Object.keys(Global.circlePos[year]).map(name => {
-                        const data = Global.circlePos[year][name]
-                        const linear = d3.scaleLinear()
-                            .domain([Math.sqrt(Global.minVar), Math.sqrt(Global.maxVar)])
-                            .range([0, 1])
-                        console.log(Math.sqrt(Global.yearData[year].obj[name].variance))
-                        const fill = this.compute(linear(Math.sqrt(Global.yearData[year].obj[name].variance)))
-                        const circleNode = <div><p>{name}</p>
-                            <p>mean_rank:{Global.yearData[year].obj[name].mean_rank}</p></div>
-                        return <Tooltip title={circleNode}>
-                            <circle key={`${year}_${name}`} cy={data.cy} r={Global.rankR} cx={data.cx}
-                                    name={name}
-                                    onMouseOver={this.onMouseOver}
-                                    onMouseOut={this.onMouseOut}
-                                    onClick={this.onClick}
-                                    fill={fill}/>
-                        </Tooltip>
-                    })
-                }
+            <g transform={`translate(${Global.subWidth},${ Global.diffHeight})`}>                {
+                Object.keys(Global.circlePos[year]).map(name => {
+                    const data = Global.circlePos[year][name]
+                    const linear = d3.scaleLinear()
+                        .domain([Math.sqrt(Global.minVar), Math.sqrt(Global.maxVar)])
+                        .range([0, 1])
+                    const fill = this.compute(linear(Math.sqrt(Global.yearData[year].obj[name].variance)))
+                    const circleNode = <div><p>{name}</p>
+                        <p>mean_rank:{Global.yearData[year].obj[name].mean_rank}</p></div>
+                    return <Tooltip key={`${year}_${name}`} title={circleNode}>
+                        <circle key={`${year}_${name}`} cy={data.cy} r={Global.rankR} cx={data.cx}
+                                name={name}
+                                year={year}
+                                layer={data.layer}
+                                onMouseOver={this.onMouseOver}
+                                onMouseOut={this.onMouseOut}
+                                onClick={this.onClick}
+                                fill={fill}/>
+                    </Tooltip>
+                })
+            }
             </g>
         )
     }

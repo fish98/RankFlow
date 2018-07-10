@@ -15,6 +15,11 @@ class global {
     @observable yearArr = []
     @observable maxVar = 1
     @observable minVar = 1
+    @observable dragData = {}
+    @observable saveNodes = {}
+    @observable brushNum = 0
+    @observable nodesSet = new Set()
+    subWidth = 15
     layer = 20
     right = 30
     left = 30
@@ -33,15 +38,72 @@ class global {
     @observable hisRankObj = {}
 
     @action
+    setDragData(dragData) {
+        this.dragData = dragData
+        console.log('dragData', toJS(dragData))
+    }
+
+    @action
+    setBrushNum(brushNum) {
+        this.brushNum = brushNum
+        console.log('brushYear', toJS(brushNum))
+    }
+
+    @action
+    setSaveNodes(y, saveNodes) {
+        // if (!saveNodes.size) {
+        //     this.nodes.forEach(name => {
+        //         if (this.yearData[y].obj.hasOwnProperty(name)) {
+        //             saveNodes.add(name)
+        //         }
+        //
+        //     })
+        // }
+        let nodes = new Set()
+        let nodess = new Set()
+        Object.keys(this.saveNodes).forEach(year => {
+            if (year === y) return
+            let data = this.saveNodes[year]
+            data.forEach(name => {
+                if (this.nodesSet.has(name)) {
+                    nodes.add(name)
+                }
+            })
+        })
+        if (nodes.size && saveNodes.size) {
+            nodes.forEach(node => {
+                if (saveNodes.has(node)) {
+                    nodess.add(node)
+                }
+            })
+        } else {
+            if (!saveNodes.size) {
+                nodess = nodes
+            } else {
+                nodess = saveNodes
+            }
+        }
+
+        this.saveNodes[y] = saveNodes
+        if (!nodess.size) {
+            nodess = this.nodes
+        }
+        this.dealSetNodes(nodess)
+        console.log('saveNodes', toJS(saveNodes))
+    }
+
+    @action
     setAxisPos(axisPos) {
         this.axisPos = axisPos
         console.log('axisPos', toJS(axisPos))
     }
+
     @action
     setMaxVar(maxVar) {
         this.maxVar = maxVar
         console.log('maxVar', toJS(maxVar))
     }
+
     @action
     setMinVar(minVar) {
         this.minVar = minVar
@@ -153,6 +215,9 @@ class global {
     @action
     setNodes(nodes) {
         this.nodes = nodes
+        this.nodesSet = new Set(nodes)
+        // this.saveNodes = nodes
+        this.dealSetNodes(nodes)
         console.log('nodes', toJS(nodes))
     }
 
@@ -163,6 +228,151 @@ class global {
         console.log('eachWidth', toJS(eachWidth))
     }
 
+    getCirclePos(nodes) {
+        let circlePos = {}
+        let circlePosPer = {}
+        let yearPer = 0
+        let lineGroup = {}
+        Object.keys(this.yearData).forEach(year => {
+            nodes.forEach(name => {//计算圆的位置
+                if (!this.yearData[year].obj.hasOwnProperty(name)) return
+                const layer = this.hisRankObj[year][name].layer
+                const index = this.hisRankObj[year][name].index
+                const x = index * 2 * this.rankR
+                const layerLayer = Math.floor((x + this.rankR) / this.hisRankWidth)
+                const y = layer * (this.rankHeight - this.diffHeight) / this.layer + layerLayer * 2 * this.rankR
+                const cx = x + this.rankR - layerLayer * this.hisRankWidth
+                const cy = y + this.rankR
+                if (!circlePos.hasOwnProperty(year)) {
+                    circlePos[year] = {}
+                }
+                circlePos[year][name] = {
+                    val: Math.sqrt(this.yearData[year].obj[name].variance),
+                    x: 0,
+                    cx: cx,
+                    cy: cy,
+                    y: cy,
+                    r: this.rankR,
+                    name: name,
+                    layer: layer,
+                }
+            })
+            if (!circlePos.hasOwnProperty(year)) return
+            if (circlePosPer !== {} && Number(year) - Number(yearPer) === 1) {//之前有值，年份相邻差1
+                Object.keys(circlePos[year]).forEach(name => {//计算线的位置
+                    const circleRight = circlePos[year][name]
+                    if (!circlePosPer.hasOwnProperty(name)) return
+                    const circleLeft = circlePosPer[name]
+                    if (!lineGroup.hasOwnProperty(year)) {
+                        lineGroup[year] = {}
+                    }
+                    lineGroup[year][name] = {
+                        source: {
+                            x: 0,
+                            y: circleLeft.y,
+                        },
+                        target: {
+                            x: this.eachWidth,
+                            y: circleRight.y
+                        },
+                        valLeft: circleLeft.val,
+                        valRight: circleRight.val,
+                        r: this.rankR,
+                        name: circleLeft.name,
+                    }
+                })
+            }
+            yearPer = year
+            circlePosPer = circlePos[yearPer]
+        })
+        this.setLinePos(lineGroup)
+        this.setCirclePos(circlePos)
+    }
+
+
+    dealNodesLayer(nodes) {
+        let nodesLayer = {}
+        let r = {}
+        const years = Object.keys(this.yearData)
+        years.forEach(year => {
+            nodesLayer[year] = {}
+            nodes.forEach(name => {
+                if (!this.yearData[year].obj.hasOwnProperty(name)) return
+
+                const data = this.yearData[year].obj[name]
+                const layer = data.layer
+                if (!nodesLayer[year].hasOwnProperty(layer)) {
+                    nodesLayer[year][layer] = []
+                }
+                nodesLayer[year][layer].push(name)
+            })
+            r[year] = {}
+            Object.keys(nodesLayer).forEach(year => {
+                Object.keys(nodesLayer[year]).forEach(layer => {
+                    nodesLayer[year][layer].sort((a, b) => this.yearData[year].obj[a].mean_rank - this.yearData[year].obj[b].mean_rank)
+                    nodesLayer[year][layer].forEach((name, index) => {
+                        r[year][name] = {layer: layer, index: index}
+                    })
+                })
+            })
+        })
+        return r
+    }
+
+    dealSetNodes(nodes) {
+        let sumCount = 0
+        let his_val = {}
+        let max_val = -1000
+        let min_val = 1000000
+        let max_var = -1000
+        let min_var = 1000000
+        let rank_val = {}
+        let his_val_obj = {}
+        let yearData = this.yearData
+        Object.keys(yearData).sort().map(year => {
+            his_val[year] = Array(this.layer).fill(0)
+            his_val_obj[year] = {}
+            rank_val[year] = {}
+            nodes.forEach(name => {
+                if (!yearData[year].obj.hasOwnProperty(name)) return
+                Object.entries(yearData[year].obj[name].data).forEach((e) => {
+                    let la = Math.floor(e[1] / (yearData[year].arr.length / this.layer))
+                    if (yearData[year].obj[name].variance > max_var) {
+                        max_var = yearData[year].obj[name].variance
+                    }
+                    if (yearData[year].obj[name].variance < min_var) {
+                        min_var = yearData[year].obj[name].variance
+                    }
+                    his_val[year][la] += 1
+                    if (!his_val_obj[year].hasOwnProperty(la)) {
+                        his_val_obj[year][la] = {}
+                    }
+                    if (!his_val_obj[year][la].hasOwnProperty(e[0])) {
+                        his_val_obj[year][la][e[0]] = 0
+                    }
+                    his_val_obj[year][la][e[0]] += 1
+                    sumCount += 1
+                })
+                let layer = yearData[year].obj[name].layer
+                if (!rank_val[year].hasOwnProperty(layer)) rank_val[year][layer] = []
+                rank_val[year][layer].push(name)
+            })
+            const val0 = Math.max(...his_val[year])
+            const val1 = Math.min(...his_val[year])
+            if (val1 < min_val) min_val = val1
+            if (val0 > max_val) max_val = val0
+        })
+        this.setMaxHisVal(max_val)
+        this.setMinHisVal(min_val)
+        this.setHisData(his_val)
+        this.setMaxVar(max_var)
+        this.setMinVar(min_var)
+        this.setHisRank(rank_val)
+        this.setHisDataObj(his_val_obj)
+        this.setHisRankObj(this.dealNodesLayer(nodes))
+        console.info(sumCount)
+        this.getCirclePos(nodes)
+    }
 
 }
 

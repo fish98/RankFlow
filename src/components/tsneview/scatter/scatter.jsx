@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import * as d3 from 'd3';
 import lasso from '../../../libs/lassoV2.js';
 import './scatter.less';
-
+import Global from '../.././Store/Global'
+import {observer} from 'mobx-react'
+@observer
 class Scatter extends Component {
     constructor(props) {
         super();
@@ -95,16 +97,27 @@ class Scatter extends Component {
         
         function lasso_end () {
             console.log(self.lasso.selectedItems());
+            let nodes = [], ids = []
+            self.lasso.selectedItems().forEach(item => {
+                ids.push(item.id)
+            })
+            
+            const names = Object.keys(Global.rankData)
+            ids.forEach(id=>{
+                nodes.push(names[id])
+            })
+            Global.setNodes(nodes)
+            console.log(ids)
+            
             self.lasso.items().forEach(item => {
                 d3.select(self.circleMap[item.id])
                     .classed("possible", false);
             });
-        
+            
             self.lasso.selectedItems().forEach(item => {
                 d3.select(self.circleMap[item.id])
                     .classed("selected", true);
             });
-        
         }
 
         function zoomed () {

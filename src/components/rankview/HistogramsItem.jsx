@@ -20,13 +20,13 @@ class HistogramItem extends Component {
     render() {
         const year = this.props.year
         return (
-            <g transform={`translate(-15,${ Global.diffHeight})`}>
+            <g transform={`translate(${Global.subWidth},${ Global.diffHeight})`}>
                 {
                     Global.hisData[year].map((d, i) => {
                         const width = d * (Global.eachWidth - Global.hisDataWidthdiff) / (Global.maxHIsVal - Global.minHisVal)
-                        if (!Global.hisDataObj[year].hasOwnProperty(i)) return <g/>
+                        if (!Global.hisDataObj[year].hasOwnProperty(i)) return null
                         let strNode = Object.entries(Global.hisDataObj[year][i]).map(e => {
-                            return <p>{e[0]}:{e[1]}</p>
+                            return <p key={`${year}_${i}_${e[0]}`}>{e[0]}:{e[1]}</p>
                         })
                         return (
                             <Tooltip key={`${year}_${i}`} title={strNode} placement={'right'}>

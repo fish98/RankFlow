@@ -117,8 +117,8 @@ class Index extends Component {
                         <RankView axis={this.state.axisPos}/>
                     </div>
                     <div className="right-bottom-container">
-                        <DetailView data={this.state.detailData} axis={Global.axisPos}
-                                    maxRank={this.state.maxRank}></DetailView>
+                        <DetailView data={Global.rankData[Global.selectNode]} axis={Global.axisPos}
+                                    maxRank={this.state.maxRank}/>
                     </div>
                 </div>
             </div>
