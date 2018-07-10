@@ -6,18 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1726de9d-ab8e-4499-a5e0-87f2a97be0e3" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/rankview/RankView.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Store/Global.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Store/Global.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/detailview/detailview.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/detailview/detailview.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rankview/BrushesItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rankview/BrushesItem.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rankview/CirclesItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rankview/CirclesItem.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rankview/HistogramsItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rankview/HistogramsItem.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rankview/RankItems.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rankview/RankItems.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rankview/TimesItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rankview/TimesItem.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rankview/rankview.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rankview/rankview.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rankview/rankview.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/index/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tsneview/scatter/scatter.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tsneview/scatter/scatter.jsx" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -43,13 +32,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.jsx" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.jsx" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/index/index.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1140">
-              <caret line="101" column="39" lean-forward="true" selection-start-line="101" selection-start-column="39" selection-end-line="101" selection-end-column="39" />
+            <state relative-caret-position="480">
+              <caret line="20" column="42" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="scatter.jsx" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/tsneview/scatter/scatter.jsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1152">
+              <caret line="110" column="33" selection-start-line="110" selection-start-column="33" selection-end-line="110" selection-end-column="33" />
               <folding>
-                <element signature="e#0#38#0" expanded="true" />
+                <element signature="e#0#41#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -83,7 +81,7 @@
         <entry file="file://$PROJECT_DIR$/src/components/Store/Global.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="291">
-              <caret line="48" column="35" lean-forward="true" selection-start-line="48" selection-start-column="35" selection-end-line="48" selection-end-column="35" />
+              <caret line="48" column="35" selection-start-line="48" selection-start-column="35" selection-end-line="48" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -92,7 +90,7 @@
         <entry file="file://$PROJECT_DIR$/src/components/rankview/HistogramsItem.jsx">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="960">
-              <caret line="33" column="103" lean-forward="true" selection-start-line="33" selection-start-column="103" selection-end-line="33" selection-end-column="126" />
+              <caret line="33" column="103" selection-start-line="33" selection-start-column="103" selection-end-line="33" selection-end-column="126" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -128,19 +126,7 @@
         <entry file="file://$PROJECT_DIR$/src/components/rankview/rankview.jsx">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="432">
-              <caret line="18" column="20" lean-forward="true" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
-              <folding>
-                <element signature="e#0#38#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RankItems.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/rankview/RankItems.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+              <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -233,6 +219,7 @@
         <option value="$PROJECT_DIR$/src/components/rankview/rankview.jsx" />
         <option value="$PROJECT_DIR$/src/components/rankview/BrushesItem.jsx" />
         <option value="$PROJECT_DIR$/src/components/Store/Global.js" />
+        <option value="$PROJECT_DIR$/src/components/tsneview/scatter/scatter.jsx" />
       </list>
     </option>
   </component>
@@ -295,29 +282,22 @@
               <item name="RankFlow" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="detailview" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RankFlow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RankFlow" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="detailview" type="462c0819:PsiDirectoryNode" />
-              <item name="trendline" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RankFlow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RankFlow" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="rankview" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RankFlow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RankFlow" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="Store" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RankFlow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RankFlow" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="tsneview" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RankFlow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RankFlow" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="tsneview" type="462c0819:PsiDirectoryNode" />
+              <item name="scatter" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="RankFlow" type="b2602c69:ProjectViewProjectNode" />
@@ -387,12 +367,12 @@
       <option name="presentableId" value="Default" />
       <updated>1530757190071</updated>
       <workItem from="1530757191784" duration="111305000" />
-      <workItem from="1531052511781" duration="38366000" />
+      <workItem from="1531052511781" duration="38969000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="149671000" />
+    <option name="totallyTimeSpent" value="150274000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="2553" y="-7" width="1166" height="2022" extended-state="6" />
@@ -405,7 +385,7 @@
       <window_info id="npm" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32966456" />
       <window_info anchor="bottom" id="TypeScript" order="7" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49973586" visible="true" weight="0.17708333" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49973586" visible="true" weight="0.17708333" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3296355" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -446,16 +426,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/backend/calcandshow.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-459">
-          <caret line="20" column="10" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend/app.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -753,7 +723,7 @@
     <entry file="file://$PROJECT_DIR$/src/components/rankview/HistogramsItem.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="960">
-          <caret line="33" column="103" lean-forward="true" selection-start-line="33" selection-start-column="103" selection-end-line="33" selection-end-column="126" />
+          <caret line="33" column="103" selection-start-line="33" selection-start-column="103" selection-end-line="33" selection-end-column="126" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>
@@ -790,7 +760,7 @@
     <entry file="file://$PROJECT_DIR$/src/components/rankview/rankview.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="432">
-          <caret line="18" column="20" lean-forward="true" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
+          <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>
@@ -817,16 +787,23 @@
     <entry file="file://$PROJECT_DIR$/src/components/Store/Global.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="291">
-          <caret line="48" column="35" lean-forward="true" selection-start-line="48" selection-start-column="35" selection-end-line="48" selection-end-column="35" />
+          <caret line="48" column="35" selection-start-line="48" selection-start-column="35" selection-end-line="48" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/index/index.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1140">
-          <caret line="101" column="39" lean-forward="true" selection-start-line="101" selection-start-column="39" selection-end-line="101" selection-end-column="39" />
+        <state relative-caret-position="480">
+          <caret line="20" column="42" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/tsneview/scatter/scatter.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1152">
+          <caret line="110" column="33" selection-start-line="110" selection-start-column="33" selection-end-line="110" selection-end-column="33" />
           <folding>
-            <element signature="e#0#38#0" expanded="true" />
+            <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
