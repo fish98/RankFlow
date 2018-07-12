@@ -24,6 +24,9 @@ class global {
     @observable clickLayer = null
     @observable clickYear = null
     @observable maxRank = {}
+    @observable filterObj = {ele: [], year: [], onlySelf: true}
+    @observable filterObjHistory = []
+    eleObj = {}
     subWidth = 15
     layer = 20
     right = 30
@@ -42,6 +45,12 @@ class global {
     @observable axisPos = null
     @observable hisDataObj = {}
     @observable hisRankObj = {}
+
+    @action
+    setFilterObj(opt, data) {
+        this.filterObj[opt] = data
+        console.log('setFilterObj', toJS(opt), toJS(data))
+    }
 
     @action
     setMaxRank(maxRank) {
@@ -211,8 +220,9 @@ class global {
 
     @action
     setYearData(yearData) {
+        // this.yearData=this.dealData(this.rankData, this.layer)
+
         this.yearData = yearData
-        // dealData(this.rankData, this.layer)
         console.log('yearData', toJS(yearData))
     }
 
@@ -415,6 +425,9 @@ class global {
             nodes.forEach(name => {
                 if (!yearData[year].obj.hasOwnProperty(name)) return
                 Object.entries(yearData[year].obj[name].data).forEach((e) => {
+                    if (!this.eleObj.hasOwnProperty(e[0])) {
+                        this.eleObj[e[0]] = {}
+                    }
                     let la = Math.floor(e[1] / (yearData[year].arr.length / this.layer))
                     if (yearData[year].obj[name].variance > max_var) {
                         max_var = yearData[year].obj[name].variance

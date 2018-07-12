@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/components/Store/Global.js" description="    @action&#10;    setAxisPos(axisPos) {&#10;        this..." line="46" />
+    <bookmark url="file://$PROJECT_DIR$/src/components/Store/Global.js" description="    @action&#10;    setAxisPos(axisPos) {&#10;        this..." line="55" />
     <bookmark url="file://$PROJECT_DIR$/src/components/rankview/rankview.jsx" description="        Global.setLinePos(lineGroup)" line="30" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1726de9d-ab8e-4499-a5e0-87f2a97be0e3" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/98028.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/filter/Filter.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/filter/filter.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Store/Global.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Store/Global.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rankview/BrushesItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rankview/BrushesItem.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rankview/CirclesItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rankview/CirclesItem.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rankview/HistogramsItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rankview/HistogramsItem.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rankview/rankview.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rankview/rankview.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/index/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/index/year_data.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index/year_data.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -42,11 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.jsx" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.jsx" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/index/index.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="792">
-              <caret line="59" column="52" selection-start-line="59" selection-start-column="44" selection-end-line="59" selection-end-column="52" />
+            <state relative-caret-position="600">
+              <caret line="25" column="10" lean-forward="true" selection-start-line="25" selection-start-column="10" selection-end-line="25" selection-end-column="10" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -84,7 +75,7 @@
         <entry file="file://$PROJECT_DIR$/src/components/tsneview/tsneview.jsx">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="456">
-              <caret line="23" column="10" lean-forward="true" selection-end-line="70" selection-end-column="24" />
+              <caret line="23" column="10" lean-forward="true" selection-end-line="82" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -122,11 +113,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Global.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Global.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/Store/Global.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2664">
-              <caret line="83" column="29" selection-start-line="83" selection-start-column="20" selection-end-line="83" selection-end-column="29" />
+            <state relative-caret-position="912">
+              <caret line="223" lean-forward="true" selection-start-line="223" selection-end-line="223" />
             </state>
           </provider>
         </entry>
@@ -142,9 +133,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>react-brush</find>
-      <find>-15</find>
-      <find>box</find>
       <find>draggable</find>
       <find>draggab</find>
       <find>visible</find>
@@ -172,6 +160,9 @@
       <find>ended</find>
       <find>newNodesLayer</find>
       <find>setSaveNodes</find>
+      <find>setYea</find>
+      <find>setYeard</find>
+      <find>dealData</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -214,11 +205,11 @@
         <option value="$PROJECT_DIR$/src/components/rankview/HistogramsItem.jsx" />
         <option value="$PROJECT_DIR$/src/components/rankview/CirclesItem.jsx" />
         <option value="$PROJECT_DIR$/src/components/rankview/rankview.jsx" />
-        <option value="$PROJECT_DIR$/src/components/Store/Global.js" />
         <option value="$PROJECT_DIR$/src/components/rankview/BrushesItem.jsx" />
         <option value="$PROJECT_DIR$/src/components/filter/filter.less" />
-        <option value="$PROJECT_DIR$/src/pages/index/index.jsx" />
         <option value="$PROJECT_DIR$/src/components/filter/Filter.jsx" />
+        <option value="$PROJECT_DIR$/src/pages/index/index.jsx" />
+        <option value="$PROJECT_DIR$/src/components/Store/Global.js" />
       </list>
     </option>
   </component>
@@ -371,12 +362,12 @@
       <updated>1530757190071</updated>
       <workItem from="1530757191784" duration="111305000" />
       <workItem from="1531052511781" duration="68006000" />
-      <workItem from="1531359573539" duration="2825000" />
+      <workItem from="1531359573539" duration="4864000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="182136000" />
+    <option name="totallyTimeSpent" value="184175000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="2553" y="-7" width="1166" height="2022" extended-state="6" />
@@ -714,13 +705,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Store/Global.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2664">
-          <caret line="83" column="29" selection-start-line="83" selection-start-column="20" selection-end-line="83" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/rankview/BrushesItem.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1005">
@@ -734,7 +718,7 @@
     <entry file="file://$PROJECT_DIR$/src/components/tsneview/tsneview.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="456">
-          <caret line="23" column="10" lean-forward="true" selection-end-line="70" selection-end-column="24" />
+          <caret line="23" column="10" lean-forward="true" selection-end-line="82" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -760,11 +744,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/index/index.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="792">
-          <caret line="59" column="52" selection-start-line="59" selection-start-column="44" selection-end-line="59" selection-end-column="52" />
+        <state relative-caret-position="600">
+          <caret line="25" column="10" lean-forward="true" selection-start-line="25" selection-start-column="10" selection-end-line="25" selection-end-column="10" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Store/Global.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="912">
+          <caret line="223" lean-forward="true" selection-start-line="223" selection-end-line="223" />
         </state>
       </provider>
     </entry>
