@@ -14,10 +14,12 @@ class CirclesItem extends Component {
 
     onMouseOver(e) {
         Global.setOverNode(e.target.getAttribute('name'))
+        Global.setOverYear(e.target.getAttribute('year'))
     }
 
     onMouseOut(e) {
-        Global.setOverNode([])
+        Global.setOverNode(null)
+        Global.setOverYear(null)
     }
 
     onClick(e) {
@@ -26,6 +28,10 @@ class CirclesItem extends Component {
             name = []
         }
         Global.setSelectNode(name)
+    }
+
+    onVisibleChange(e) {
+
     }
 
     render() {
@@ -38,9 +44,52 @@ class CirclesItem extends Component {
                         .domain([Math.sqrt(Global.minVar), Math.sqrt(Global.maxVar)])
                         .range([0, 1])
                     const fill = this.compute(linear(Math.sqrt(Global.yearData[year].obj[name].variance)))
-                    const circleNode = <div><p>{name}</p>
-                        <p>mean_rank:{Global.yearData[year].obj[name].mean_rank}</p></div>
-                    return <Tooltip key={`${year}_${name}`} title={circleNode}>
+                    let circleNode = null
+                    let hisMouseOverF = false
+                    if (Global.overYear === year) {
+                        circleNode = <div>
+                            {name}<br/>
+                            mean_rank:{Global.yearData[year].obj[name].mean_rank}({Global.yearData[year].obj[name].mean_rank_per.toFixed(2).slice(2,4)+'%'})
+                        </div>
+                    } else {
+                        circleNode =
+                            <div>{Global.yearData[year].obj[name].mean_rank}({Global.yearData[year].obj[name].mean_rank_per.toFixed(2).slice(2,4)+'%'})</div>
+                    }
+
+                    if (((Global.overLayer !== null && Global.overYear === year)) && Global.hisDataObj[year][Global.overLayer].nameData.hasOwnProperty(data.layer) && Global.hisDataObj[year][Global.overLayer].nameData[data.layer].hasOwnProperty(name)) {
+                        circleNode = Object.entries(Global.hisDataObj[year][Global.overLayer].nameData[data.layer][name]).map(e => {
+                            const str = (e[1] / Global.maxRank[year]).toFixed(2).slice(2,4) + '%'
+
+                            return <div key={`${year}_${name}_${e[0]}`}>{e[0]}:{e[1]}({str})</div>
+                        })
+                        hisMouseOverF = true
+                    }
+                    let hisMouseClickF = false
+                    if (((Global.clickLayer !== null && Global.clickYear === year)) && Global.hisDataObj[year][Global.clickLayer].nameData.hasOwnProperty(data.layer) && Global.hisDataObj[year][Global.clickLayer].nameData[data.layer].hasOwnProperty(name)) {
+                        circleNode = Object.entries(Global.hisDataObj[year][Global.clickLayer].nameData[data.layer][name]).map(e => {
+                            const str = (e[1] / Global.maxRank[year]).toFixed(2).slice(2,4) + '%'
+                            return <div key={`${year}_${name}_${e[0]}`}>{e[0]}:{e[1]}({str})</div>
+                        })
+                        hisMouseClickF = true
+                    }
+
+                    let placement = 'top'
+                    if (hisMouseOverF || hisMouseClickF) {
+                        placement = 'right'
+                    }
+                    //     const rankName  = Global.hisDataObj[year][data.layer]
+                    //     const rank = Global.hisDataObj[year][data.layer].obj[name]
+                    //     circleNode = <div>Global.overLayer<div>
+                    // }
+
+
+                    return <Tooltip key={`${year}_${name}`}
+                                    visible={Global.overNode === name || hisMouseOverF || hisMouseClickF}
+                                    mouseLeaveDelay={0}
+                                    title={circleNode}
+                                    placement={placement}
+                        // onVisibleChange={this.onVisibleChange}
+                    >
                         <circle key={`${year}_${name}`} cy={data.cy} r={Global.rankR} cx={data.cx}
                                 name={name}
                                 year={year}
@@ -48,7 +97,10 @@ class CirclesItem extends Component {
                                 onMouseOver={this.onMouseOver}
                                 onMouseOut={this.onMouseOut}
                                 onClick={this.onClick}
-                                fill={fill}/>
+                                fill={fill}
+                                stroke={(Global.overNode === name || hisMouseOverF) ? 'gray' : 'black'}
+                                strokeWidth={(Global.overNode === name || Global.selectNode === name || hisMouseOverF || hisMouseClickF) ? 2 : 0}
+                        />
                     </Tooltip>
                 })
             }

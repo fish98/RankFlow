@@ -18,6 +18,7 @@ class RankView extends Component {
     constructor(props) {
         super(props)
     }
+
     getWidth(self) {
         Global.setRankWidth(self.refs.rankView.clientWidth)
         Global.setRankHeight(self.refs.rankView.clientHeight)
@@ -35,9 +36,13 @@ class RankView extends Component {
         console.log('rankView DidMount')
     }
 
+    onClick() {
+        Global.setRankHeight(Global.rankHeight - 50)
+    }
+
     render() {
         return <div className="rank-wrapper">
-            <Row className="rank-wrapper-title">
+            <Row className="rank-wrapper-title" onClick={this.onClick}>
                 <Col span={8}/>
                 <Col span={8}>
                     Rank View
@@ -47,7 +52,7 @@ class RankView extends Component {
             <div className="rank-wrapper-content" ref='rankView'>
                 <svg width={Global.rankWidth} height={Global.rankHeight}>
                     {Global.axisPos === null ? null :
-                        <g>
+                        <g transform={`translate(-30)`}>
                             <Times/>
                             <Brushes/>
                             <Histograms/>

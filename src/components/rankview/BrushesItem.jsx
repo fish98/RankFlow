@@ -13,32 +13,39 @@ class BrushesItem extends Component {
         this.brush = d3.brushY().extent([[0, 0], [Global.eachWidth - Global.subWidth, Global.rankHeight - Global.diffHeight]])
             .on('end', this.ended)
         this.newNodesLayer = new Set()
-
-
+        this.state = ({
+            brushTop: null,
+            brushBottom: null,
+        })
     }
 
     ended = (e) => {
         const d = d3
         const year = this.props.year
+        console.log('this.newNodesLayer',this.newNodesLayer,year)
         if (!d3.event.sourceEvent) {//选完之后
             // Global.saveNodes[year] = this.saveNodes
-            Global.setSaveNodes(year, this.newNodesLayer)
+            // Global.setSaveNodes(year, this.newNodesLayer)
             return
         }// Only transition after input.
         if (!d3.event.selection) {//取消掉这行全选
             this.newNodesLayer = new Set()
             // Global.saveNodes[year] = this.saveNodes
             Global.setSaveNodes(year, this.newNodesLayer)
-            return // Ignore empty selections.
+            return // InewNodesLayergnore empty selections.
         }
-        const eachHight = (Global.rankHeight - Global.diffHeight) / Global.layer
-        let x0 = Math.floor(d3.event.selection[0] / eachHight)
-        let x1 = (Math.floor(d3.event.selection[1] / eachHight) + 1)
+        const eachHeight = (Global.rankHeight - Global.diffHeight) / Global.layer
+        let x0 = Math.floor(d3.event.selection[0] / eachHeight)
+        let x1 = (Math.floor(d3.event.selection[1] / eachHeight) + 1)
         if (x0 > x1) {
             const t = x1
             x1 = x0
             x0 = t
         }
+        this.setState({
+            brushTop: x0,
+            brushBottom: x1
+        })
         const s = `${year}_Brush`
         this.newNodesLayer = new Set()
         Global.nodes.forEach(name => {
@@ -46,7 +53,12 @@ class BrushesItem extends Component {
                 this.newNodesLayer.add(name)
             }
         })
-        d3.select(this.refs[s]).transition().call(this.brush.move, [x0 * eachHight, x1 * eachHight - Global.hisDataHeightSel])
+        Global.setSaveNodes(year, this.newNodesLayer)
+        d3.select(this.refs[s]).transition().call(this.brush.move, [x0 * eachHeight, x1 * eachHeight - Global.hisDataHeightSel])
+
+        console.log('this.newNodesLayerend',this.newNodesLayer,year)
+
+
 
         //如果当前
         // if (Global.saveNodes.length) {
@@ -75,6 +87,16 @@ class BrushesItem extends Component {
         console.log(1111111)
     }
 
+    componentDidUpdate() {
+        const year = this.props.year
+        const s = `${year}_Brush`
+        const eachHeight = (Global.rankHeight - Global.diffHeight) / Global.layer
+        const x0 = this.state.brushTop * eachHeight
+        const x1 = this.state.brushBottom * eachHeight - Global.hisDataHeightSel
+        console.log(x0, x1)
+        d3.select(this.refs[s]).transition().call(this.brush.move, [this.state.brushTop * eachHeight, this.state.brushBottom * eachHeight - Global.hisDataHeightSel])
+    }
+
     componentDidMount() {
         const s = `${this.props.year}_Brush`
         d3.select(this.refs[s]).call(this.brush)
@@ -84,12 +106,12 @@ class BrushesItem extends Component {
         const year = this.props.year
         const s = `${year}_Brush`
         return (
-            <g ref={s} transform={`translate(${Global.subWidth},${ Global.diffHeight})`}>
-                <rect year={year} width={Global.eachWidth - Global.subWidth}
-                      height={Global.rankHeight - Global.diffHeight}
-                      opacity={0.1}
-                      onMouseOver={this.onMouseOver}
-                />
+            <g ref={s} transform={`translate(${Global.subWidth},${ Global.diffHeight})`} rankHight={Global.rankHeight}>
+                {/*<rect year={year} width={Global.eachWidth - Global.subWidth}*/}
+                {/*height={Global.rankHeight - Global.diffHeight}*/}
+                {/*opacity={0.1}*/}
+                {/*onMouseOver={this.onMouseOver}*/}
+                {/*/>*/}
             </g>
         )
     }

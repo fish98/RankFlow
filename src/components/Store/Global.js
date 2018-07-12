@@ -9,8 +9,9 @@ class global {
     @observable hisDataWidthdiff = 10
     @observable circlePos = {}
     @observable overNode = []
+    @observable overYear = ""
     @observable selectNode = []
-    @observable overLayer = []
+    @observable overLayer = null
     @observable linePos = {}
     @observable yearArr = []
     @observable maxVar = 1
@@ -19,12 +20,17 @@ class global {
     @observable saveNodes = {}
     @observable brushNum = 0
     @observable nodesSet = new Set()
+    @observable overLayerData = {}
+    @observable clickLayer = null
+    @observable clickYear = null
+    @observable maxRank = {}
     subWidth = 15
     layer = 20
     right = 30
     left = 30
     diffHeight = 15
     rankR = 5
+    nodess = []
     elements = ["HIS", "ICC", "H", "aggre_constraint", "clust_coef", "betweenness", "effective_size", "local_effic", "pagerank", "MaxD"]
     @observable eachWidth = 0
     @observable minHisVal = 0
@@ -36,6 +42,36 @@ class global {
     @observable axisPos = null
     @observable hisDataObj = {}
     @observable hisRankObj = {}
+
+    @action
+    setMaxRank(maxRank) {
+        this.maxRank = maxRank
+        console.log('maxRank', toJS(maxRank))
+    }
+
+    @action
+    setClickYear(clickYear) {
+        this.clickYear = clickYear
+        console.log('clickYear', toJS(clickYear))
+    }
+
+    @action
+    setOverYear(overYear) {
+        this.overYear = overYear
+        console.log('overYear', toJS(overYear))
+    }
+
+    @action
+    setClickLayer(clickLayer) {
+        this.clickLayer = clickLayer
+        console.log('clickLayer', toJS(clickLayer))
+    }
+
+    @action
+    setOverLayerData(overLayerData) {
+        this.overLayerData = overLayerData
+        console.log('overLayerData', toJS(overLayerData))
+    }
 
     @action
     setDragData(dragData) {
@@ -88,6 +124,7 @@ class global {
         if (!nodess.size) {
             nodess = this.nodes
         }
+        this.nodess = nodess
         this.dealSetNodes(nodess)
         console.log('saveNodes', toJS(saveNodes))
     }
@@ -175,6 +212,7 @@ class global {
     @action
     setYearData(yearData) {
         this.yearData = yearData
+        // dealData(this.rankData, this.layer)
         console.log('yearData', toJS(yearData))
     }
 
@@ -186,8 +224,10 @@ class global {
 
     @action
     setRankHeight(rankHeight) {
-        if (this.rankHeight !== rankHeight)
+        if (this.rankHeight !== rankHeight) {
             this.rankHeight = rankHeight
+            this.dealSetNodes(this.nodess)
+        }
         console.log('rankHeight', toJS(rankHeight))
     }
 
@@ -226,6 +266,45 @@ class global {
         if (this.eachWidth !== eachWidth)
             this.eachWidth = eachWidth
         console.log('eachWidth', toJS(eachWidth))
+    }
+
+    dealData(data, layer) {
+        let year_obj = {}
+        Object.keys(data).forEach(name => {
+            const d = data[name]
+            Object.keys(d).forEach(year => {
+                if (!year_obj.hasOwnProperty(year)) {
+                    year_obj[year] = {obj: {}, arr: []}
+                }
+                const sum = Object.values(d[year]).reduce((a, b) => a + b)
+                const l = Object.keys(d[year]).length
+                const mean = sum / l
+                const variance = Object.values(d[year]).reduce((a, b) => a + Math.pow(b - mean, 2)) / l
+                year_obj[year].obj[name] = {
+                    data: d[year],
+                    mean: mean,
+                    name: name,
+                    variance: variance,
+                    varianceSqrt: Math.sqrt(variance),
+                }
+            })
+        })
+        let countLayer = {}
+        Object.keys(year_obj).forEach(year => {
+            year_obj[year].arr = Object.values(year_obj[year].obj).sort((a, b) => a.mean - b.mean)
+            const l = year_obj[year].arr.length
+            countLayer[year] = {}
+            year_obj[year].arr.forEach((d, i) => {//排好序，所以layer的时候都是从小到大加的
+                year_obj[year].obj[d.name].mean_rank = i
+                year_obj[year].obj[d.name].mean_rank_per = i / year_obj[year].arr.length//百分比
+                const newLayer = Math.floor(i / (l / layer))
+                year_obj[year].obj[d.name].layer = newLayer
+                if (!countLayer[year].hasOwnProperty(newLayer)) countLayer[year][newLayer] = []
+                year_obj[year].obj[d.name].layerIndex = countLayer[year][newLayer].length
+                countLayer[year][newLayer].push(d.name)
+            })
+        })
+        return year_obj
     }
 
     getCirclePos(nodes) {
@@ -345,12 +424,21 @@ class global {
                     }
                     his_val[year][la] += 1
                     if (!his_val_obj[year].hasOwnProperty(la)) {
-                        his_val_obj[year][la] = {}
+                        his_val_obj[year][la] = {nameData: {}, rankData: {}}
                     }
-                    if (!his_val_obj[year][la].hasOwnProperty(e[0])) {
-                        his_val_obj[year][la][e[0]] = 0
+                    if (!his_val_obj[year][la].rankData.hasOwnProperty(e[0])) {
+                        his_val_obj[year][la].rankData[e[0]] = 0
                     }
-                    his_val_obj[year][la][e[0]] += 1
+
+                    const pointLayer = yearData[year].obj[name].layer
+                    if (!his_val_obj[year][la].nameData.hasOwnProperty(pointLayer)) {
+                        his_val_obj[year][la].nameData[pointLayer] = {}
+                    }
+                    if (!his_val_obj[year][la].nameData[pointLayer].hasOwnProperty(name)) {
+                        his_val_obj[year][la].nameData[pointLayer][name] = {}
+                    }
+                    his_val_obj[year][la].rankData[e[0]] += 1
+                    his_val_obj[year][la].nameData[pointLayer][name][e[0]] = e[1]
                     sumCount += 1
                 })
                 let layer = yearData[year].obj[name].layer
