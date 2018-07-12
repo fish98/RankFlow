@@ -1,5 +1,7 @@
-import * as d3 from 'd3';
-
+// import * as d3 from 'd3';
+import { drag } from 'd3-drag';
+import {event, mouse} from "d3-selection";
+import {line} from 'd3-shape';
 function inside (point, vs) {
     // ray-casting algorithm based on
     // http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
@@ -22,10 +24,7 @@ function inside (point, vs) {
 var lasso = function() {
 
     var items =[],
-        closePathDistance = 75,
-        closePathSelect = true,
-        isPathClosed = false,
-        hoverSelect = true,
+        hoverSelect = false,
         targetArea,
         on = {start:function(){}, draw: function(){}, end: function(){}};
 
@@ -41,33 +40,33 @@ var lasso = function() {
             .attr("class","drawn");
         
         // add a closed path
-        var close_path = g.append("path")
-            .attr("class","loop_close");
+        // var close_path = g.append("path")
+        //     .attr("class","loop_close");
         
         // add an origin node
-        var origin_node = g.append("circle")
-            .attr("class","origin");
+        var origin_node = g.append("circle");
+        origin_node.classed("origin", true);
 
         // The transformed lasso path for rendering
         var tpath;
 
         // The lasso origin for calculations
-        var origin;
+        // var origin;
 
         // The transformed lasso origin for rendering
-        var torigin;
+        // var torigin;
 
         // Store off coordinates drawn
         var drawnCoords;
 
          // Apply drag behaviors
-        var drag = d3.drag()
+        var _drag = drag()
             .on("start",dragstart)
             .on("drag",dragmove)
             .on("end",dragend);
 
         // Call drag
-        targetArea.call(drag);
+        targetArea.call(_drag);
 
         function dragstart() {
             // Init coordinates
@@ -75,18 +74,22 @@ var lasso = function() {
 
             // Initialize paths
             tpath = "";
-            dyn_path.attr("d",null);
-            close_path.attr("d",null);
+            dyn_path.attr("d", null);
+            // close_path.attr("d", null);
 
             // Set every item to have a false selection and reset their center point and counters
-            items.nodes().forEach(function(e) {            
+            items.each(function(e) {            
                 e.__lasso.possible = false;
                 e.__lasso.selected = false;
                 e.__lasso.hoverSelect = false;
                 e.__lasso.loopSelect = false;
                 
-                var box = e.getBoundingClientRect();
-                e.__lasso.lassoPoint = [box.left + box.width / 2, box.top + box.height / 2];
+                e.__lasso.lassoPoint = [
+                    e.x,
+                    e.y
+                ]
+                // var box = e.getBoundingClientRect();
+                // e.__lasso.lassoPoint = [box.left + box.width / 2, box.top + box.height / 2];
             });
 
             // if hover is on, add hover function
@@ -96,7 +99,21 @@ var lasso = function() {
                     this.__lasso.hoverSelect = true;
                 });
             }
+            var tx = mouse(this)[0];
+            var ty = mouse(this)[1];
+            // console.log(`x:${x}, y:${y}, tx:${tx}, ty:${ty}`);
 
+            // Initialize the path or add the latest point to it
+            
+            tpath = tpath + "M " + tx + " " + ty;
+            // origin = [x,y];
+            // torigin = [tx,ty];
+            // Draw origin node
+            origin_node
+                .attr("cx", tx)
+                .attr("cy", ty)
+                .attr("display",null);
+            
             // Run user defined start function
             on.start();
         }
@@ -104,25 +121,26 @@ var lasso = function() {
         function dragmove() {
             // Get mouse position within body, used for calculations
             var x,y;
-            if(d3.event.sourceEvent.type === "touchmove") {
-                x = d3.event.sourceEvent.touches[0].clientX;
-                y = d3.event.sourceEvent.touches[0].clientY;
+            if(event.sourceEvent.type === "touchmove") {
+                x = event.sourceEvent.touches[0].clientX;
+                y = event.sourceEvent.touches[0].clientY;
             }
             else {
-                x = d3.event.sourceEvent.clientX;
-                y = d3.event.sourceEvent.clientY;
+                x = event.sourceEvent.clientX;
+                y = event.sourceEvent.clientY;
             }
             
 
             // Get mouse position within drawing area, used for rendering
-            var tx = d3.mouse(this)[0];
-            var ty = d3.mouse(this)[1];
+            var tx = mouse(this)[0];
+            var ty = mouse(this)[1];
+            // console.log(`x:${x}, y:${y}, tx:${tx}, ty:${ty}`);
 
             // Initialize the path or add the latest point to it
             if (tpath==="") {
                 tpath = tpath + "M " + tx + " " + ty;
-                origin = [x,y];
-                torigin = [tx,ty];
+                // origin = [x,y];
+                // torigin = [tx,ty];
                 // Draw origin node
                 origin_node
                     .attr("cx",tx)
@@ -134,31 +152,21 @@ var lasso = function() {
                 tpath = tpath + " L " + tx + " " + ty;
             }
 
-            drawnCoords.push([x,y]);
-
-            // Calculate the current distance from the lasso origin
-            var distance = Math.sqrt(Math.pow(x-origin[0],2)+Math.pow(y-origin[1],2));
+            drawnCoords.push([tx,ty]);
 
             // Set the closed path line
-            var close_draw_path = "M " + tx + " " + ty + " L " + torigin[0] + " " + torigin[1];
+            // var close_draw_path = "M " + tx + " " + ty + " L " + torigin[0] + " " + torigin[1];
 
             // Draw the lines
-            dyn_path.attr("d",tpath);
+            dyn_path.datum(drawnCoords.map(d => ({x: d[0], y: d[1]}))).attr("d", function(d) {
+                var _line = line().x(d => d.x).y(d => d.y);
+                console.log(`line: ${_line(d)}, tpath: ${tpath}`);
+                return _line(d);
+            });
 
-            close_path.attr("d",close_draw_path);
+            // close_path.attr("d",close_draw_path);
 
-            // Check if the path is closed
-            isPathClosed = distance<=closePathDistance ? true : false;
-
-            // If within the closed path distance parameter, show the closed path. otherwise, hide it
-            if(isPathClosed && closePathSelect) {
-                close_path.attr("display",null);
-            }
-            else {
-                close_path.attr("display","none");
-            }
-
-            items.nodes().forEach(function(n) {
+            items.each(function(n) {
                 n.__lasso.loopSelect = inside(n.__lasso.lassoPoint, drawnCoords);
                 n.__lasso.possible = n.__lasso.hoverSelect || n.__lasso.loopSelect; 
             });
@@ -168,17 +176,17 @@ var lasso = function() {
 
         function dragend() {
             // Remove mouseover tagging function
-            items.on("mouseover.lasso",null);
+            items.on("mouseover.lasso", null);
 
-            items.nodes().forEach(function(n) {
+            items.each(function(n) {
                 n.__lasso.selected = n.__lasso.possible;
                 n.__lasso.possible = false;
-            });
+            }); 
 
             // Clear lasso
             dyn_path.attr("d",null);
-            close_path.attr("d",null);
-            origin_node.attr("display","none");
+            // close_path.attr("d",null);
+            origin_node.attr("display", "none");
 
             // Run user defined end function
             on.end();
@@ -189,8 +197,8 @@ var lasso = function() {
     lasso.items  = function(_) {
         if (!arguments.length) return items;
         items = _;
-        var nodes = items.nodes();
-        nodes.forEach(function(n) {
+        var nodes = items;
+        nodes.each(function(n) {
             n.__lasso = {
                 "possible": false,
                 "selected": false
@@ -201,52 +209,31 @@ var lasso = function() {
 
     // Return possible items
     lasso.possibleItems = function() {
-        return items.filter(function() {
-            return this.__lasso.possible;
+        return items.filter(function(d) {
+            return d.__lasso.possible;
         });
     }
 
     // Return selected items
     lasso.selectedItems = function() {
-        return items.filter(function() {
-            return this.__lasso.selected;
+        return items.filter(function(d) {
+            return d.__lasso.selected;
         });
     }
 
     // Return not possible items
     lasso.notPossibleItems = function() {
-        return items.filter(function() {
-            return !this.__lasso.possible;
+        return items.filter(function(d) {
+            return !d.__lasso.possible;
         });
     }
 
     // Return not selected items
     lasso.notSelectedItems = function() {
-        return items.filter(function() {
-            return !this.__lasso.selected;
+        return items.filter(function(d) {
+            return !d.__lasso.selected;
         });
     }
-
-    // Distance required before path auto closes loop
-    lasso.closePathDistance  = function(_) {
-        if (!arguments.length) return closePathDistance;
-        closePathDistance = _;
-        return lasso;
-    };
-
-    // Option to loop select or not
-    lasso.closePathSelect = function(_) {
-        if (!arguments.length) return closePathSelect;
-        closePathSelect = _===true ? true : false;
-        return lasso;
-    };
-
-    // Not sure what this is for
-    lasso.isPathClosed = function(_) {
-        if (!arguments.length) return isPathClosed;
-        isPathClosed = _===true ? true : false;
-        return lasso;
-    };
 
     // Option to select on hover or not
     lasso.hoverSelect = function(_) {
@@ -258,8 +245,8 @@ var lasso = function() {
     // Events
     lasso.on = function(type,_) {
         if(!arguments.length) return on;
-        if(arguments.length===1) return on[type];
-        var types = ["start","draw","end"];
+        if(arguments.length === 1) return on[type];
+        var types = ["start", "draw", "end"];
         if(types.indexOf(type)>-1) {
             on[type] = _;
         }

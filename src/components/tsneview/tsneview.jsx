@@ -23,6 +23,18 @@ class TSNEView extends Component {
             data: randomData
         };
     }
+
+    click = () => {
+        this.setState({
+            data: new Array(100).fill(0).map((d, i) => {
+                return {
+                    id: i,
+                    x: Math.random(),
+                    y: Math.random()
+                }
+            })
+        })
+    }
     
     componentWillReceiveProps(props) {
         console.log('TSNE Will Receive Props: ', props);
@@ -56,7 +68,7 @@ class TSNEView extends Component {
                     </Col>
                     <Col span={8}></Col>
                 </Row>
-                <div className="tsne-wrapper-content" ref={(div) => this.svgContainer = div}>
+                <div className="tsne-wrapper-content" ref={(div) => this.svgContainer = div} onClick={this.click}>
                     <Scatter
                         data={this.state.data}
                         height={this.state.svgHeight}

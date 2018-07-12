@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3';
-import lasso from '../../../libs/d3-lasso.js';
+import lasso from '../../../libs/lassoV2.js';
 import './scatter.less';
 import Global from '../.././Store/Global'
 import {observer} from 'mobx-react'
@@ -11,6 +11,7 @@ class Scatter extends Component {
         console.log('Scatter Init', props);
 
         this.svg = null;
+        this.circleMap = {};
         this.zoom = null;
         this.lasso = null;
         this.state = {
@@ -59,7 +60,7 @@ class Scatter extends Component {
         console.log('Scatter Did Update: ', this.props);
         var nodes = d3.selectAll('#scatter-point-g .scatter-point').data(this.state.data);
         console.log(nodes.data());
-        this.lasso.items(nodes);
+        this.lasso.items(nodes.data());
     }
 
     componentDidMount() {
@@ -68,62 +69,55 @@ class Scatter extends Component {
         
         self.zoom = d3.zoom().on('zoom', zoomed);
         
-        self.lasso = lasso().closePathSelect(true)
-            .closePathDistance(100)
-            .targetArea(d3.select(self.svg))
+        self.lasso = lasso().area(d3.select(self.svg))
             .on("start", lasso_start)
             .on("draw", lasso_draw)
             .on("end", lasso_end);
 
         d3.select(self.svg).call(self.lasso);
 
-
         function lasso_start () {
-            self.lasso.items()
-                .attr("r", 3.5) // reset size
-                .classed("not_possible", true)
-                .classed("selected", false);
+            self.lasso.items().forEach(item => {
+                d3.select(self.circleMap[item.id])
+                    .classed("selected", false);
+            });
         }
+
         function lasso_draw () {
+            self.lasso.possibleItems().forEach(item => {
+                d3.select(self.circleMap[item.id])
+                    .classed("possible", true);
+            });
         
-            // Style the possible dots
-            self.lasso.possibleItems()
-                .classed("not_possible", false)
-                .classed("possible", true);
-        
-            // Style the not possible dot
-            self.lasso.notPossibleItems()
-                .classed("not_possible", true)
-                .classed("possible", false);
+            self.lasso.notPossibleItems().forEach(item => {
+                d3.select(self.circleMap[item.id])
+                    .classed("possible", false);
+            });
         }
         
         function lasso_end () {
-            var ids = []
             console.log(self.lasso.selectedItems());
-            self.lasso.selectedItems().each(item => {
+            let nodes = [], ids = []
+            self.lasso.selectedItems().forEach(item => {
                 ids.push(item.id)
             })
-            let nodes = []
+            
             const names = Object.keys(Global.rankData)
             ids.forEach(id=>{
                 nodes.push(names[id])
             })
             Global.setNodes(nodes)
             console.log(ids)
-            // Reset the color of all dots
-            self.lasso.items()
-                .classed("not_possible", false)
-                .classed("possible", false);
-        
-            // Style the selected dots
-            self.lasso.selectedItems()
-                .classed("selected", true)
-                .attr("r", 7);
-        
-            // Reset the style of the not selected dots
-            self.lasso.notSelectedItems()
-                .attr("r", 3.5);
-        
+            
+            self.lasso.items().forEach(item => {
+                d3.select(self.circleMap[item.id])
+                    .classed("possible", false);
+            });
+            
+            self.lasso.selectedItems().forEach(item => {
+                d3.select(self.circleMap[item.id])
+                    .classed("selected", true);
+            });
         }
 
         function zoomed () {
@@ -146,7 +140,7 @@ class Scatter extends Component {
         return (
             <svg height={height} width={width} className='scatter-svg' ref={svg => this.svg=svg}>
                 <g id="scatter-point-g">{
-                    this.state.data.map((d, i) => <circle className='scatter-point' key={i} cx={d.x} cy={d.y}></circle>)
+                    this.state.data.map(d => <circle className='scatter-point' key={d.id} cx={d.x} cy={d.y} ref={circle => this.circleMap[d.id] = circle}></circle>)
                 }</g>
             </svg>
         );
