@@ -46,6 +46,11 @@ class RankView extends Component {
             </Row>
             <div className="rank-wrapper-content" ref='rankView'>
                 <svg width={Global.rankWidth} height={Global.rankHeight}>
+                    <defs>
+                        <filter id="f1" x="0" y="0">
+                        <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+                        </filter>
+                    </defs>
                     {Global.axisPos === null ? null :
                         <g>
                             <Times/>
