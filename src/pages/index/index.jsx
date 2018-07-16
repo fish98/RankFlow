@@ -31,8 +31,45 @@ class Index extends Component {
         }
     }
 
-
-
+    dealData(data, layer) {
+        let year_obj = {}
+        Object.keys(data).forEach(name => {
+            const d = data[name]
+            Object.keys(d).forEach(year => {
+                if (!year_obj.hasOwnProperty(year)) {
+                    year_obj[year] = {obj: {}, arr: []}
+                }
+                const sum = Object.values(d[year]).reduce((a, b) => a + b)
+                const l = Object.keys(d[year]).length
+                const mean = sum / l
+                const variance = Object.values(d[year]).reduce((a, b) => a + Math.pow(b - mean, 2)) / l
+                year_obj[year].obj[name] = {
+                    data: d[year],
+                    mean: mean,
+                    name: name,
+                    rankL:l,
+                    variance: variance,
+                    varianceSqrt: Math.sqrt(variance),
+                }
+            })
+        })
+        let countLayer = {}
+        Object.keys(year_obj).forEach(year => {
+            year_obj[year].arr = Object.values(year_obj[year].obj).sort((a, b) => a.mean - b.mean)
+            const l = year_obj[year].arr.length
+            countLayer[year] = {}
+            year_obj[year].arr.forEach((d, i) => {//排好序，所以layer的时候都是从小到大加的
+                year_obj[year].obj[d.name].mean_rank = i
+                year_obj[year].obj[d.name].mean_rank_per = i / year_obj[year].arr.length//百分比
+                const newLayer = Math.floor(i / (l / layer))
+                year_obj[year].obj[d.name].layer = newLayer
+                if (!countLayer[year].hasOwnProperty(newLayer)) countLayer[year][newLayer] = []
+                year_obj[year].obj[d.name].layerIndex = countLayer[year][newLayer].length
+                countLayer[year][newLayer].push(d.name)
+            })
+        })
+        return year_obj
+    }
     axisPosition(years, width, opts = {
         left: Global.left,
         right: Global.right
@@ -69,6 +106,7 @@ class Index extends Component {
                     </div>
                     <div className="left-middle-container">
                         <Filter/>
+                        {/*{Global.selectNode === null ? null : <Filter/>}*/}
                     </div>
                     <div className="left-top-container"/>
 

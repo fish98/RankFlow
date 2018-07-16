@@ -9,7 +9,7 @@ class Times extends Component {
 
     render() {
         return (
-            <g name={'Times'}>
+            <g name={'Times'} transform={`translate(0,${Global.diffHeight-14})`}>
                 {Global.yearArr.map(year => {
                     return <g key={year} year={year} transform={`translate(${Global.axisPos[year]})`}>
                         <TimesItem key={year} year={year}/>

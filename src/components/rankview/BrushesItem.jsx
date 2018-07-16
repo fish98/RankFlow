@@ -78,7 +78,7 @@ class BrushesItem extends Component {
     onClick(e) {
         let name = e.target.getAttribute('name')
         if (Global.selectNode === name) {
-            name = []
+            name = null
         }
         Global.setSelectNode(name)
     }
@@ -106,7 +106,8 @@ class BrushesItem extends Component {
         const year = this.props.year
         const s = `${year}_Brush`
         return (
-            <g ref={s} transform={`translate(${Global.subWidth},${ Global.diffHeight})`} rankHight={Global.rankHeight}>
+            <g ref={s} transform={`translate(${Global.subWidth},${ Global.diffHeight})`} >
+                {/*rankHight={Global.rankHeight}>*/}
                 {/*<rect year={year} width={Global.eachWidth - Global.subWidth}*/}
                 {/*height={Global.rankHeight - Global.diffHeight}*/}
                 {/*opacity={0.1}*/}

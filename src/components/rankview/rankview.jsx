@@ -12,6 +12,7 @@ import Lines from './Lines'
 import Times from './Times'
 import Brushes from "./Brushes"
 import * as d3 from 'd3'
+import Linecharts from "./Linecharts"
 
 @observer
 class RankView extends Component {
@@ -42,17 +43,18 @@ class RankView extends Component {
 
     render() {
         return <div className="rank-wrapper">
-            <Row className="rank-wrapper-title" onClick={this.onClick}>
-                <Col span={8}/>
-                <Col span={8}>
-                    Rank View
-                </Col>
-                <Col span={8}/>
-            </Row>
+            {/*<Row className="rank-wrapper-title" onClick={this.onClick}>*/}
+                {/*<Col span={8}/>*/}
+                {/*<Col span={8}>*/}
+                    {/*Rank View*/}
+                {/*</Col>*/}
+                {/*<Col span={8}/>*/}
+            {/*</Row>*/}
             <div className="rank-wrapper-content" ref='rankView'>
                 <svg width={Global.rankWidth} height={Global.rankHeight}>
                     {Global.axisPos === null ? null :
                         <g transform={`translate(-30)`}>
+                            <Linecharts/>
                             <Times/>
                             <Brushes/>
                             <Histograms/>

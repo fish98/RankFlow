@@ -10,7 +10,7 @@ class Circles extends Component {
 
     render() {
         return (
-            <g name={'Circles'}>
+            <g name={'Circles'} >
                 {Global.yearArr.map(year => {
                     return <g key={year} year={year} transform={`translate(${Global.axisPos[year]})`}>
                         {Global.circlePos.hasOwnProperty(year) ? <CirclesItem key={year} year={year}/> : null}

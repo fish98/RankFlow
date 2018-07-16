@@ -1,4 +1,5 @@
 import {observable, action, toJS} from "mobx"
+import year_data from '../.././pages/index/year_data'
 
 class global {
     @observable yearData = {}
@@ -10,7 +11,7 @@ class global {
     @observable circlePos = {}
     @observable overNode = []
     @observable overYear = ""
-    @observable selectNode = []
+    @observable selectNode = null
     @observable overLayer = null
     @observable linePos = {}
     @observable yearArr = []
@@ -24,14 +25,14 @@ class global {
     @observable clickLayer = null
     @observable clickYear = null
     @observable maxRank = {}
-    @observable filterObj = {ele: [], year: [], onlySelf: true}
+    @observable filterObj = {eles: [], years: [], names: []}
     @observable filterObjHistory = []
     eleObj = {}
     subWidth = 15
     layer = 20
     right = 30
     left = 30
-    diffHeight = 15
+    diffHeight = 55
     rankR = 5
     nodess = []
     elements = ["HIS", "ICC", "H", "aggre_constraint", "clust_coef", "betweenness", "effective_size", "local_effic", "pagerank", "MaxD"]
@@ -47,9 +48,62 @@ class global {
     @observable hisRankObj = {}
 
     @action
-    setFilterObj(opt, data) {
-        this.filterObj[opt] = data
-        console.log('setFilterObj', toJS(opt), toJS(data))
+    initYeardata() {
+        this.yearData = year_data
+        // this.saveNodes = nodes
+        this.dealSetNodes(this.nodes)
+        console.log('nodes', toJS(this.nodes))
+        console.log('maxRank', toJS(year_data))
+    }
+
+
+    @action
+    setFilterObj(data) {
+        this.filterObj = data
+        let layer = this.layer
+        let countLayer = {}
+        let yearData = this.yearData
+        data.years.forEach(year => {
+            let year_obj = yearData[year]
+            data.names.forEach(name => {
+                if (!year_obj.obj.hasOwnProperty(name)) return
+                let nameObj = year_obj.obj[name]
+                data.eles.forEach(ele => {
+                    if (!nameObj.data.hasOwnProperty(ele)) return
+                    delete nameObj.data[ele]
+                })
+                const sum = Object.values(nameObj.data).reduce((a, b) => a + b)
+                const l = Object.keys(nameObj.data).length
+                const mean = sum / l
+                const variance = Object.values(nameObj.data).reduce((a, b) => a + Math.pow(b - mean, 2)) / l
+                nameObj.mean = mean
+                nameObj.rankL = l
+                nameObj.variance = variance
+            })
+            yearData[year].arr = Object.values(this.yearData[year].obj).sort((a, b) => a.mean - b.mean)
+            const l = this.yearData[year].arr.length
+            countLayer[year] = {}
+            yearData[year].arr.forEach((d, i) => {//排好序，所以layer的时候都是从小到大加的
+                yearData[year].obj[d.name].mean_rank = i
+                yearData[year].obj[d.name].mean_rank_per = i / yearData[year].arr.length//百分比
+                const newLayer = Math.floor(i / (l / layer))
+                yearData[year].obj[d.name].layer = newLayer
+                if (!countLayer[year].hasOwnProperty(newLayer)) countLayer[year][newLayer] = []
+                yearData[year].obj[d.name].layerIndex = countLayer[year][newLayer].length
+                countLayer[year][newLayer].push(d.name)
+            })
+        })
+        console.log('setFilterObj', toJS(data))
+        // this.setYearData(yearData)
+        let nodes = new Set()
+        Object.values(this.saveNodes).forEach(name => {
+            nodes.add(name)
+        })
+        if (nodes.size) {
+            this.dealSetNodes(nodes)
+        } else {
+            this.dealSetNodes(data.names)
+        }
     }
 
     @action
@@ -278,44 +332,6 @@ class global {
         console.log('eachWidth', toJS(eachWidth))
     }
 
-    dealData(data, layer) {
-        let year_obj = {}
-        Object.keys(data).forEach(name => {
-            const d = data[name]
-            Object.keys(d).forEach(year => {
-                if (!year_obj.hasOwnProperty(year)) {
-                    year_obj[year] = {obj: {}, arr: []}
-                }
-                const sum = Object.values(d[year]).reduce((a, b) => a + b)
-                const l = Object.keys(d[year]).length
-                const mean = sum / l
-                const variance = Object.values(d[year]).reduce((a, b) => a + Math.pow(b - mean, 2)) / l
-                year_obj[year].obj[name] = {
-                    data: d[year],
-                    mean: mean,
-                    name: name,
-                    variance: variance,
-                    varianceSqrt: Math.sqrt(variance),
-                }
-            })
-        })
-        let countLayer = {}
-        Object.keys(year_obj).forEach(year => {
-            year_obj[year].arr = Object.values(year_obj[year].obj).sort((a, b) => a.mean - b.mean)
-            const l = year_obj[year].arr.length
-            countLayer[year] = {}
-            year_obj[year].arr.forEach((d, i) => {//排好序，所以layer的时候都是从小到大加的
-                year_obj[year].obj[d.name].mean_rank = i
-                year_obj[year].obj[d.name].mean_rank_per = i / year_obj[year].arr.length//百分比
-                const newLayer = Math.floor(i / (l / layer))
-                year_obj[year].obj[d.name].layer = newLayer
-                if (!countLayer[year].hasOwnProperty(newLayer)) countLayer[year][newLayer] = []
-                year_obj[year].obj[d.name].layerIndex = countLayer[year][newLayer].length
-                countLayer[year][newLayer].push(d.name)
-            })
-        })
-        return year_obj
-    }
 
     getCirclePos(nodes) {
         let circlePos = {}
@@ -356,6 +372,10 @@ class global {
                         lineGroup[year] = {}
                     }
                     lineGroup[year][name] = {
+                        real: {
+                            source: {x: circleLeft.cx, y: circleLeft.cy},
+                            target: {x: circleRight.cx + this.eachWidth, y: circleRight.cy},
+                        },
                         source: {
                             x: 0,
                             y: circleLeft.y,
