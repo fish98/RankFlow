@@ -94,15 +94,17 @@ class global {
             })
         })
         console.log('setFilterObj', toJS(data))
-        // this.setYearData(yearData)
+        this.setYearData(yearData)
         let nodes = new Set()
-        Object.values(this.saveNodes).forEach(name => {
-            nodes.add(name)
+        Object.values(this.saveNodes).forEach(names => {
+            names.forEach(name=>{
+                nodes.add(name)
+            })
         })
         if (nodes.size) {
             this.dealSetNodes(nodes)
         } else {
-            this.dealSetNodes(data.names)
+            this.dealSetNodes(this.nodes)
         }
     }
 

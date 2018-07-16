@@ -61,7 +61,9 @@ class Filter extends Component {
     onChange(e) {
         console.log(e)
     }
-
+    onClickInit(e){
+        Global.initYeardata()
+    }
     render() {
         // const optionsEles = Global.elements.filter(ele => {
         //     return Global.yearData[Global.clickYear].obj[Global.selectNode].data.hasOwnProperty(ele)
@@ -113,7 +115,10 @@ class Filter extends Component {
                     <br/><br/>
                     <CheckboxGroup options={optionsNodes} onChange={this.onChangeNodes}/>
                 </div>
-                <Button type="primary" onClick={this.onClick}>Filter</Button>
+                <div>
+                    <Button type="primary" onClick={this.onClick}>Filter</Button>
+                    <Button type="primary" onClick={this.onClickInit}>Init</Button>
+                </div>
 
             {/*</div>*/}
             </div>
