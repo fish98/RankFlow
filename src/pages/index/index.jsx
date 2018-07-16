@@ -7,6 +7,7 @@ import DetailView from '../../components/detailview/detailview'
 import TSNEView from '../../components/tsneview/tsneview'
 import Global from '../../components/Store/Global'
 import {observer} from 'mobx-react'
+import Filter from "../../components/filter/Filter"
 
 @observer
 class Index extends Component {
@@ -22,6 +23,7 @@ class Index extends Component {
             result[data[0]] = data[1].arr.length
             return result
         }, {})
+        Global.setMaxRank(maxRank)
         self.state = {
             axisPos: null,
             detailData: detailData,
@@ -31,15 +33,6 @@ class Index extends Component {
 
     dealData(data, layer) {
         let year_obj = {}
-
-        function compare(mean) {
-            return function (obj1, obj2) {
-                let value1 = obj1[mean]
-                let value2 = obj2[mean]
-                return value1 - value2     // 升序
-            }
-        }
-
         Object.keys(data).forEach(name => {
             const d = data[name]
             Object.keys(d).forEach(year => {
@@ -50,7 +43,14 @@ class Index extends Component {
                 const l = Object.keys(d[year]).length
                 const mean = sum / l
                 const variance = Object.values(d[year]).reduce((a, b) => a + Math.pow(b - mean, 2)) / l
-                year_obj[year].obj[name] = {data: d[year], mean: mean, name: name, variance: variance}
+                year_obj[year].obj[name] = {
+                    data: d[year],
+                    mean: mean,
+                    name: name,
+                    rankL:l,
+                    variance: variance,
+                    varianceSqrt: Math.sqrt(variance),
+                }
             })
         })
         let countLayer = {}
@@ -60,21 +60,16 @@ class Index extends Component {
             countLayer[year] = {}
             year_obj[year].arr.forEach((d, i) => {//排好序，所以layer的时候都是从小到大加的
                 year_obj[year].obj[d.name].mean_rank = i
+                year_obj[year].obj[d.name].mean_rank_per = i / year_obj[year].arr.length//百分比
                 const newLayer = Math.floor(i / (l / layer))
                 year_obj[year].obj[d.name].layer = newLayer
                 if (!countLayer[year].hasOwnProperty(newLayer)) countLayer[year][newLayer] = []
                 year_obj[year].obj[d.name].layerIndex = countLayer[year][newLayer].length
                 countLayer[year][newLayer].push(d.name)
             })
-            // year_obj[year].count =
-            // Object.keys(countLayer[year]).forEach(layer=>{//这里改mean_rank可以让每一层按照方差来排序
-            //     countLayer[year][layer].sort((a,b)=>year_obj[year].obj[a].mean_rank-year_obj[year].obj[b].mean_rank)
-            // })
         })
         return year_obj
     }
-
-
     axisPosition(years, width, opts = {
         left: Global.left,
         right: Global.right
@@ -107,9 +102,14 @@ class Index extends Component {
             <div className="page-wrapper">
                 <div className="left-container">
                     <div className="left-top-container">
-                        <TSNEView></TSNEView>
+                        <TSNEView/>
                     </div>
-                    <div className="left-middle-container"/>
+                    <div className="left-middle-container">
+                        <Filter/>
+                        {/*{Global.selectNode === null ? null : <Filter/>}*/}
+                    </div>
+                    <div className="left-top-container"/>
+
                     <div className="left-bottom-container" onClick={this.onClickHandler}/>
                 </div>
                 <div className="right-container">

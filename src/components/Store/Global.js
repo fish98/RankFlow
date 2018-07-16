@@ -1,4 +1,5 @@
 import {observable, action, toJS} from "mobx"
+import year_data from '../.././pages/index/year_data'
 
 class global {
     @observable yearData = {}
@@ -9,8 +10,9 @@ class global {
     @observable hisDataWidthdiff = 10
     @observable circlePos = {}
     @observable overNode = []
-    @observable selectNode = []
-    @observable overLayer = []
+    @observable overYear = ""
+    @observable selectNode = null
+    @observable overLayer = null
     @observable linePos = {}
     @observable yearArr = []
     @observable maxVar = 1
@@ -19,12 +21,20 @@ class global {
     @observable saveNodes = {}
     @observable brushNum = 0
     @observable nodesSet = new Set()
+    @observable overLayerData = {}
+    @observable clickLayer = null
+    @observable clickYear = null
+    @observable maxRank = {}
+    @observable filterObj = {eles: [], years: [], names: []}
+    @observable filterObjHistory = []
+    eleObj = {}
     subWidth = 15
     layer = 20
     right = 30
     left = 30
-    diffHeight = 15
+    diffHeight = 55
     rankR = 5
+    nodess = []
     elements = ["HIS", "ICC", "H", "aggre_constraint", "clust_coef", "betweenness", "effective_size", "local_effic", "pagerank", "MaxD"]
     @observable eachWidth = 0
     @observable minHisVal = 0
@@ -36,6 +46,97 @@ class global {
     @observable axisPos = null
     @observable hisDataObj = {}
     @observable hisRankObj = {}
+
+    @action
+    initYeardata() {
+        this.yearData = year_data
+        // this.saveNodes = nodes
+        this.dealSetNodes(this.nodes)
+        console.log('nodes', toJS(this.nodes))
+        console.log('maxRank', toJS(year_data))
+    }
+
+
+    @action
+    setFilterObj(data) {
+        this.filterObj = data
+        let layer = this.layer
+        let countLayer = {}
+        let yearData = this.yearData
+        data.years.forEach(year => {
+            let year_obj = yearData[year]
+            data.names.forEach(name => {
+                if (!year_obj.obj.hasOwnProperty(name)) return
+                let nameObj = year_obj.obj[name]
+                data.eles.forEach(ele => {
+                    if (!nameObj.data.hasOwnProperty(ele)) return
+                    delete nameObj.data[ele]
+                })
+                const sum = Object.values(nameObj.data).reduce((a, b) => a + b)
+                const l = Object.keys(nameObj.data).length
+                const mean = sum / l
+                const variance = Object.values(nameObj.data).reduce((a, b) => a + Math.pow(b - mean, 2)) / l
+                nameObj.mean = mean
+                nameObj.rankL = l
+                nameObj.variance = variance
+            })
+            yearData[year].arr = Object.values(this.yearData[year].obj).sort((a, b) => a.mean - b.mean)
+            const l = this.yearData[year].arr.length
+            countLayer[year] = {}
+            yearData[year].arr.forEach((d, i) => {//排好序，所以layer的时候都是从小到大加的
+                yearData[year].obj[d.name].mean_rank = i
+                yearData[year].obj[d.name].mean_rank_per = i / yearData[year].arr.length//百分比
+                const newLayer = Math.floor(i / (l / layer))
+                yearData[year].obj[d.name].layer = newLayer
+                if (!countLayer[year].hasOwnProperty(newLayer)) countLayer[year][newLayer] = []
+                yearData[year].obj[d.name].layerIndex = countLayer[year][newLayer].length
+                countLayer[year][newLayer].push(d.name)
+            })
+        })
+        console.log('setFilterObj', toJS(data))
+        this.setYearData(yearData)
+        let nodes = new Set()
+        Object.values(this.saveNodes).forEach(names => {
+            names.forEach(name=>{
+                nodes.add(name)
+            })
+        })
+        if (nodes.size) {
+            this.dealSetNodes(nodes)
+        } else {
+            this.dealSetNodes(this.nodes)
+        }
+    }
+
+    @action
+    setMaxRank(maxRank) {
+        this.maxRank = maxRank
+        console.log('maxRank', toJS(maxRank))
+    }
+
+    @action
+    setClickYear(clickYear) {
+        this.clickYear = clickYear
+        console.log('clickYear', toJS(clickYear))
+    }
+
+    @action
+    setOverYear(overYear) {
+        this.overYear = overYear
+        console.log('overYear', toJS(overYear))
+    }
+
+    @action
+    setClickLayer(clickLayer) {
+        this.clickLayer = clickLayer
+        console.log('clickLayer', toJS(clickLayer))
+    }
+
+    @action
+    setOverLayerData(overLayerData) {
+        this.overLayerData = overLayerData
+        console.log('overLayerData', toJS(overLayerData))
+    }
 
     @action
     setDragData(dragData) {
@@ -88,6 +189,7 @@ class global {
         if (!nodess.size) {
             nodess = this.nodes
         }
+        this.nodess = nodess
         this.dealSetNodes(nodess)
         console.log('saveNodes', toJS(saveNodes))
     }
@@ -174,6 +276,8 @@ class global {
 
     @action
     setYearData(yearData) {
+        // this.yearData=this.dealData(this.rankData, this.layer)
+
         this.yearData = yearData
         console.log('yearData', toJS(yearData))
     }
@@ -186,8 +290,10 @@ class global {
 
     @action
     setRankHeight(rankHeight) {
-        if (this.rankHeight !== rankHeight)
+        if (this.rankHeight !== rankHeight) {
             this.rankHeight = rankHeight
+            this.dealSetNodes(this.nodess)
+        }
         console.log('rankHeight', toJS(rankHeight))
     }
 
@@ -228,6 +334,7 @@ class global {
         console.log('eachWidth', toJS(eachWidth))
     }
 
+
     getCirclePos(nodes) {
         let circlePos = {}
         let circlePosPer = {}
@@ -267,6 +374,10 @@ class global {
                         lineGroup[year] = {}
                     }
                     lineGroup[year][name] = {
+                        real: {
+                            source: {x: circleLeft.cx, y: circleLeft.cy},
+                            target: {x: circleRight.cx + this.eachWidth, y: circleRight.cy},
+                        },
                         source: {
                             x: 0,
                             y: circleLeft.y,
@@ -336,6 +447,9 @@ class global {
             nodes.forEach(name => {
                 if (!yearData[year].obj.hasOwnProperty(name)) return
                 Object.entries(yearData[year].obj[name].data).forEach((e) => {
+                    if (!this.eleObj.hasOwnProperty(e[0])) {
+                        this.eleObj[e[0]] = {}
+                    }
                     let la = Math.floor(e[1] / (yearData[year].arr.length / this.layer))
                     if (yearData[year].obj[name].variance > max_var) {
                         max_var = yearData[year].obj[name].variance
@@ -345,12 +459,21 @@ class global {
                     }
                     his_val[year][la] += 1
                     if (!his_val_obj[year].hasOwnProperty(la)) {
-                        his_val_obj[year][la] = {}
+                        his_val_obj[year][la] = {nameData: {}, rankData: {}}
                     }
-                    if (!his_val_obj[year][la].hasOwnProperty(e[0])) {
-                        his_val_obj[year][la][e[0]] = 0
+                    if (!his_val_obj[year][la].rankData.hasOwnProperty(e[0])) {
+                        his_val_obj[year][la].rankData[e[0]] = 0
                     }
-                    his_val_obj[year][la][e[0]] += 1
+
+                    const pointLayer = yearData[year].obj[name].layer
+                    if (!his_val_obj[year][la].nameData.hasOwnProperty(pointLayer)) {
+                        his_val_obj[year][la].nameData[pointLayer] = {}
+                    }
+                    if (!his_val_obj[year][la].nameData[pointLayer].hasOwnProperty(name)) {
+                        his_val_obj[year][la].nameData[pointLayer][name] = {}
+                    }
+                    his_val_obj[year][la].rankData[e[0]] += 1
+                    his_val_obj[year][la].nameData[pointLayer][name][e[0]] = e[1]
                     sumCount += 1
                 })
                 let layer = yearData[year].obj[name].layer

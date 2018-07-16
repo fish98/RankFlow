@@ -13,7 +13,7 @@ class LinesItem extends Component {
     render() {
         const year = this.props.year
         return (
-            <g transform={`translate(${-Global.eachWidth+Global.subWidth},${ Global.diffHeight})`}>
+            <g transform={`translate(${-Global.eachWidth + Global.subWidth},${ Global.diffHeight})`}>
                 {Object.keys(Global.linePos[year]).map(name => {
                     const data = Global.linePos[year][name]
                     let opacity = 0
@@ -21,8 +21,11 @@ class LinesItem extends Component {
                         opacity = 1
                     if (Global.selectNode === name)
                         opacity = 1
-                    return <line key={`${year}_${name}`} x1={data.source.x} y1={data.source.y} x2={data.target.x}
-                                 y2={data.target.y}
+                    return <line key={`${year}_${name}`}
+                                 x1={data.real.source.x}
+                                 y1={data.real.source.y}
+                                 x2={data.real.target.x}
+                                 y2={data.real.target.y}
                                  strokeWidth={2} stroke={'red'} opacity={opacity}
                         // onMouseOver={this.onMouseOver}
                     />

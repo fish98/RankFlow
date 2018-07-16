@@ -8,7 +8,7 @@ class TimesItem extends Component {
 
     render() {
         return (
-            <text x={Global.diffHeight} y={10} className="no-select-text">
+            <text x={15} y={10} className="no-select-text">
                 {this.props.year}
             </text>
         )
