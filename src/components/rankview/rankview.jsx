@@ -13,6 +13,7 @@ import Times from './Times'
 import Brushes from "./Brushes"
 import * as d3 from 'd3'
 import Linecharts from "./Linecharts"
+import Trend from './trend';
 
 @observer
 class RankView extends Component {
@@ -42,6 +43,19 @@ class RankView extends Component {
     }
 
     render() {
+        var linePos = toJS(Global.linePos), maxVal = -Infinity, minVal = Infinity;
+        var linePosByName = {};
+        Object.keys(linePos).forEach(year => {
+            var linePosByYear = linePos[year];
+            Object.values(linePosByYear).forEach(data => {
+                if(!linePosByName[data.name]) linePosByName[data.name] = {};
+                linePosByName[data.name][year - 1] = data;
+
+                maxVal = Math.max(data.valLeft, data.valRight, maxVal);
+                minVal = Math.min(data.valLeft, data.valRight, minVal);
+            })
+        });
+        var scale = d3.scaleLinear().domain([minVal, maxVal]).range([0.2, 5]);
         return <div className="rank-wrapper">
             {/*<Row className="rank-wrapper-title" onClick={this.onClick}>*/}
                 {/*<Col span={8}/>*/}
@@ -63,6 +77,7 @@ class RankView extends Component {
                             <Times/>
                             <Brushes/>
                             <Histograms/>
+                            <Trend linePos={linePosByName} scale={scale} axis={toJS(Global.axisPos)}/>
                             <Lines/>
                             <Circles/>
                         </g>}
