@@ -32,10 +32,12 @@ class CirclesItem extends Component {
             name = null
             year = null
             Global.setRankHeight(940)
+        } else {
+            Global.setRankHeight(588)
+
         }
         Global.setSelectNode(name)
         Global.setClickYear(year)
-        Global.setRankHeight(588)
     }
 
     onVisibleChange(e) {
@@ -92,7 +94,7 @@ class CirclesItem extends Component {
 
 
                     return <Tooltip key={`${year}_${name}`}
-                                    // visible={Global.overNode === name || hisMouseOverF || hisMouseClickF}
+                        // visible={Global.overNode === name || hisMouseOverF || hisMouseClickF}
                                     visible={Global.overNode === name}
                                     mouseLeaveDelay={0}
                                     title={circleNode}

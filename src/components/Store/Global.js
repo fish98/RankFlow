@@ -293,7 +293,7 @@ class global {
     setRankHeight(rankHeight) {
         if (this.rankHeight !== rankHeight) {
             this.rankHeight = rankHeight
-            this.dealSetNodes(this.nodess)
+            this.dealSetNodes(this.nodes)
         }
         console.log('rankHeight', toJS(rankHeight))
     }
@@ -355,7 +355,7 @@ class global {
                     circlePos[year] = {}
                 }
                 circlePos[year][name] = {
-                    val: Math.sqrt(this.yearData[year].obj[name].variance),
+                    val: this.yearData[year].obj[name].varianceSqrt_per,
                     x: 0,
                     cx: cx,
                     cy: cy,
