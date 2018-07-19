@@ -110,6 +110,7 @@ class Index extends Component {
     }
 
     render() {
+        console.log(Global.selectNode, Global.rankData[Global.selectNode], Global.axisPos, this.state.maxRank);
         return (
             <div className="page-wrapper">
                 <div className="left-container">
@@ -125,10 +126,10 @@ class Index extends Component {
                     <div className="left-bottom-container" onClick={this.onClickHandler}/>
                 </div>
                 <div className="right-container">
-                    <div className="right-top-container">
+                    <div className="right-top-container" style={{zIndex: 10}}>
                         <RankView axis={this.state.axisPos}/>
                     </div>
-                    <div className="right-bottom-container">
+                    <div className="right-bottom-container" style={{zIndex: Global.selectNode ? 100: 1}}>
                         <DetailView data={Global.rankData[Global.selectNode]} axis={Global.axisPos}
                                     maxRank={this.state.maxRank}/>
                     </div>
