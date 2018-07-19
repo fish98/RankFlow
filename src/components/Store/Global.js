@@ -40,7 +40,7 @@ class global {
     @observable minHisVal = 0
     @observable maxHIsVal = 1
     @observable rankWidth = 1
-    @observable rankHeight = 1
+    @observable rankHeight = 940
     @observable hisData = []
     @observable hisRank = []
     @observable axisPos = null

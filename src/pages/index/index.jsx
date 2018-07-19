@@ -14,7 +14,7 @@ class Index extends Component {
     constructor() {
         super()
         let self = this
-        let yearData = this.dealData(rankData, Global.layer)
+        // let yearData = this.dealData(rankData, Global.layer)
         Global.setRankData(rankData)
         Global.setYearData(yearData)
         Global.setYearArr(Object.keys(yearData).sort())

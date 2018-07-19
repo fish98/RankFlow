@@ -23,7 +23,8 @@ class RankView extends Component {
 
     getWidth(self) {
         Global.setRankWidth(self.refs.rankView.clientWidth)
-        Global.setRankHeight(self.refs.rankView.clientHeight)
+        // Global.setRankHeight(self.refs.rankView.clientHeight)
+        // Global.setRankHeight(940)
         const count = Object.keys(Global.yearData).length
         let eachWidth = (self.refs.rankView.clientWidth - Global.left - Global.right) / count
         if (!count) eachWidth = 0

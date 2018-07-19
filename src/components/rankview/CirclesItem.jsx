@@ -31,9 +31,11 @@ class CirclesItem extends Component {
         if (Global.selectNode === name) {
             name = null
             year = null
+            Global.setRankHeight(940)
         }
         Global.setSelectNode(name)
         Global.setClickYear(year)
+        Global.setRankHeight(588)
     }
 
     onVisibleChange(e) {
