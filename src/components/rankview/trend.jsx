@@ -42,7 +42,7 @@ class Trend extends Component {
         var stepCount = 20;
         var stepScale = d3.scaleLinear().domain([0, stepCount - 1]).range([0.1, 0.9]);
         var steps = new Array(stepCount).fill(0).map((d, i) => stepScale(i));
-        var area = d3.area().curve(d3.curveCardinal).x((d) => d.x).y0((d) => d.y0).y1((d) => d.y1);
+        var area = d3.area().x((d) => d.x).y0((d) => d.y0).y1((d) => d.y1);
 
         var sections = [];
         if(linePos) {
