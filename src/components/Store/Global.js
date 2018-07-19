@@ -71,6 +71,7 @@ class global {
                 data.eles.forEach(ele => {
                     if (!nameObj.data.hasOwnProperty(ele)) return
                     delete nameObj.data[ele]
+                    delete nameObj.data_per[ele]
                 })
                 const sum = Object.values(nameObj.data).reduce((a, b) => a + b)
                 const l = Object.keys(nameObj.data).length

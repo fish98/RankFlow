@@ -14,7 +14,7 @@ class Index extends Component {
     constructor() {
         super()
         let self = this
-        // let yearData = this.dealData(rankData, Global.layer)
+        let yearData = this.dealData(rankData, Global.layer)
         Global.setRankData(rankData)
         Global.setYearData(yearData)
         Global.setYearArr(Object.keys(yearData).sort())
@@ -42,12 +42,12 @@ class Index extends Component {
                 const sum = Object.values(d[year]).reduce((a, b) => a + b)
                 const l = Object.keys(d[year]).length
                 const mean = sum / l
-                const variance = Object.values(d[year]).reduce((a, b) => a + Math.pow(b - mean, 2)) / l
+                const variance = Object.values(d[year]).reduce((a, b) => a + Math.pow(b - mean, 2), 0) / l
                 year_obj[year].obj[name] = {
                     data: d[year],
                     mean: mean,
                     name: name,
-                    rankL:l,
+                    rankL: l,
                     variance: variance,
                     varianceSqrt: Math.sqrt(variance),
                 }
@@ -59,8 +59,19 @@ class Index extends Component {
             const l = year_obj[year].arr.length
             countLayer[year] = {}
             year_obj[year].arr.forEach((d, i) => {//排好序，所以layer的时候都是从小到大加的
-                year_obj[year].obj[d.name].mean_rank = i
-                year_obj[year].obj[d.name].mean_rank_per = i / year_obj[year].arr.length//百分比
+                let data = year_obj[year].obj[d.name]
+                data.mean_rank = i
+                data.mean_rank_per = i / l//百分比
+                const data_arr = Object.values(data.data)
+                const sum = data_arr.reduce((a, b) => a + b) / l
+                const mean = sum / data.rankL
+                const variance = data_arr.reduce((a, b) => a + Math.pow(b / l - mean, 2), 0) / data.rankL
+                data.variance_per = variance
+                data.varianceSqrt_per = Math.sqrt(variance)
+                data.data_per = {}
+                Object.keys(data.data).forEach(e => {
+                    data.data_per[e] = parseFloat((data.data[e] / l / sum * 100).toFixed(2))
+                })
                 const newLayer = Math.floor(i / (l / layer))
                 year_obj[year].obj[d.name].layer = newLayer
                 if (!countLayer[year].hasOwnProperty(newLayer)) countLayer[year][newLayer] = []
@@ -70,6 +81,7 @@ class Index extends Component {
         })
         return year_obj
     }
+
     axisPosition(years, width, opts = {
         left: Global.left,
         right: Global.right

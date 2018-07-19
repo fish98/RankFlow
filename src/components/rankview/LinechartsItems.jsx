@@ -25,9 +25,10 @@ class LinechartsItems extends Component {
         })
         Object.keys(Global.circlePos[year]).forEach(name => {
             const data = Global.yearData[year].obj[name]
-            const sum = data.variance * data.rankL
-            Object.keys(data.data).forEach(e => {
-                eleHis[e].count += Math.pow(data.data[e] - data.mean, 2) / sum
+            // const people = Global.yearData[year].arr.length
+            // const sum = data.variance_per * data.rankL
+            Object.keys(data.data_per).forEach(e => {
+                eleHis[e].count += data.data_per[e]
                 eleHis[e].l += 1
             })
         })
@@ -61,7 +62,7 @@ class LinechartsItems extends Component {
         return (
             <g transform={`translate(${Global.subWidth})`}>
                 {Object.keys(r).map((e, i) => {
-                    const height = r[e] * Global.diffHeight
+                    const height = r[e] * Global.diffHeight/100*2
                     return <g key={`${year}_${e}_linechart`}>
                         <rect height={height}
                               width={width}
@@ -77,7 +78,7 @@ class LinechartsItems extends Component {
                               fontSize={10}
                               opacity={this.state.textFlag === e ? 1 : 0}
                         >
-                            {`${e}:${r[e].toFixed(2)}`}
+                            {`${e}:${r[e].toFixed(2)}%`}
                         </text>
                         <rect height={Global.diffHeight}
                               key={`${year}_${e}_`}

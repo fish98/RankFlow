@@ -75,9 +75,9 @@ class RankView extends Component {
                         <g transform={`translate(-30)`}>
                             <Linecharts/>
                             <Times/>
+                            <Trend linePos={linePosByName} scale={scale} axis={toJS(Global.axisPos)}/>
                             <Brushes/>
                             <Histograms/>
-                            <Trend linePos={linePosByName} scale={scale} axis={toJS(Global.axisPos)}/>
                             <Lines/>
                             <Circles/>
                         </g>}
