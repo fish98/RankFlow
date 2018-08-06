@@ -61,9 +61,14 @@ class Filter extends Component {
     onChange(e) {
         console.log(e)
     }
-    onClickInit(e){
-        Global.initYeardata()
+
+    onClickInit(e) {
+        Global.setCompareFlag(false)
     }
+    onClickRecord(e){
+        Global.setRecord()
+    }
+
     render() {
         // const optionsEles = Global.elements.filter(ele => {
         //     return Global.yearData[Global.clickYear].obj[Global.selectNode].data.hasOwnProperty(ele)
@@ -118,9 +123,10 @@ class Filter extends Component {
                 <div>
                     <Button type="primary" onClick={this.onClick}>Filter</Button>
                     <Button type="primary" onClick={this.onClickInit}>Init</Button>
+                    <Button type="primary" onClick={this.onClickRecord}>Record</Button>
                 </div>
 
-            {/*</div>*/}
+                {/*</div>*/}
             </div>
         )
     }

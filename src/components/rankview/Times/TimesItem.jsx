@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import Global from'.././Store/Global'
-import './RankView.less'
+import Global from '../../Store/Global'
+import '../RankView.less'
 class TimesItem extends Component {
     constructor(props) {
         super(props)

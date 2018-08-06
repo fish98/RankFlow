@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import * as d3 from 'd3'
-import Global from '../Store/Global'
+import Global from '../../Store/Global'
 import {observer} from 'mobx-react'
 import {toJS, trace} from 'mobx'
 import {Tooltip} from 'antd'
@@ -107,12 +107,12 @@ class BrushesItem extends Component {
         const s = `${year}_Brush`
         return (
             <g ref={s} transform={`translate(${Global.subWidth},${ Global.diffHeight})`} >
-                {/*rankHight={Global.rankHeight}>*/}
-                {/*<rect year={year} width={Global.eachWidth - Global.subWidth}*/}
-                {/*height={Global.rankHeight - Global.diffHeight}*/}
-                {/*opacity={0.1}*/}
-                {/*onMouseOver={this.onMouseOver}*/}
-                {/*/>*/}
+                rankHight={Global.rankHeight}>
+                <rect year={year} width={Global.eachWidth - Global.subWidth}
+                height={Global.rankHeight - Global.diffHeight}
+                opacity={0.1}
+                onMouseOver={this.onMouseOver}
+                />
             </g>
         )
     }

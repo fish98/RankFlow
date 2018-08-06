@@ -1,21 +1,19 @@
 import React, {Component} from 'react'
-import Global from "../Store/Global"
+import Global from "../../Store/Global"
+import BrushesItem from "./BrushesItem"
 import {observer} from 'mobx-react'
-import LinechartsItems from './LinechartsItems'
-
 @observer
-class Linecharts extends Component {
+class Brushes extends Component {
     constructor(props) {
         super(props)
     }
 
     render() {
         return (
-
-            <g name={'Linecharts'} transform={`translate(0,-17)`}>
+            <g name={'Brush'}>
                 {Global.yearArr.map(year => {
                     return <g key={year} year={year} transform={`translate(${Global.axisPos[year]})`}>
-                        {Global.circlePos.hasOwnProperty(year) ? <LinechartsItems key={year} year={year}/> : null}
+                        {Global.circlePos.hasOwnProperty(year) ? <BrushesItem key={year} year={year}/> : null}
                     </g>
                 })}
             </g>
@@ -23,4 +21,4 @@ class Linecharts extends Component {
     }
 }
 
-export default Linecharts
+export default Brushes

@@ -1,19 +1,18 @@
 import React, {Component} from 'react'
-import Global from "../Store/Global"
-import CirclesItem from "./CirclesItem"
-import {observer} from 'mobx-react'
-@observer
-class Circles extends Component {
+import Global from "../../Store/Global"
+import TimesItem from './TimesItem'
+
+class Times extends Component {
     constructor(props) {
         super(props)
     }
 
     render() {
         return (
-            <g name={'Circles'} >
+            <g name={'Times'} transform={`translate(0,${Global.diffHeight-14})`}>
                 {Global.yearArr.map(year => {
                     return <g key={year} year={year} transform={`translate(${Global.axisPos[year]})`}>
-                        {Global.circlePos.hasOwnProperty(year) ? <CirclesItem key={year} year={year}/> : null}
+                        <TimesItem key={year} year={year}/>
                     </g>
                 })}
             </g>
@@ -21,4 +20,4 @@ class Circles extends Component {
     }
 }
 
-export default Circles
+export default Times
