@@ -6,6 +6,7 @@ import {Checkbox, TreeSelect} from 'antd'
 import {observer} from 'mobx-react'
 import Global from '../Store/Global'
 import {Button} from 'antd'
+import Records from "./Records/Records"
 
 @observer
 class Filter extends Component {
@@ -65,7 +66,8 @@ class Filter extends Component {
     onClickInit(e) {
         Global.setCompareFlag(false)
     }
-    onClickRecord(e){
+
+    onClickRecord(e) {
         Global.setRecord()
     }
 
@@ -125,7 +127,7 @@ class Filter extends Component {
                     <Button type="primary" onClick={this.onClickInit}>Init</Button>
                     <Button type="primary" onClick={this.onClickRecord}>Record</Button>
                 </div>
-
+                <Records/>
                 {/*</div>*/}
             </div>
         )

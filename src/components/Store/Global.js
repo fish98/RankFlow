@@ -35,6 +35,8 @@ class global {
     @observable newCirclePos = {}
     @observable newHisRankOb = {}
     @observable initData = {}
+    @observable recordsNewData = []
+    @observable recordsFilter = []
     eleObj = {}
     subWidth = 15
     layer = 20
@@ -94,6 +96,8 @@ class global {
 
     @action
     setRecord() {
+        this.recordsFilter.push(this.filterObj)
+        this.recordsNewData.push(this.newData)
         // console.log('newData', toJS(newData))
     }
 
