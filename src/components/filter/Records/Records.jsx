@@ -11,8 +11,26 @@ class Records extends Component {
         super()
     }
 
-    onChange = (e) => {
-        console.log(e)
+    onChange = (checkedValue) => {
+        console.log('checkedValue', checkedValue)
+        const sum = checkedValue.length
+        switch (sum){
+            case 0:{
+                Global.setCompareFlag(false)
+                Global.setOldData(Global.initData)
+                break
+            }
+            case 1:{
+                Global.setCompareFlag(true)
+                Global.setNewData(Global.recordsNewData[checkedValue[0]])
+                break
+            }
+            case 2:{
+                Global.setCompareFlag(true)
+                Global.setOldData(Global.recordsNewData[checkedValue[0]])
+                Global.setNewData(Global.recordsNewData[checkedValue[1]])
+            }
+        }
     }
 
     render() {

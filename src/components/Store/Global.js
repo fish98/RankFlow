@@ -90,15 +90,22 @@ class global {
 
     @action
     setNewData(newData) {
-        this.newData.yearData = newData
+        this.newData = newData
         console.log('newData', toJS(newData))
+    }
+
+    @action
+    setOldData(oldData) {
+        this.oldData = oldData
+        console.log('oldData', toJS(oldData))
     }
 
     @action
     setRecord() {
         this.recordsFilter.push(this.filterObj)
         this.recordsNewData.push(this.newData)
-        // console.log('newData', toJS(newData))
+        console.log('recordsFilter', toJS(this.recordsFilter))
+        console.log('recordsNewData', toJS(this.recordsNewData))
     }
 
     @action
@@ -155,7 +162,7 @@ class global {
             })
         })
         console.log('setFilterObj', toJS(data))
-        this.setNewData(newData)
+        this.setNewData({yearData: newData})
         let nodes = new Set()
         Object.values(this.saveNodes).forEach(names => {
             names.forEach(name => {
@@ -341,6 +348,7 @@ class global {
 
         this.yearData = yearData
         this.initData.yearData = yearData
+        this.oldData.yearData = yearData
         console.log('yearData', toJS(yearData))
     }
 
@@ -501,8 +509,8 @@ class global {
         let min_var = 1000000
         let rank_val = {}
         let his_val_obj = {}
-        let yearData = this.initData.yearData
-        if (!setFlag) {
+        let yearData = this.oldData.yearData
+        if (!setFlag) {//老的数据
             yearData = this.newData.yearData
         }
         Object.keys(yearData).sort().map(year => {
@@ -576,6 +584,8 @@ class global {
             this.setCirclePos(circlePos)//
             this.setHisRankObj(hisRankObj)
             this.initData = {...{yearData: this.initData.yearData}, ...r}
+            this.setOldData(this.initData)
+            // this.setOldData() = {...{yearData: this.initData.yearData}, ...r}
         } else {
             this.newHisData = his_val
             this.newHisRank = rank_val
@@ -583,8 +593,7 @@ class global {
             this.newLinePos = lineGroup
             this.newCirclePos = circlePos
             this.newHisRankOb = hisRankObj
-            this.newData = {...{yearData: this.newData.yearData}, ...r}
-
+            this.setNewData({...{yearData: this.newData.yearData}, ...r})
         }
         return r
     }

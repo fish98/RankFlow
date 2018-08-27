@@ -78,14 +78,14 @@ class RankView extends Component {
                             <Linecharts/>
                             <Times/>
                             <Trend linePos={linePosByName} scale={scale} axis={toJS(Global.axisPos)}/>
-                            <Outlines data={Global.initData} type={0}/>
+                            <Outlines data={Global.oldData} type={0}/>
                             {Global.compareFlag ? <Outlines data={Global.newData} type={1}/> : null}
                             <Brushes/>
-                            <Histograms data={Global.initData} type={0}/>
+                            <Histograms data={Global.oldData} type={0}/>
                             {Global.compareFlag ? <Histograms data={Global.newData} type={1}/> : null}
-                            <Lines data={Global.initData} type={0}/>
+                            <Lines data={Global.oldData} type={0}/>
                             {Global.compareFlag ? <Lines data={Global.newData} type={1}/> : null}
-                            <Circles data={Global.initData} type={0}/>
+                            <Circles data={Global.oldData} type={0}/>
                             {Global.compareFlag ? <Circles data={Global.newData} type={1}/> : null}
                         </g>}
                 </svg>
