@@ -12,13 +12,13 @@ class Circles extends Component {
     render() {
         return (
             <g name={'Circles'} type={this.props.type}>
-                {Global.yearArr.map(year => {
+                {Object.keys(this.props.data.circlePos).map(year => {
                     return <g key={year} year={year} transform={`translate(${Global.axisPos[year]})`}>
-                        {this.props.data.circlePos.hasOwnProperty(year) ? <CirclesItem
+                        <CirclesItem
                             key={year}
                             year={year}
                             data={this.props.data}
-                            type={this.props.type}/> : null}
+                            type={this.props.type}/>
                     </g>
                 })}
             </g>

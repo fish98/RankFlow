@@ -9,8 +9,9 @@ class Times extends Component {
 
     render() {
         return (
-            <g name={'Times'} transform={`translate(0,${Global.diffHeight-14})`}>
-                {Global.yearArr.map(year => {
+            <g name={'Times'} transform={`translate(0,${Global.diffHeight - 14})`}>
+                {Object.keys(this.props.data.circlePos).map(year => {
+                    console.log(this.props.data.circlePos)
                     return <g key={year} year={year} transform={`translate(${Global.axisPos[year]})`}>
                         <TimesItem key={year} year={year}/>
                     </g>

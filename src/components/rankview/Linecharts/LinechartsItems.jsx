@@ -15,26 +15,31 @@ class LinechartsItems extends Component {
         })
         this.onMouseOver = this.onMouseOver.bind(this)
         this.onMouseOut = this.onMouseOut.bind(this)
+        this.dealData = this.dealData.bind(this)
+        this.eleObj = {}
+        Global.elements.forEach((e,i) => {
+            this.eleObj[e] = i
+        })
     }
 
-    dealData(year) {
+    dealData(data, year) {
         let eleHis = {}
         let r = {}
         Global.elements.forEach(e => {
             eleHis[e] = {count: 0, l: 0}
         })
-        Object.keys(Global.circlePos[year]).forEach(name => {
-            const data = Global.yearData[year].obj[name]
+        Object.keys(data.circlePos[year]).forEach(name => {
+            const d = data.yearData[year].obj[name]
             // const people = Global.yearData[year].arr.length
             // const sum = data.variance_per * data.rankL
-            Object.keys(data.data_per).forEach(e => {
-                eleHis[e].count += data.data_per[e]
+            Object.keys(d.data_per).forEach(e => {
+                eleHis[e].count += d.data_per[e]
                 eleHis[e].l += 1
             })
         })
         // const compute = d3.scaleLinear().domain([0, 1]).range([0, Global.diffHeight])
         this.title = Object.keys(eleHis).map(e => {
-            if (eleHis[e].l){
+            if (eleHis[e].l) {
                 r[e] = eleHis[e].count / eleHis[e].l
             }
             // return <div>{`${e}:${(eleHis[e].count / eleHis[e].l).toFixed(2)}`}</div>
@@ -56,23 +61,25 @@ class LinechartsItems extends Component {
     }
 
     render() {
-        const year = this.props.year
-        const r = this.dealData(year)
+        const {year, data, type} = this.props
+        const r = this.dealData(data, year)
+        const fill = type ? 'red' : '#89de64'
         const width = 5
         return (
             <g transform={`translate(${Global.subWidth})`}>
                 {Object.keys(r).map((e, i) => {
-                    const height = r[e] * Global.diffHeight/100*2
+                    const height = r[e] * Global.diffHeight / 100 * 2
+                    const index = this.eleObj[e]
                     return <g key={`${year}_${e}_linechart`}>
                         <rect height={height}
                               width={width}
-                              x={i * width}
+                              x={index * width}
                               y={Global.diffHeight - height}
-                              fill={'#89de64'}
+                              fill={fill}
                               key={`${year}_${e}`}/>
-                              // strokeWidth={1}
-                              // stroke={'grey'}/>
-                        <text x={i * width}
+                        // strokeWidth={1}
+                        // stroke={'grey'}/>
+                        <text x={index * width}
                               key={`${year}_${e}_text`}
                               y={30}
                               fontSize={10}
@@ -83,7 +90,7 @@ class LinechartsItems extends Component {
                         <rect height={Global.diffHeight}
                               key={`${year}_${e}_`}
                               width={width}
-                              x={i * width}
+                              x={index * width}
                               y={0}
                               opacity={0}
                               ele={e}

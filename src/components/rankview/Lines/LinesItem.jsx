@@ -24,7 +24,7 @@ class LinesItem extends Component {
                     return <line key={`${year}_${name}`}
                                  x1={dataObj.real.source.x}
                                  y1={dataObj.real.source.y}
-                                 x2={dataObj.real.target.x}
+                                 x2={dataObj.real.target.x+ Global.eachWidth}
                                  y2={dataObj.real.target.y}
                                  strokeWidth={2} stroke={'red'} opacity={opacity}
                         // onMouseOver={this.onMouseOver}

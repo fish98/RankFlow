@@ -26,17 +26,20 @@ class RankView extends Component {
         Global.setRankWidth(self.refs.rankView.clientWidth)
         // Global.setRankHeight(self.refs.rankView.clientHeight)
         // Global.setRankHeight(940)
-        const count = Object.keys(Global.yearData).length
-        let eachWidth = (self.refs.rankView.clientWidth - Global.left - Global.right) / count
-        if (!count) eachWidth = 0
-        Global.setEachWidth(eachWidth)
+        // let eachWidth = 0
+        //
+        // if ( Global.oldData.circlePos !== undefined && Global.oldData.circlePos !== null){
+        //     const count = Object.keys(Global.oldData.circlePos).length
+        //     eachWidth = (self.refs.rankView.clientWidth - Global.left - Global.right) / count
+        // }
+        // Global.setEachWidth(eachWidth)
     }
 
 
     componentDidMount() {
         this.getWidth(this)
-        const nodes = ["Nan Cao", "Tom Peterka", "Yifan Hu"]
-        Global.setNodes(nodes)
+        // const nodes = ["Nan Cao", "Tom Peterka", "Yifan Hu"]
+        Global.setNodes([])
         console.log('rankView DidMount')
     }
 
@@ -75,16 +78,24 @@ class RankView extends Component {
                     </defs>
                     {Global.axisPos === null ? null :
                         <g transform={`translate(-30)`}>
-                            <Linecharts/>
-                            <Times/>
+                            <Linecharts data={Global.oldData} type={0}/>
+                            {Global.compareFlag ? <Linecharts data={Global.newData} type={1}/> : null}
+
+                            <Times data={Global.oldData}/>
+
                             <Trend linePos={linePosByName} scale={scale} axis={toJS(Global.axisPos)}/>
+
                             <Outlines data={Global.oldData} type={0}/>
                             {Global.compareFlag ? <Outlines data={Global.newData} type={1}/> : null}
-                            <Brushes/>
+
+                            <Brushes data={Global.oldData}/>
+
                             <Histograms data={Global.oldData} type={0}/>
                             {Global.compareFlag ? <Histograms data={Global.newData} type={1}/> : null}
+
                             <Lines data={Global.oldData} type={0}/>
                             {Global.compareFlag ? <Lines data={Global.newData} type={1}/> : null}
+
                             <Circles data={Global.oldData} type={0}/>
                             {Global.compareFlag ? <Circles data={Global.newData} type={1}/> : null}
                         </g>}

@@ -1,5 +1,6 @@
 import {observable, action, toJS} from "mobx"
 import year_data from '../.././pages/index/year_data'
+import university_tsne from '../.././pages/index/university_tsne.json'
 
 class global {
     @observable yearData = {}
@@ -37,6 +38,7 @@ class global {
     @observable initData = {}
     @observable recordsNewData = []
     @observable recordsFilter = []
+    tsneData = university_tsne
     eleObj = {}
     subWidth = 15
     layer = 20
@@ -46,7 +48,7 @@ class global {
     rankR = 5
     nodess = []
     elements = ["HIS", "ICC", "H", "aggre_constraint", "clust_coef", "betweenness", "effective_size", "local_effic", "pagerank", "MaxD"]
-    @observable eachWidth = 0
+    @observable eachWidth = null
     @observable minHisVal = 0
     @observable maxHIsVal = 1
     @observable rankWidth = 1
@@ -91,21 +93,26 @@ class global {
     @action
     setNewData(newData) {
         this.newData = newData
-        console.log('newData', toJS(newData))
+        // console.log('newData', toJS(newData))
     }
 
     @action
     setOldData(oldData) {
         this.oldData = oldData
-        console.log('oldData', toJS(oldData))
+        // console.log('oldData', toJS(oldData))
+    }
+
+    @action
+    setInit() {//lossan那里会清理
+
     }
 
     @action
     setRecord() {
         this.recordsFilter.push(this.filterObj)
         this.recordsNewData.push(this.newData)
-        console.log('recordsFilter', toJS(this.recordsFilter))
-        console.log('recordsNewData', toJS(this.recordsNewData))
+        // console.log('recordsFilter', toJS(this.recordsFilter))
+        // console.log('recordsNewData', toJS(this.recordsNewData))
     }
 
     @action
@@ -261,11 +268,26 @@ class global {
         this.dealSetNodes(nodess, true)
         console.log('saveNodes', toJS(saveNodes))
     }
+    axisPosition(years, width, opts = {
+        left: Global.left,
+        right: Global.right
+    }) {
+        let axisPos = {}
+        let {left, right} = opts
+        let axisWidth = (width - left - right) / years.length
+        years.forEach((year, index) => {
+            axisPos[year] = index * axisWidth + left + axisWidth / 2
+        })
+        this.setEachWidth(axisWidth)
+        return axisPos
+    }
 
     @action
-    setAxisPos(axisPos) {
-        this.axisPos = axisPos
-        console.log('axisPos', toJS(axisPos))
+    setAxisPos(data) {
+        let rightContainer = document.getElementsByClassName('right-container')[0]
+        let width = rightContainer.clientWidth
+        this.axisPos = this.axisPosition(Object.keys(data).sort((a, b) => a - b), width)
+        console.log('axisPos', toJS(this.axisPos))
     }
 
     @action
@@ -393,7 +415,8 @@ class global {
         this.nodes = nodes
         this.nodesSet = new Set(nodes)
         // this.saveNodes = nodes
-        this.dealSetNodes(nodes, true)
+        let r = this.dealSetNodes(nodes, true)
+        this.setAxisPos(r.circlePos)
         console.log('nodes', toJS(nodes))
     }
 
@@ -410,6 +433,7 @@ class global {
         let circlePosPer = {}
         let yearPer = 0
         let lineGroup = {}
+        let self = this
         Object.keys(inputData).forEach(year => {
             nodes.forEach(name => {//计算圆的位置
                 if (!inputData[year].obj.hasOwnProperty(name)) return
@@ -446,14 +470,14 @@ class global {
                     lineGroup[year][name] = {
                         real: {
                             source: {x: circleLeft.cx, y: circleLeft.cy},
-                            target: {x: circleRight.cx + this.eachWidth, y: circleRight.cy},
+                            target: {x: circleRight.cx, y: circleRight.cy},
                         },
                         source: {
                             x: 0,
                             y: circleLeft.y,
                         },
                         target: {
-                            x: this.eachWidth,
+                            x: 0,
                             y: circleRight.y
                         },
                         valLeft: circleLeft.val,
@@ -561,7 +585,7 @@ class global {
         const hisRankObj = this.dealNodesLayer(yearData, nodes)
         const {lineGroup, circlePos} = this.getCirclePos(nodes, yearData, hisRankObj)
         const r = {
-            maxHIsVal: max_val,
+            maxHisVal: max_val,
             minHisVal: min_val,
             hisData: his_val,
             maxVar: max_var,
@@ -573,26 +597,26 @@ class global {
             hisRankObj: hisRankObj
         }
         if (setFlag) {//在框选之类的时候会重置
-            this.setMaxHisVal(max_val)
-            this.setMinHisVal(min_val)
-            this.setHisData(his_val)//
-            this.setMaxVar(max_var)
-            this.setMinVar(min_var)
-            this.setHisRank(rank_val)//
-            this.setHisDataObj(his_val_obj)//
-            this.setLinePos(lineGroup)//
-            this.setCirclePos(circlePos)//
-            this.setHisRankObj(hisRankObj)
+            // this.setMaxHisVal(max_val)
+            // this.setMinHisVal(min_val)
+            // this.setHisData(his_val)//
+            // this.setMaxVar(max_var)
+            // this.setMinVar(min_var)
+            // this.setHisRank(rank_val)//
+            // this.setHisDataObj(his_val_obj)//
+            // this.setLinePos(lineGroup)//
+            // this.setCirclePos(circlePos)//
+            // this.setHisRankObj(hisRankObj)
             this.initData = {...{yearData: this.initData.yearData}, ...r}
-            this.setOldData(this.initData)
+            this.setOldData({...{yearData: this.initData.yearData}, ...r})
             // this.setOldData() = {...{yearData: this.initData.yearData}, ...r}
         } else {
-            this.newHisData = his_val
-            this.newHisRank = rank_val
-            this.newHisDataObj = his_val_obj
-            this.newLinePos = lineGroup
-            this.newCirclePos = circlePos
-            this.newHisRankOb = hisRankObj
+            // this.newHisData = his_val
+            // this.newHisRank = rank_val
+            // this.newHisDataObj = his_val_obj
+            // this.newLinePos = lineGroup
+            // this.newCirclePos = circlePos
+            // this.newHisRankOb = hisRankObj
             this.setNewData({...{yearData: this.newData.yearData}, ...r})
         }
         return r

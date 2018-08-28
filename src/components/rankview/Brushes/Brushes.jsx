@@ -11,9 +11,9 @@ class Brushes extends Component {
     render() {
         return (
             <g name={'Brush'}>
-                {Global.yearArr.map(year => {
+                {Object.keys(this.props.data.circlePos).map(year => {
                     return <g key={year} year={year} transform={`translate(${Global.axisPos[year]})`}>
-                        {Global.circlePos.hasOwnProperty(year) ? <BrushesItem key={year} year={year}/> : null}
+                         <BrushesItem key={year} year={year}/>
                     </g>
                 })}
             </g>

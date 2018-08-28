@@ -101,14 +101,14 @@ class CirclesItem extends Component {
 
 
                     return <g key={`${year}_${name}`}>
-                        <Tooltip key={`${year}_${name}`}
-                            // visible={Global.overNode === name || hisMouseOverF || hisMouseClickF}
-                                 visible={Global.overNode === name && Global.overType === String(type)}
-                                 mouseLeaveDelay={0}
-                                 title={circleNode}
-                                 placement={placement}
-                                 onVisibleChange={this.onVisibleChange}
-                        >
+                        {/*<Tooltip key={`${year}_${name}`}*/}
+                            {/*// visible={Global.overNode === name || hisMouseOverF || hisMouseClickF}*/}
+                                 {/*visible={Global.overNode === name && Global.overType === String(type)}*/}
+                                 {/*mouseLeaveDelay={0}*/}
+                                 {/*title={circleNode}*/}
+                                 {/*placement={placement}*/}
+                                 {/*onVisibleChange={this.onVisibleChange}*/}
+                        {/*>*/}
                             <circle key={`${year}_${name}`} cy={data.cy} r={Global.rankR} cx={data.cx}
                                     type={type}
                                     name={name}
@@ -121,7 +121,7 @@ class CirclesItem extends Component {
                                     stroke={stroke}
                                     strokeWidth={strokeWidth}
                             />
-                        </Tooltip>
+                        {/*</Tooltip>*/}
                     </g>
                 })
             }

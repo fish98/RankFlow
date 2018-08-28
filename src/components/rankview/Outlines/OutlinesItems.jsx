@@ -38,13 +38,14 @@ class OutlinesItems extends Component {
 
     render() {
         const {year, data, type} = this.props
+        const {maxHisVal, minHisVal} = data
         const height = (Global.rankHeight - Global.diffHeight) / Global.layer - Global.hisDataHeightSel
         const fill = type ? 'red' : 'lightblue'
         const stroke = type ? '#red' : '0e88eb'
 
         let path = 'M0 0'
         data.hisData[year].map((d, i) => {
-            const width = d * (Global.eachWidth - Global.hisDataWidthdiff) / (Global.maxHIsVal - data.minHisVal)
+            const width = d * (Global.eachWidth - Global.hisDataWidthdiff) / (maxHisVal - minHisVal)
             const y = i * (Global.rankHeight - Global.diffHeight) / Global.layer + height / 2
             path += `L${width} ${y}`
         })
