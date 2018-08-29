@@ -37,7 +37,7 @@ class CirclesItem extends Component {
             type = null
             Global.setRankHeight(1040)
         } else {
-            Global.setRankHeight(588)
+            Global.setRankHeight(679)
         }
         Global.setSelectNode(name)
         Global.setClickYear(year)

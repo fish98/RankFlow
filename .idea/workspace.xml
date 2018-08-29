@@ -1,41 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/components/Store/Global.js" description="    @action&#10;    setAxisPos(axisPos) {&#10;        this..." line="405" />
+    <bookmark url="file://$PROJECT_DIR$/src/components/Store/Global.js" description="    @action&#10;    setAxisPos(axisPos) {&#10;        this..." line="412" />
     <bookmark url="file://$PROJECT_DIR$/src/components/rankview/rankview.jsx" description="        Global.setLinePos(lineGroup)" line="25" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1726de9d-ab8e-4499-a5e0-87f2a97be0e3" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/webResources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/fun.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/index/university_tsne.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/RankFlow.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/RankFlow.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Store/Global.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Store/Global.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/filter/Records/Records.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/filter/Records/Records.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rankview/Brushes/Brushes.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rankview/Brushes/Brushes.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rankview/Brushes/BrushesItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rankview/Brushes/BrushesItem.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rankview/Circles/Circles.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rankview/Circles/Circles.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/rankview/Circles/CirclesItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rankview/Circles/CirclesItem.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rankview/Histograms/Histograms.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rankview/Histograms/Histograms.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rankview/Histograms/HistogramsItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rankview/Histograms/HistogramsItem.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rankview/Linecharts/Linecharts.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rankview/Linecharts/Linecharts.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rankview/Linecharts/LinechartsItems.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rankview/Linecharts/LinechartsItems.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rankview/Lines/Lines.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rankview/Lines/Lines.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rankview/Lines/LinesItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rankview/Lines/LinesItem.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rankview/Outlines/OutlinesItems.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rankview/Outlines/OutlinesItems.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rankview/Times/Times.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rankview/Times/Times.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/rankview/rankview.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rankview/rankview.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/rankview/trend/trend.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rankview/trend/trend.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tsneview/scatter/scatter.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tsneview/scatter/scatter.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tsneview/tsneview.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tsneview/tsneview.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/index/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/rankview/trend.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rankview/trend.jsx" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -52,56 +27,53 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Histograms.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/rankview/Histograms/Histograms.jsx">
+      <file leaf-file-name="rankview.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/rankview/rankview.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="25" column="14" lean-forward="true" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
+            <state relative-caret-position="402">
+              <caret line="71" column="32" selection-start-line="71" selection-start-column="32" selection-end-line="71" selection-end-column="32" />
+              <folding>
+                <element signature="e#0#38#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Linecharts.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/rankview/Linecharts/Linecharts.jsx">
+      <file leaf-file-name="index.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/index/index.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="17" column="34" lean-forward="true" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="34" />
+            <state relative-caret-position="334">
+              <caret line="37" column="44" selection-start-line="37" selection-start-column="43" selection-end-line="37" selection-end-column="44" />
+              <folding>
+                <element signature="e#0#38#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CirclesItem.jsx" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/components/rankview/Circles/CirclesItem.jsx">
+      <file leaf-file-name="Times.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/rankview/Times/Times.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="88" column="21" lean-forward="true" selection-start-line="88" selection-start-column="21" selection-end-line="88" selection-end-column="21" />
+            <state relative-caret-position="216">
+              <caret line="11" column="31" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="82" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LinechartsItems.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/rankview/Linecharts/LinechartsItems.jsx">
+      <file leaf-file-name="TimesItem.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/rankview/Times/TimesItem.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="18" column="24" lean-forward="true" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+            <state relative-caret-position="264">
+              <caret line="13" column="9" lean-forward="true" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HistogramsItem.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/rankview/Histograms/HistogramsItem.jsx">
+      <file leaf-file-name="trend.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/rankview/trend/trend.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="78" column="39" lean-forward="true" selection-start-line="78" selection-end-line="79" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Global.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/Store/Global.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="948">
-              <caret line="558" column="57" selection-start-line="558" selection-start-column="49" selection-end-line="558" selection-end-column="57" />
+            <state relative-caret-position="24">
+              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
               <folding>
                 <element signature="e#0#45#0" expanded="true" />
               </folding>
@@ -109,43 +81,51 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Brushes.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/rankview/Brushes/Brushes.jsx">
+      <file leaf-file-name="Global.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/Store/Global.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="15" column="33" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BrushesItem.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/rankview/Brushes/BrushesItem.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="12" column="32" selection-start-line="12" selection-start-column="32" selection-end-line="13" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Filter.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/filter/Filter.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="834">
-              <caret line="116" column="35" lean-forward="true" selection-start-line="116" selection-start-column="35" selection-end-line="116" selection-end-column="35" />
+            <state relative-caret-position="-7907">
+              <caret line="274" column="8" selection-start-line="274" selection-start-column="4" selection-end-line="274" selection-end-column="8" />
               <folding>
-                <element signature="e#0#38#0" expanded="true" />
+                <element signature="e#0#45#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Records.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/filter/Records/Records.jsx">
+      <file leaf-file-name="detailview.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/detailview/detailview.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="762">
-              <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
+            <state relative-caret-position="546">
+              <caret line="132" column="30" selection-start-line="132" selection-start-column="30" selection-end-line="132" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="timeaxis.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/detailview/timeaxis/timeaxis.jsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="312">
+              <caret line="14" column="71" lean-forward="true" selection-start-line="14" selection-start-column="71" selection-end-line="14" selection-end-column="71" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="trendline.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/detailview/trendline/trendline.jsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="816">
+              <caret line="98" column="33" selection-start-line="98" selection-start-column="33" selection-end-line="98" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="violin.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/detailview/violin/violin.jsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
               <folding>
-                <element signature="e#0#38#0" expanded="true" />
+                <element signature="e#0#41#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -163,17 +143,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>tooltip</find>
-      <find>Global.maxHisVal</find>
-      <find>dealn</find>
-      <find>axisPos</find>
-      <find>Global.axisPos</find>
-      <find>axisPosition</find>
-      <find>lineG</find>
-      <find>axis</find>
-      <find>seteachWidth</find>
-      <find>eachWidth</find>
-      <find>nan cao</find>
       <find>cao</find>
       <find>seteach</find>
       <find>eachwi</find>
@@ -193,6 +162,17 @@
       <find>dealSetNodes</find>
       <find>filterObj</find>
       <find>nameData</find>
+      <find>set</find>
+      <find>oldData</find>
+      <find>linepos</find>
+      <find>pathGroups</find>
+      <find>setline</find>
+      <find>eachWidth</find>
+      <find>=588</find>
+      <find>588</find>
+      <find>setno</find>
+      <find>rankHeight</find>
+      <find>axis</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -216,7 +196,6 @@
         <option value="$PROJECT_DIR$/src/components/rankview/Times.jsx" />
         <option value="$PROJECT_DIR$/src/components/rankview/Linecharts.jsx" />
         <option value="$PROJECT_DIR$/src/components/rankview/LinesItem.jsx" />
-        <option value="$PROJECT_DIR$/src/components/rankview/trend.jsx" />
         <option value="$PROJECT_DIR$/src/components/rankview/LinechartsItems.jsx" />
         <option value="$PROJECT_DIR$/src/components/rankview/BrushesItem.jsx" />
         <option value="$PROJECT_DIR$/src/components/rankview/outllines.jsx" />
@@ -235,26 +214,27 @@
         <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/backend/fun.py" />
         <option value="$PROJECT_DIR$/backend/app.py" />
-        <option value="$PROJECT_DIR$/src/components/rankview/Circles/CirclesItem.jsx" />
         <option value="$PROJECT_DIR$/src/components/rankview/Histograms/HistogramsItem.jsx" />
         <option value="$PROJECT_DIR$/src/components/rankview/Outlines/OutlinesItems.jsx" />
-        <option value="$PROJECT_DIR$/src/components/rankview/Outlines/Outlines.jsx" />
-        <option value="$PROJECT_DIR$/src/components/rankview/Times/Times.jsx" />
         <option value="$PROJECT_DIR$/src/components/rankview/Brushes/Brushes.jsx" />
         <option value="$PROJECT_DIR$/src/components/rankview/Circles/Circles.jsx" />
-        <option value="$PROJECT_DIR$/src/components/rankview/Histograms/Histograms.jsx" />
         <option value="$PROJECT_DIR$/src/components/rankview/Lines/Lines.jsx" />
         <option value="$PROJECT_DIR$/src/pages/index/index.jsx" />
         <option value="$PROJECT_DIR$/src/components/tsneview/tsneview.jsx" />
         <option value="$PROJECT_DIR$/src/components/tsneview/scatter/scatter.jsx" />
         <option value="$PROJECT_DIR$/src/components/rankview/Lines/LinesItem.jsx" />
         <option value="$PROJECT_DIR$/src/components/rankview/trend/trend.jsx" />
-        <option value="$PROJECT_DIR$/src/components/rankview/rankview.jsx" />
         <option value="$PROJECT_DIR$/src/components/rankview/Linecharts/Linecharts.jsx" />
         <option value="$PROJECT_DIR$/src/components/rankview/Linecharts/LinechartsItems.jsx" />
         <option value="$PROJECT_DIR$/src/components/filter/Records/Records.jsx" />
-        <option value="$PROJECT_DIR$/src/components/Store/Global.js" />
         <option value="$PROJECT_DIR$/src/components/rankview/Brushes/BrushesItem.jsx" />
+        <option value="$PROJECT_DIR$/src/components/rankview/trend.jsx" />
+        <option value="$PROJECT_DIR$/src/components/rankview/Outlines/Outlines.jsx" />
+        <option value="$PROJECT_DIR$/src/components/rankview/Histograms/Histograms.jsx" />
+        <option value="$PROJECT_DIR$/src/components/rankview/Circles/CirclesItem.jsx" />
+        <option value="$PROJECT_DIR$/src/components/Store/Global.js" />
+        <option value="$PROJECT_DIR$/src/components/rankview/rankview.jsx" />
+        <option value="$PROJECT_DIR$/src/components/rankview/Times/Times.jsx" />
       </list>
     </option>
   </component>
@@ -317,22 +297,15 @@
               <item name="RankFlow" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="filter" type="462c0819:PsiDirectoryNode" />
+              <item name="detailview" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="RankFlow" type="b2602c69:ProjectViewProjectNode" />
               <item name="RankFlow" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="filter" type="462c0819:PsiDirectoryNode" />
-              <item name="Records" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RankFlow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RankFlow" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="rankview" type="462c0819:PsiDirectoryNode" />
+              <item name="detailview" type="462c0819:PsiDirectoryNode" />
+              <item name="violin" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="RankFlow" type="b2602c69:ProjectViewProjectNode" />
@@ -340,53 +313,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="rankview" type="462c0819:PsiDirectoryNode" />
-              <item name="Brushes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RankFlow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RankFlow" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="rankview" type="462c0819:PsiDirectoryNode" />
-              <item name="Circles" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RankFlow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RankFlow" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="rankview" type="462c0819:PsiDirectoryNode" />
-              <item name="Histograms" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RankFlow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RankFlow" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="rankview" type="462c0819:PsiDirectoryNode" />
-              <item name="Linecharts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RankFlow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RankFlow" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="Store" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RankFlow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RankFlow" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="tsneview" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RankFlow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RankFlow" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="tsneview" type="462c0819:PsiDirectoryNode" />
-              <item name="scatter" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="RankFlow" type="b2602c69:ProjectViewProjectNode" />
@@ -475,12 +401,12 @@
       <workItem from="1535350386352" duration="9167000" />
       <workItem from="1535421064074" duration="242000" />
       <workItem from="1535422246939" duration="14803000" />
-      <workItem from="1535454223917" duration="11924000" />
+      <workItem from="1535454223917" duration="16925000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="358726000" />
+    <option name="totallyTimeSpent" value="363727000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="2062" height="1126" extended-state="6" />
@@ -528,20 +454,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/components/rankview/RankView.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/index/index.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="5" column="5" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/rankview/RankItems.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
@@ -570,7 +482,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/rankview/trend.jsx" />
     <entry file="file://$PROJECT_DIR$/scripts/start.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2544">
@@ -653,13 +564,6 @@
     <entry file="file://$PROJECT_DIR$/backend/data/university_tsne.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/detailview/detailview.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="786">
-          <caret line="142" column="31" selection-start-line="142" selection-start-column="31" selection-end-line="142" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/index/university_tsne.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="456">
@@ -693,34 +597,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/detailview/trendline/trendline.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="816">
-          <caret line="98" column="33" selection-start-line="98" selection-start-column="33" selection-end-line="98" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/rankview/Outlines/OutlinesItems.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="672">
           <caret line="33" column="37" lean-forward="true" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/rankview/Times/TimesItem.jsx">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/rankview/Outlines/Outlines.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="21" column="64" lean-forward="true" selection-start-line="21" selection-start-column="64" selection-end-line="21" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/rankview/Times/Times.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="12" column="59" lean-forward="true" selection-start-line="12" selection-end-line="13" />
         </state>
       </provider>
     </entry>
@@ -735,16 +615,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="7" column="24" lean-forward="true" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/index/index.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="118" column="30" lean-forward="true" selection-start-line="118" selection-start-column="30" selection-end-line="118" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -765,16 +635,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/rankview/trend/trend.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-558">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
-          <folding>
-            <element signature="e#0#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/rankview/Lines/LinesItem.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
@@ -789,37 +649,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/rankview/rankview.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="81" column="56" lean-forward="true" selection-start-line="81" selection-start-column="56" selection-end-line="81" selection-end-column="56" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/rankview/Circles/Circles.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="15" column="97" lean-forward="true" selection-start-line="15" selection-start-column="77" selection-end-line="15" selection-end-column="97" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/rankview/Histograms/Histograms.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="25" column="14" lean-forward="true" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/rankview/Histograms/HistogramsItem.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="78" column="39" lean-forward="true" selection-start-line="78" selection-end-line="79" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/webstorm.jar!/resources/html5-schema/svg11/svg-basic-structure.rnc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="318">
@@ -827,24 +656,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/rankview/Linecharts/Linecharts.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="17" column="34" lean-forward="true" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/rankview/Linecharts/LinechartsItems.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
-          <caret line="18" column="24" lean-forward="true" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+          <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/filter/Filter.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="834">
-          <caret line="116" column="35" lean-forward="true" selection-start-line="116" selection-start-column="35" selection-end-line="116" selection-end-column="35" />
+          <caret line="116" column="35" selection-start-line="116" selection-start-column="35" selection-end-line="116" selection-end-column="35" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>
@@ -854,7 +676,7 @@
     <entry file="file://$PROJECT_DIR$/src/components/filter/Records/Records.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="762">
-          <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
+          <caret line="70" selection-start-line="70" selection-end-line="70" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>
@@ -875,20 +697,139 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Store/Global.js">
+    <entry file="file://$PROJECT_DIR$/src/components/rankview/Linecharts/Linecharts.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="948">
-          <caret line="558" column="57" selection-start-line="558" selection-start-column="49" selection-end-line="558" selection-end-column="57" />
+        <state relative-caret-position="336">
+          <caret line="17" column="34" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/rankview/trend.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="63" column="69" selection-start-line="63" selection-end-line="64" />
           <folding>
             <element signature="e#0#45#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/rankview/Histograms/HistogramsItem.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="598">
+          <caret line="89" column="77" selection-start-line="89" selection-start-column="77" selection-end-line="89" selection-end-column="77" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/rankview/Outlines/Outlines.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="16" column="51" selection-start-line="16" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/rankview/Histograms/Histograms.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="29" column="97" lean-forward="true" selection-start-line="29" selection-start-column="97" selection-end-line="29" selection-end-column="97" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/rankview/Circles/Circles.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="16" column="31" lean-forward="true" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/rankview/Circles/CirclesItem.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="88" column="21" lean-forward="true" selection-start-line="88" selection-start-column="21" selection-end-line="88" selection-end-column="21" />
+        <state relative-caret-position="528">
+          <caret line="54" column="48" lean-forward="true" selection-start-line="54" selection-start-column="48" selection-end-line="54" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/rankview/Times/TimesItem.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="13" column="9" lean-forward="true" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/rankview/Times/Times.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="11" column="31" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/rankview/trend/trend.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/rankview/rankview.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="402">
+          <caret line="71" column="32" selection-start-line="71" selection-start-column="32" selection-end-line="71" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/index/index.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="37" column="44" selection-start-line="37" selection-start-column="43" selection-end-line="37" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/detailview/trendline/trendline.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="816">
+          <caret line="98" column="33" selection-start-line="98" selection-start-column="33" selection-end-line="98" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/detailview/violin/violin.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/detailview/detailview.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="132" column="30" selection-start-line="132" selection-start-column="30" selection-end-line="132" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/detailview/timeaxis/timeaxis.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="14" column="71" lean-forward="true" selection-start-line="14" selection-start-column="71" selection-end-line="14" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Store/Global.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7907">
+          <caret line="274" column="8" selection-start-line="274" selection-start-column="4" selection-end-line="274" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

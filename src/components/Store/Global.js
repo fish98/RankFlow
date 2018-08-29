@@ -40,10 +40,10 @@ class global {
     @observable recordsFilter = []
     tsneData = university_tsne
     eleObj = {}
-    subWidth = 15
+    subWidth = 0
     layer = 20
-    right = 30
-    left = 30
+    @observable right = 30
+    left = 0
     diffHeight = 55
     rankR = 5
     nodess = []
@@ -71,7 +71,11 @@ class global {
         this.compareFlag = f
         console.log('compareFlag', f)
     }
-
+    @action
+    setRight(right) {
+        this.right = right
+        console.log('right', right)
+    }
     @action
     setOverType(overType) {
         this.overType = overType
@@ -99,7 +103,7 @@ class global {
     @action
     setOldData(oldData) {
         this.oldData = oldData
-        // console.log('oldData', toJS(oldData))
+        console.log('oldData', toJS(oldData))
     }
 
     @action
@@ -269,12 +273,15 @@ class global {
         console.log('saveNodes', toJS(saveNodes))
     }
     axisPosition(years, width, opts = {
-        left: Global.left,
-        right: Global.right
+        left: this.left,
+        right: this.right
     }) {
         let axisPos = {}
         let {left, right} = opts
-        let axisWidth = (width - left - right) / years.length
+        let axisWidth = width / years.length
+        this.setRight(axisWidth/2)
+        axisWidth = (width-axisWidth/2) / years.length
+
         years.forEach((year, index) => {
             axisPos[year] = index * axisWidth + left + axisWidth / 2
         })
@@ -417,6 +424,7 @@ class global {
         // this.saveNodes = nodes
         let r = this.dealSetNodes(nodes, true)
         this.setAxisPos(r.circlePos)
+        this.setRankHeight(1040)
         console.log('nodes', toJS(nodes))
     }
 

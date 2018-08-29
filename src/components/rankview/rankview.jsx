@@ -48,19 +48,7 @@ class RankView extends Component {
     }
 
     render() {
-        var linePos = toJS(Global.linePos), maxVal = -Infinity, minVal = Infinity
-        var linePosByName = {}
-        Object.keys(linePos).forEach(year => {
-            var linePosByYear = linePos[year]
-            Object.values(linePosByYear).forEach(data => {
-                if (!linePosByName[data.name]) linePosByName[data.name] = {}
-                linePosByName[data.name][year - 1] = data
 
-                maxVal = Math.max(data.valLeft, data.valRight, maxVal)
-                minVal = Math.min(data.valLeft, data.valRight, minVal)
-            })
-        })
-        var scale = d3.scaleLinear().domain([minVal, maxVal]).range([0.2, 5])
         return <div className="rank-wrapper">
             {/*<Row className="rank-wrapper-title" onClick={this.onClick}>*/}
             {/*<Col span={8}/>*/}
@@ -77,13 +65,13 @@ class RankView extends Component {
                         </filter>
                     </defs>
                     {Global.axisPos === null ? null :
-                        <g transform={`translate(-30)`}>
+                        <g>
                             <Linecharts data={Global.oldData} type={0}/>
                             {Global.compareFlag ? <Linecharts data={Global.newData} type={1}/> : null}
 
                             <Times data={Global.oldData}/>
 
-                            <Trend linePos={linePosByName} scale={scale} axis={toJS(Global.axisPos)}/>
+                            <Trend data={Global.oldData}/>
 
                             <Outlines data={Global.oldData} type={0}/>
                             {Global.compareFlag ? <Outlines data={Global.newData} type={1}/> : null}
