@@ -1,12 +1,13 @@
-import React, {Component} from 'react'
-import {Row, Col} from 'antd'
+import React, { Component } from 'react'
+import { Row, Col } from 'antd'
 import * as d3 from 'd3'
 import './filter.less'
-import {Checkbox, TreeSelect} from 'antd'
-import {observer} from 'mobx-react'
+import { Checkbox, Tree } from 'antd'
+import { observer } from 'mobx-react'
 import Global from '../Store/Global'
-import {Button} from 'antd'
+import { Button } from 'antd'
 import Records from "./Records/Records"
+import Item from 'antd/lib/list/Item';
 
 @observer
 class Filter extends Component {
@@ -41,22 +42,22 @@ class Filter extends Component {
         Global.setFilterObj(r)
     }
 
-    onChangeEles(checkedValues) {
-        this.filterEles = checkedValues
+    onChangeEles = (checkedKeys) => {
+        this.filterEles = checkedKeys.checked
     }
 
-    onChangeYears(checkedValues) {
-        if (checkedValues[0] === 'All years') {
-            checkedValues = Global.yearArr
+    onChangeYears = (checkedKeys) => {
+        if (checkedKeys.checked.indexOf('All years') >= 0) {
+            checkedKeys.checked = ['All years'].concat(Global.yearArr)
         }
-        this.filterYears = checkedValues
+        this.filterYears = checkedKeys.checked
     }
 
-    onChangeNodes(checkedValues) {
-        if (checkedValues[0] === 'All items') {
-            checkedValues = Global.nodes
+    onChangeNodes = (checkedKeys) =>{
+        if (checkedKeys.checked.indexOf('All items') >= 0) {
+            checkedKeys.checked = ['All items'].concat(Global.selectNode)
         }
-        this.filterNodes = checkedValues
+        this.filterNodes = checkedKeys.checked
     }
 
     onChange(e) {
@@ -88,24 +89,65 @@ class Filter extends Component {
         else {
             optionsNodes = ['All items', Global.selectNode]
         }
-        const CheckboxGroup = Checkbox.Group
-        const TreeNode = TreeSelect.TreeNode
-
+        const TreeNode = Tree.TreeNode
         return (
             <div className="filter-wrapper">
-                <div>
-                    <CheckboxGroup options={optionsEles} onChange={this.onChangeEles}/>
-                    <br/><br/>
-                    <CheckboxGroup options={optionsYears} onChange={this.onChangeYears}/>
-                    <br/><br/>
-                    <CheckboxGroup options={optionsNodes} onChange={this.onChangeNodes}/>
+                <div className="filter-trees">
+
+                    {/* Here goes the Tree Components */}
+                    {/* Element Filter Here */}
+
+                    {optionsEles.length ?
+                        <Tree
+                            checkable
+                            checkStrictly
+                            defaultExpandAll
+                            onCheck={this.onChangeEles}
+                        >
+                            <TreeNode title="Elements" key="elements" disableCheckbox disabled >
+                                {optionsEles.map(item => {
+                                    return <TreeNode title={item} key={item} />
+                                })}
+                            </TreeNode>
+                        </Tree> : ""}
+
+                    {/* Years Filter Here  */}
+
+                    {optionsYears.length ?
+                        <Tree
+                            checkable
+                            checkStrictly
+                            onCheck={this.onChangeYears}
+                        >
+                            <TreeNode title="Years" key="years" >
+                                {optionsYears.map(item => {
+                                    return <TreeNode title={item} key={item} />
+                                })}
+                            </TreeNode>
+                        </Tree> : ""}
+
+                    {/* Nodes Filter Here */}
+
+                    {optionsNodes.length
+                        ? 
+                    <Tree 
+                        checkable
+                        checkStrictly
+                        onCheck={this.onChangeNodes}
+                    >
+                        <TreeNode title="Nodes" key="nodes" >
+                            {optionsNodes.map(item => {
+                                return <TreeNode title={item} key={item} />
+                            })}
+                        </TreeNode>
+                    </Tree> : ""}
                 </div>
-                <div>
-                    <Button type="primary" onClick={this.onClick}>Filter</Button>
-                    <Button type="primary" onClick={this.onClickInit}>Init</Button>
-                    <Button type="primary" onClick={this.onClickRecord}>Record</Button>
+                <div className="button-container">
+                    <Button className="button" type="primary" onClick={this.onClick}>Filter</Button>
+                    <Button className="button" type="primary" onClick={this.onClickInit}>Init</Button>
+                    <Button className="button" type="primary" onClick={this.onClickRecord}>Record</Button>
                 </div>
-                <Records/>
+                <Records />
                 {/*</div>*/}
             </div>
         )

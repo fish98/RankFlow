@@ -115,9 +115,9 @@ class Index extends Component {
         return (
             <div className="page-wrapper">
                 <div className="left-container">
-                    {/* <div className="left-top-container">
+                    <div className="left-top-container">
                         <TSNEView/>
-                    </div> */}
+                    </div>
                     <div className="left-middle-container">
                         <Filter/>
                     </div>
@@ -125,7 +125,7 @@ class Index extends Component {
 
                     <div className="left-bottom-container" onClick={this.onClickHandler}/>
                 </div>
-                {/* <div className="right-container">
+                <div className="right-container">
                     <div className="right-top-container" style={{zIndex: 10}}>
                         <RankView axis={this.state.axisPos}/>
                     </div>
@@ -133,7 +133,7 @@ class Index extends Component {
                         <DetailView data={Global.rankData[Global.selectNode]} axis={Global.axisPos}
                                     maxRank={this.state.maxRank}/>
                     </div>
-                </div> */}
+                </div>
             </div>
         )
     }
