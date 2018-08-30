@@ -25,17 +25,16 @@ class Histograms extends Component {
 
     render() {
         return (
-            <g name={'Histograms'} type={this.props.type}>{
-                Global.yearArr.map(year => {
+            <g name={'Histograms'} type={this.props.type}>
+                {Object.keys(this.props.data.circlePos).map(year => {
                     return <g key={year} year={year} transform={`translate(${Global.axisPos[year]})`}>
-                        {this.props.data.circlePos.hasOwnProperty(year) ?
-                            <HistogramItem key={year}
-                                           data={this.props.data}
-                                           type={this.props.type}
-                                // clickItems={this.clickItems}
-                                // clickLayer={this.state.clickLayer}
-                                // clickYear={this.state.clickYear}
-                                           year={year}/> : null}
+                        <HistogramItem key={year}
+                                       data={this.props.data}
+                                       type={this.props.type}
+                            // clickItems={this.clickItems}
+                            // clickLayer={this.state.clickLayer}
+                            // clickYear={this.state.clickYear}
+                                       year={year}/>
                     </g>
                 })}
             </g>

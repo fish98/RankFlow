@@ -32,11 +32,11 @@ class Trend extends Component {
     componentWillReceiveProps(props) {
         console.log('Trend WPP:', (props));
     }
-    
+
     render() {
         var props = this.props;
         var scale = props.scale;
-        var stepCount = 20;
+        var stepCount = 2;
         var stepScale = d3.scaleLinear().domain([0, stepCount - 1]).range([0.1, 0.9]);
         this.steps = new Array(stepCount).fill(0).map((d, i) => stepScale(i));
         this.area = d3.area().x((d) => d.x).y0((d) => d.y0).y1((d) => d.y1);
@@ -52,7 +52,7 @@ class Trend extends Component {
                     y0: d.source.y - left,
                     y1: d.source.y + left
                 }, {
-                    x: d.target.x,
+                    x: d.target.x +Global.eachWidth,
                     y0: d.target.y - right,
                     y1: d.target.y + right
                 }]);

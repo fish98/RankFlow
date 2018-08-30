@@ -75,6 +75,7 @@ class HistogramItem extends Component {
 
     render() {
         const {year, data, type} = this.props
+        const {maxHisVal, minHisVal} = data
         const fill = type ? 'red' : 'rgba(24,144,255,0.6)'
         return (
             <g transform={`translate(${Global.subWidth},${ Global.diffHeight})`}
@@ -86,7 +87,7 @@ class HistogramItem extends Component {
             >
                 {
                     data.hisData[year].map((d, i) => {
-                        const width = d * (Global.eachWidth - Global.hisDataWidthdiff) / (Global.maxHIsVal - Global.minHisVal)
+                        const width = d * (Global.eachWidth - Global.hisDataWidthdiff) / (maxHisVal - minHisVal)
                         if (!data.hisDataObj[year].hasOwnProperty(i)) return null
                         const items = Object.entries(data.hisDataObj[year][i].rankData)
                         let strNode = items.map((e, i) => {
@@ -115,21 +116,21 @@ class HistogramItem extends Component {
                         return (
                             <g key={`${year}_${i}`}>
 
-                                <Tooltip key={`${year}_${i}`} title={strNode} placement={'right'}>
-                                    <rect key={`${year}_${i}`} width={width}
-                                          height={(Global.rankHeight - Global.diffHeight) / Global.layer - Global.hisDataHeightSel}
-                                          y={i * (Global.rankHeight - Global.diffHeight) / Global.layer}
-                                          layer={i}
-                                          year={year}
-                                          type={type}
-                                          fill={fill}
-                                          onMouseOver={this.onMouseOver}
-                                          onMouseOut={this.onMouseOut}
-                                          onClick={this.onClick}
-                                          stroke={stroke}
-                                          strokeWidth={strokeWidth}
-                                    />
-                                </Tooltip>
+                                {/*<Tooltip key={`${year}_${i}`} title={strNode} placement={'right'}>*/}
+                                <rect key={`${year}_${i}`} width={width}
+                                      height={(Global.rankHeight - Global.diffHeight) / Global.layer - Global.hisDataHeightSel}
+                                      y={i * (Global.rankHeight - Global.diffHeight) / Global.layer}
+                                      layer={i}
+                                      year={year}
+                                      type={type}
+                                      fill={fill}
+                                      onMouseOver={this.onMouseOver}
+                                      onMouseOut={this.onMouseOut}
+                                      onClick={this.onClick}
+                                      stroke={stroke}
+                                      strokeWidth={strokeWidth}
+                                />
+                                {/*</Tooltip>*/}
                                 {/*{newRect ? <rect key={`new${year}_${i}`} width={newWidth}*/}
                                 {/*height={(Global.rankHeight - Global.diffHeight) / Global.layer - Global.hisDataHeightSel}*/}
                                 {/*y={i * (Global.rankHeight - Global.diffHeight) / Global.layer}*/}

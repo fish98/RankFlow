@@ -26,17 +26,20 @@ class RankView extends Component {
         Global.setRankWidth(self.refs.rankView.clientWidth)
         // Global.setRankHeight(self.refs.rankView.clientHeight)
         // Global.setRankHeight(940)
-        const count = Object.keys(Global.yearData).length
-        let eachWidth = (self.refs.rankView.clientWidth - Global.left - Global.right) / count
-        if (!count) eachWidth = 0
-        Global.setEachWidth(eachWidth)
+        // let eachWidth = 0
+        //
+        // if ( Global.oldData.circlePos !== undefined && Global.oldData.circlePos !== null){
+        //     const count = Object.keys(Global.oldData.circlePos).length
+        //     eachWidth = (self.refs.rankView.clientWidth - Global.left - Global.right) / count
+        // }
+        // Global.setEachWidth(eachWidth)
     }
 
 
     componentDidMount() {
         this.getWidth(this)
-        const nodes = ["Nan Cao", "Tom Peterka", "Yifan Hu"]
-        Global.setNodes(nodes)
+        // const nodes = ["Nan Cao", "Tom Peterka", "Yifan Hu"]
+        Global.setNodes([])
         console.log('rankView DidMount')
     }
 
@@ -45,19 +48,7 @@ class RankView extends Component {
     }
 
     render() {
-        var linePos = toJS(Global.linePos), maxVal = -Infinity, minVal = Infinity
-        var linePosByName = {}
-        Object.keys(linePos).forEach(year => {
-            var linePosByYear = linePos[year]
-            Object.values(linePosByYear).forEach(data => {
-                if (!linePosByName[data.name]) linePosByName[data.name] = {}
-                linePosByName[data.name][year - 1] = data
 
-                maxVal = Math.max(data.valLeft, data.valRight, maxVal)
-                minVal = Math.min(data.valLeft, data.valRight, minVal)
-            })
-        })
-        var scale = d3.scaleLinear().domain([minVal, maxVal]).range([0.2, 5])
         return <div className="rank-wrapper">
             {/*<Row className="rank-wrapper-title" onClick={this.onClick}>*/}
             {/*<Col span={8}/>*/}
@@ -74,18 +65,26 @@ class RankView extends Component {
                         </filter>
                     </defs>
                     {Global.axisPos === null ? null :
-                        <g transform={`translate(-30)`}>
-                            <Linecharts/>
-                            <Times/>
-                            <Trend linePos={linePosByName} scale={scale} axis={toJS(Global.axisPos)}/>
-                            <Outlines data={Global.initData} type={0}/>
+                        <g>
+                            <Linecharts data={Global.oldData} type={0}/>
+                            {Global.compareFlag ? <Linecharts data={Global.newData} type={1}/> : null}
+
+                            <Times data={Global.oldData}/>
+
+                            <Trend data={Global.oldData}/>
+
+                            <Outlines data={Global.oldData} type={0}/>
                             {Global.compareFlag ? <Outlines data={Global.newData} type={1}/> : null}
-                            <Brushes/>
-                            <Histograms data={Global.initData} type={0}/>
+
+                            <Brushes data={Global.oldData}/>
+
+                            <Histograms data={Global.oldData} type={0}/>
                             {Global.compareFlag ? <Histograms data={Global.newData} type={1}/> : null}
-                            <Lines data={Global.initData} type={0}/>
+
+                            <Lines data={Global.oldData} type={0}/>
                             {Global.compareFlag ? <Lines data={Global.newData} type={1}/> : null}
-                            <Circles data={Global.initData} type={0}/>
+
+                            <Circles data={Global.oldData} type={0}/>
                             {Global.compareFlag ? <Circles data={Global.newData} type={1}/> : null}
                         </g>}
                 </svg>

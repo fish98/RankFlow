@@ -94,14 +94,15 @@ class Index extends Component {
         })
         return axisPos
     }
-
-    componentDidMount() {
-        console.log('Index Did Mount')
-        let rightContainer = document.getElementsByClassName('right-container')[0]
-        let width = rightContainer.clientWidth
-        let axisPos = this.axisPosition(Object.keys(Global.yearData).sort((a, b) => a - b), width)
-        Global.setAxisPos(axisPos)
-    }
+    //
+    // componentDidMount() {
+    //     console.log('Index Did Mount')
+    //     // let rightContainer = document.getElementsByClassName('right-container')[0]
+    //     // let width = rightContainer.clientWidth
+    //     // let axisPos = this.axisPosition(Object.keys(Global.yearData).sort((a, b) => a - b), width)
+    //     // let axisPos = this.axisPosition(Object.keys(Global.oldData.circlePos).sort((a, b) => a - b), width)
+    //     Global.setAxisPos(Global.oldData.circlePos)
+    // }
 
     onClickHandler = () => {
         this.setState({
@@ -110,7 +111,7 @@ class Index extends Component {
     }
 
     render() {
-        console.log(Global.selectNode, Global.rankData[Global.selectNode], Global.axisPos, this.state.maxRank);
+        console.log(Global.selectNode, Global.rankData[Global.selectNode], Global.axisPos, this.state.maxRank)
         return (
             <div className="page-wrapper">
                 <div className="left-container">
@@ -129,7 +130,7 @@ class Index extends Component {
                     <div className="right-top-container" style={{zIndex: 10}}>
                         <RankView axis={this.state.axisPos}/>
                     </div>
-                    <div className="right-bottom-container" style={{zIndex: Global.selectNode ? 100: 1}}>
+                    <div className="right-bottom-container" style={{zIndex: Global.selectNode ? 100 : 1}}>
                         <DetailView data={Global.rankData[Global.selectNode]} axis={Global.axisPos}
                                     maxRank={this.state.maxRank}/>
                     </div>

@@ -64,6 +64,7 @@ class Filter extends Component {
     }
 
     onClickInit(e) {
+        Global.setOldData(Global.initData)
         Global.setCompareFlag(false)
     }
 

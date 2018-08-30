@@ -10,8 +10,8 @@ class BrushesItem extends Component {
     constructor(props) {
         super(props)
         this.y = d3.scaleLinear().domain([0, Global.layer]).range([0, Global.rankHeight - Global.diffHeight])
-        this.brush = d3.brushY().extent([[0, 0], [Global.eachWidth - Global.subWidth, Global.rankHeight - Global.diffHeight]])
-            .on('end', this.ended)
+        // this.brush = d3.brushY().extent([[0, 0], [Global.eachWidth - Global.subWidth, Global.rankHeight - Global.diffHeight]])
+        //     .on('end', this.ended)
         this.newNodesLayer = new Set()
         this.state = ({
             brushTop: null,
@@ -103,6 +103,8 @@ class BrushesItem extends Component {
     }
 
     render() {
+        this.brush = d3.brushY().extent([[0, 0], [Global.eachWidth - Global.subWidth, Global.rankHeight - Global.diffHeight]])
+            .on('end', this.ended)
         const year = this.props.year
         const s = `${year}_Brush`
         return (

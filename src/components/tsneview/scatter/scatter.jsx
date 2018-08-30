@@ -88,7 +88,7 @@ class Scatter extends Component {
                 d3.select(self.circleMap[item.id])
                     .classed("possible", true);
             });
-        
+
             self.lasso.notPossibleItems().forEach(item => {
                 d3.select(self.circleMap[item.id])
                     .classed("possible", false);
@@ -102,18 +102,21 @@ class Scatter extends Component {
                 ids.push(item.id)
             })
             
-            const names = Object.keys(Global.rankData)
-            ids.forEach(id=>{
-                nodes.push(names[id])
-            })
-            Global.setNodes(nodes)
+            // const names = Object.keys(Global.rankData)
+            // ids.forEach(id=>{
+            //     nodes.push(names[id])
+            // })
+            // Global.setNodes(nodes)
+            // Global.setInit()
+            Global.setNodes(ids)
+            // Global.setAxisPos(Global.oldData.circlePos)
             console.log(ids)
             
             self.lasso.items().forEach(item => {
                 d3.select(self.circleMap[item.id])
                     .classed("possible", false);
             });
-            
+
             self.lasso.selectedItems().forEach(item => {
                 d3.select(self.circleMap[item.id])
                     .classed("selected", true);

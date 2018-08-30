@@ -12,10 +12,10 @@ class Linecharts extends Component {
     render() {
         return (
 
-            <g name={'Linecharts'} transform={`translate(0,-17)`}>
-                {Global.yearArr.map(year => {
+            <g name={'Linecharts'} transform={`translate(0,-17)`} type={this.props.type}>
+                {Object.keys(this.props.data.circlePos).map(year => {
                     return <g key={year} year={year} transform={`translate(${Global.axisPos[year]})`}>
-                        {Global.circlePos.hasOwnProperty(year) ? <LinechartsItems key={year} year={year}/> : null}
+                        <LinechartsItems key={year} year={year} data={this.props.data} type={this.props.type}/>
                     </g>
                 })}
             </g>

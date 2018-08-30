@@ -36,10 +36,29 @@ class Trend extends Component {
     render () {
         console.log('Trend Render:', this.props);
         var props = this.props;
-        var {scale, linePos, axis} = props;
+        var {data} = props;
+        var linePos = data.lineGroup, maxVal = -Infinity, minVal = Infinity
+        var linePosByName = {}
+        if (linePos)
+        Object.keys(linePos).forEach(year => {
+            var linePosByYear = linePos[year]
+            Object.values(linePosByYear).forEach(data => {
+                if (!linePosByName[data.name]) linePosByName[data.name] = {}
+                linePosByName[data.name][year - 1] = data
+
+                maxVal = Math.max(data.valLeft, data.valRight, maxVal)
+                minVal = Math.min(data.valLeft, data.valRight, minVal)
+            })
+        })
+        linePos = linePosByName
+        var axis = Global.axisPos
+        var scale = d3.scaleLinear().domain([minVal, maxVal]).range([0.2, 5])
+
+        // var props = this.props;
+        // var {scale, linePos, axis} = props;
         var years = Object.keys(axis).sort((a, b) => a - b);
 
-        var stepCount = 20;
+        var stepCount = 2;
         var stepScale = d3.scaleLinear().domain([0, stepCount - 1]).range([0.1, 0.9]);
         var steps = new Array(stepCount).fill(0).map((d, i) => stepScale(i));
         var area = d3.area().x((d) => d.x).y0((d) => d.y0).y1((d) => d.y1);

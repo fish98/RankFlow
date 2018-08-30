@@ -4,10 +4,12 @@ from flask import url_for,redirect
 from flask_cors import CORS
 import os
 import time
+from fun import *
 from calcandshow import  *
 
 r = {}
 mp = {}
+
 rmp = {}
 yearnum = 11
 peonum = 429
@@ -43,6 +45,20 @@ def calc_Kmeans():
     label_pred = calcKmeans(myR_tsne)
     return json.dumps(label_pred)
 
+@app.route('/require', methods = ['POST'])
+def require():
+    dic = request.get_json()
+    name = dic['name']
+    file = '.././public/data/' + name
+    if not os.path.exists(file):
+        return 'No data'
+    file_object = open(file, 'r')
+    data = json.load(file_object)
+    file_object.close()
+    res = deal_json(data)
+    return json.dumps(res)
+
+
 if __name__ == '__main__':#当本模块被直接启动时才运行
-    app.debug = True
+    # app.debug = True
     app.run(3100)
